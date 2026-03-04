@@ -1,0 +1,106 @@
+/* HEADER HALAMAN */
+.page-header {
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.page-header h1 {
+    font-size: 48px;
+    font-weight: 600;
+    color: black;
+}
+
+/* CONTENT */
+.content-section {
+    padding: 60px 80px;
+    background: #ffffff;
+}
+
+/* VISI BOX */
+.visi-box {
+    margin-bottom: 100px;
+}
+
+.visi-box h2,
+.misi-box h2 {
+    font-size: 32px;
+    color:#333;
+    margin-bottom: 20px;
+}
+
+.visi-box p {
+    font-size: 20px;
+    font-style: italic;
+    color: #333;
+    line-height: 2;
+}
+
+.row-item:first-child {
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+    border-bottom: 2px solid  #4CAF50;
+}
+
+/* MISI */
+.misi-box ul {
+    padding-left: 20px;
+}
+
+.misi-box li {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.tatib-list {
+    font-size: 20px;
+    line-height: 2;
+    width: 60%;
+    color: #333;
+    margin-left: 100px;   /* INI bikin ke tengah */
+}
+
+/* CONTAINER */
+.visi-misi-container {
+    width: 100%;
+}
+
+.row-item {
+    display: flex;
+    margin-bottom: 60px;
+}
+
+.left-title {
+    width: 20%;
+    font-size: 28px;
+    font-weight: 600;
+    padding-right: 20px;
+}
+
+.right-content {
+    width: 80%;
+    padding-left: 30px;
+    color: #333;
+}
+
+/* GARIS VERTIKAL */
+.left-title::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 5px;
+    height: 80%;
+    width: 3px;
+    background-color: #ddd;
+}
+
+.right-content p {
+    font-size: 20px;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.right-content li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
