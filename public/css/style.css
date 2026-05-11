@@ -348,7 +348,7 @@ html, body {
 
 .footer-wrapper {
     display: flex;
-    gap: 40px;
+    gap: 10px;
     align-items: flex-start;
     flex-wrap: wrap;
 }
@@ -357,23 +357,29 @@ html, body {
 .footer-map {
     flex: 1;
     min-width: 300px;
+    margin-top: -25px;
 }
 
 .footer-map iframe {
-    width: 100%;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
 /* INFO */
 .footer-info {
     flex: 1;
-    min-width: 300px;
+    margin-left: -300px;
 }
 
 .footer-info h2 {
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .footer-info p {
@@ -381,12 +387,42 @@ html, body {
     line-height: 1.6;
 }
 
+/* ================= FOOTER CREDIT ================= */
+
+.footer-credit{
+    width: 100%;
+    margin-top: 30px;
+
+    border-top: 2px solid rgba(0,0,0,0.12);
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    text-align: center;
+}
+
+#footer{
+    padding-bottom: 20px !important;
+}
+
+.footer-credit p{
+    color: rgba(0,0,0,0.35);
+
+    font-size: 15px;
+    font-weight: 600;
+
+    margin: 0;
+    margin-top: 10px;
+
+    line-height: 1.2;
+}
+
 /* =========================
    PENGUMUMAN
 ========================= */
 
 .pengumuman-section{
-    background-color:#f5f7fb;
+    background-color:rgba(0,0,0,0.12);
 
     /* pattern background */
     background-image:
@@ -439,19 +475,71 @@ transform: translateY(-10px);
 
 .pengumuman-slider-wrapper{
     position:relative;
-    overflow:hidden;
+    overflow:visible;
 }
 
+/* CARD */
+
 .pengumuman-card{
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+
+    margin-left: 40px;
+
+    border: 1px solid rgba(255,255,255,0.7);
+
+    /* SHADOW LEBIH TERLIHAT & TETAP SMOOTH */
+    box-shadow:
+        0 0 15px rgba(255,255,255,0.20),
+        0 8px 28px rgba(0,0,0,0.25);
+
+    transition: 0.3s ease;
+}
+
+.pengumuman-card,
+.artikel-card{
     text-decoration: none;
     color: inherit;
-    cursor: pointer;
+}
+
+.pengumuman-card h3,
+.pengumuman-card p,
+.pengumuman-card span,
+.artikel-card h3,
+.artikel-card p,
+.artikel-card span{
+    text-decoration: none;
+    color: inherit;
+}
+
+.artikel-card{
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+
+    margin-left: 40px;
+
+    border: 1px solid rgba(255,255,255,0.8);
+
+    /* SHADOW RATA 4 SISI */
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.05),
+    0 10px 30px rgba(0,0,0,0.10);
+
+    transition: 0.3s ease;
+
+    transform: translateZ(0);
 }
 
 .pengumuman-slider{
     display:flex;
     transition:0.5s ease;
     width:100%;
+    -webkit-transition:0.5s ease;
+    -moz-transition:0.5s ease;
+    -ms-transition:0.5s ease;
+    -o-transition:0.5s ease;
 }
 
 .pengumuman-slide{
@@ -459,25 +547,6 @@ transform: translateY(-10px);
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:40px;
-}
-
-/* CARD */
-.pengumuman-card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-
-    margin-left:50px;
-    width:400px;
-    height:300px;
-    margin-bottom:10px;
-
-    /* EFEK TIMBUL */
-box-shadow:
-    0 4px 8px rgba(0,0,0,0.12),
-    0 15px 24px rgba(0,0,0,0.12);
-
-    border:1px solid rgba(0,0,0,0.04);
 }
 
 /* IMAGE */
@@ -614,27 +683,6 @@ box-shadow:
     gap:40px;
 }
 
-.artikel-card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-
-    width:400px;
-    height:300px;
-
-    margin-left:50px;
-    margin-bottom:10px;
-
-    text-decoration:none;
-    color:inherit;
-
-    border:1px solid rgba(0,0,0,0.04);
-
-    box-shadow:
-        0 4px 8px rgba(0,0,0,0.12),
-        0 15px 24px rgba(0,0,0,0.12);
-}
-
 /* IMAGE */
 .artikel-card img{
     width:100%;
@@ -681,7 +729,7 @@ box-shadow:
 
 .artikel-slider-wrapper{
     position:relative;
-    overflow:hidden;
+    overflow:visible;
 }
 
 .artikel-slider{

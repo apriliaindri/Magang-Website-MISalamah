@@ -47,7 +47,9 @@
 
 <a href="#pengumuman">Pengumuman</a>
 <a href="#artikel">Artikel</a>
-
+ <a href="#footer">Kontak
+    
+ </a>
         <!-- AUTH -->
         @guest
             <a href="{{ route('login') }}">Login</a>

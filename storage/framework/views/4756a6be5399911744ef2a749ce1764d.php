@@ -216,8 +216,10 @@
         <!-- KIRI: MAP -->
         <div class="footer-map">
             <iframe
-                src="https://www.google.com/maps?q=-7.250445,112.768845&z=15&output=embed">
-            </iframe>
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.3924063860295!2d110.85806027400474!3d-7.532108692481065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a170badcda4e5%3A0xfbc227bc5df3acc5!2sMI%20Salamah%20Sulurejo!5e0!3m2!1sen!2sus!4v1778482707389!5m2!1sen!2sus"
+    style="border:0;"
+    loading="lazy">
+</iframe>
         </div>
 
         <!-- KANAN: INFO -->
@@ -238,6 +240,10 @@
         </div>
 
     </div>
+
+    <footer class="footer-credit">
+    <p>MI Salamah © 2026</p>
+</footer>
 </section>
 
 </div>
@@ -295,6 +301,7 @@ document.getElementById('prevPengumuman')
 
 });
 </script>
+
 
 <?php $__env->stopSection(); ?>
 

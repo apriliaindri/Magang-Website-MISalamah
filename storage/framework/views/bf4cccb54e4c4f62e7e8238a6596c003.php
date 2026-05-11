@@ -47,7 +47,9 @@
 
 <a href="#pengumuman">Pengumuman</a>
 <a href="#artikel">Artikel</a>
-
+ <a href="#footer">Kontak
+    
+ </a>
         <!-- AUTH -->
         <?php if(auth()->guard()->guest()): ?>
             <a href="<?php echo e(route('login')); ?>">Login</a>
