@@ -8,15 +8,8 @@ class Kelas extends Model
 {
     protected $table = 'kelas';
 
-    protected $fillable = ['nama_kelas'];
-
-    public function pengumuman()
-    {
-        return $this->hasMany(Pengumuman::class);
-    }
-
     public function tugas()
     {
-        return $this->hasMany(Tugas::class);
+        return $this->hasMany(Tugas::class, 'kelas_id');
     }
 }

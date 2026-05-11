@@ -24,7 +24,7 @@
 
             <p style="margin-top:15px;">
                 Belum memiliki akun?
-                <a href="{{ route('siswa.register', 1) }}">Register</a>
+                <a href="{{ route('register.kode') }}">Register</a>
             </p>
 
             @error('email')

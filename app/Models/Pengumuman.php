@@ -18,13 +18,13 @@ class Pengumuman extends Model
         'isi'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
 
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class);
-    }
+public function kelas()
+{
+    return $this->belongsTo(Kelas::class);
+}
 }

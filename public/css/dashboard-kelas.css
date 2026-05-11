@@ -1,0 +1,180 @@
+body {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    background: #f5f7fa;
+}
+
+/* TOPBAR */
+.topbar {
+    height: 60px;
+    background: #4CAF50;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.hamburger {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.topbar-title {
+    margin-left: 15px;
+    font-weight: 600;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    height: calc(100vh - 60px);
+    background: #f4f4f4;
+    position: fixed;
+    left: -260px;
+    top: 60px;
+    transition: 0.3s;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
+}
+
+.sidebar button:hover {
+    background: #eaeaea;
+}
+
+.logout-btn {
+    background: none;
+    color: red;
+}
+
+/* CONTENT */
+.content {
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+    margin-left: 0;
+}
+
+/* BOX UTAMA */
+.main-box {
+    width: 90%;
+    max-width: 900px;
+}
+
+/* CARD CBT */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* PENGUMUMAN */
+.bubble {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* HIDDEN */
+.hidden {
+    display: none;
+}
+
+/* PROFILE */
+.profile-card {
+    background: #a8d5e2;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.profile-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.profile-card div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-card h3,
+.profile-card p {
+    margin: 0;
+}
+
+/* RESPONSIVE FIX */
+@media (max-width: 768px) {
+
+    .main-box {
+        width: 95%;
+    }
+
+    .sidebar {
+        width: 220px;
+    }
+}
+
+/* TABLE STYLE (SAMA SEPERTI GURU) */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+th{
+    background:#f1f1f1;
+}
+
+/* BUTTON STYLE */
+.btn{
+    padding:8px 12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:#2196F3;
+    color:white;
+}
+
+.btn-secondary{
+    background:gray;
+    color:white;
+}

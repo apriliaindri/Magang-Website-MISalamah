@@ -45,8 +45,8 @@
             </div>
         </div>
 
-        <a href="#">Pengumuman</a>
-        <a href="#">Artikel</a>
+<a href="#pengumuman">Pengumuman</a>
+<a href="#artikel">Artikel</a>
 
         <!-- AUTH -->
         @guest

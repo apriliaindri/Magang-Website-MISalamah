@@ -136,8 +136,12 @@
         </div>
     </div>
 
-    <button onclick="showPengumuman()">Tambah Pengumuman</button>
-    <button onclick="showArtikel()">Upload Artikel</button>
+<a href="{{ route('pengumuman.create') }}">
+    <button>Tambah Pengumuman</button>
+</a>
+<a href="{{ route('kepalasekolah.artikel.create') }}">
+    <button>Upload Artikel</button>
+</a>
     <button onclick="showUser()">Manage User</button>
 
     <br><br>

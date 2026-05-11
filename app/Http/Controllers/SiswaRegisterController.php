@@ -16,24 +16,53 @@ class SiswaRegisterController extends Controller
     }
 
     public function store(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'kode_kelas' => 'required'
+        ]);
+
+        // ✅ VALIDASI KODE KELAS
+        $kelas = Kelas::where('id', $id)
+            ->where('kode_kelas', $request->kode_kelas)
+            ->first();
+
+        if (!$kelas) {
+            return back()->with('error', 'Kode kelas salah!');
+        }
+
+        // ✅ SIMPAN USER
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'siswa',
+            'kelas_id' => $id,
+        ]);
+
+        return redirect()->route('login')
+            ->with('success', 'Registrasi berhasil! Silakan login.');
+    }
+
+    public function formKode($id)
 {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:6',
-    ]);
+    $kelas = Kelas::findOrFail($id);
+    return view('auth.kode_kelas', compact('kelas'));
+}
 
-    User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'role' => 'siswa',
-        'kelas_id' => $id,
-    ]);
+public function cekKode(Request $request, $id)
+{
+    $kelas = Kelas::where('id', $id)
+        ->where('kode_kelas', $request->kode_kelas)
+        ->first();
 
-    // HAPUS auth()->login($user);
+    if (!$kelas) {
+        return back()->with('error', 'Kode kelas salah!');
+    }
 
-    return redirect()->route('login')
-        ->with('success', 'Registrasi berhasil! Silakan login.');
+    // ✅ kalau benar → redirect ke register
+    return redirect()->route('siswa.register', $id);
 }
 }

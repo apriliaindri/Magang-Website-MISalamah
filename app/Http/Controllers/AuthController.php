@@ -19,17 +19,42 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if (auth()->attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($request->only('email','password'))) {
 
             $request->session()->regenerate();
 
-            $kelasId = session('selected_kelas');
+            $user = Auth::user();
 
-            if ($kelasId) {
-                return redirect()->route('kelas.show', $kelasId);
+            // =========================
+            // 🔥 VALIDASI KELAS PILIHAN
+            // =========================
+            $selectedKelas = session('selected_kelas');
+
+            if ($user->role == 'siswa') {
+
+                // kalau user sudah pilih kelas tapi tidak sesuai akun
+                if ($selectedKelas && $user->kelas_id != $selectedKelas) {
+                    Auth::logout();
+                    return back()->withErrors([
+                        'email' => 'Akun tidak sesuai dengan kelas yang dipilih.'
+                    ]);
+                }
+
+                // kalau tidak pilih kelas, pakai kelas user
+                $kelasId = $user->kelas_id ?? 1;
+
+                return redirect()->route('kelas.dashboard', $kelasId);
             }
 
-            return redirect()->route('home');
+            // Role Guru
+            if ($user->role == 'guru') {
+                return redirect()->route('guru.dashboard');
+            }
+
+            // Role Kepala Sekolah
+            if ($user->role == 'kepala_sekolah') {
+                return redirect()->route('kepalasekolah.dashboard');
+            }
         }
 
         return back()->withErrors([

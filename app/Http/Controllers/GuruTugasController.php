@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tugas;
-use Illuminate\Support\Facades\Storage;
 
 class GuruTugasController extends Controller
 {
@@ -12,32 +11,19 @@ class GuruTugasController extends Controller
     {
         $request->validate([
             'kelas_id' => 'required',
+            'mapel' => 'required',
             'judul' => 'required',
-            'file' => 'required|file|max:10240' // max 10MB
+            'instruksi' => 'nullable',
         ]);
 
-        $file = $request->file('file');
-
-        $originalName = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $size = $file->getSize();
-
-        // Buat nama file unik
-        $storedName = time().'_'.$originalName;
-
-        // Simpan ke storage/app/public/tugas
-        $file->storeAs('public/tugas', $storedName);
-
-        Tugas::create([
+        $tugas = Tugas::create([
             'user_id' => auth()->id(),
             'kelas_id' => $request->kelas_id,
+            'mapel' => $request->mapel,
             'judul' => $request->judul,
-            'original_filename' => $originalName,
-            'stored_filename' => $storedName,
-            'file_extension' => $extension,
-            'file_size' => $size
+            'instruksi' => $request->instruksi,
         ]);
 
-        return back()->with('success', 'Tugas berhasil diupload');
+        return redirect()->route('guru.soal.create', $tugas->id);
     }
 }

@@ -3,25 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Soal;
+use Illuminate\Http\Request;
+use App\Models\SoalPg;
+
 
 class KelasController extends Controller
 {
-public function show($id)
+
+    public function show($id)
+    {
+        $kelas = Kelas::findOrFail($id);
+
+        $soal = Soal::where('kelas_id', $id)->get();
+
+        return view('siswa.soal.tugas', compact('kelas','soal'));
+    }
+public function dashboard($id)
 {
+    $kelas = Kelas::with(['tugas.user'])->findOrFail($id);
+
+    $pengumuman = \App\Models\Pengumuman::where(function($q) use ($id){
+        $q->where('kelas_id', $id)
+          ->orWhereNull('kelas_id');
+    })->latest()->get();
+
+    return view('kelas.dashboard', compact('kelas','pengumuman'));
+}
+public function tugas($id)
+{
+
     $kelas = Kelas::findOrFail($id);
 
-    return view('kelas.dashboard', compact('kelas'));
+    $soal = SoalPg::where('kelas_id',$id)
+            ->where('status',1)
+            ->get();
+
+    return view('kelas.tugas',compact('kelas','soal'));
+
 }
+public function pengumuman($id)
+{
+    $kelas = \App\Models\Kelas::findOrFail($id);
 
-    public function tugas($id)
-    {
-        $kelas = Kelas::findOrFail($id);
-        return view('kelas.tugas', compact('kelas'));
-    }
+    $pengumuman = \App\Models\Pengumuman::where(function($q) use ($id){
+        $q->where('kelas_id', $id)
+          ->orWhereNull('kelas_id'); // untuk umum
+    })->latest()->get();
 
-    public function pengumuman($id)
-    {
-        $kelas = Kelas::findOrFail($id);
-        return view('kelas.pengumuman', compact('kelas'));
-    }
+    return view('kelas.pengumuman', compact('kelas','pengumuman'));
+}
 }

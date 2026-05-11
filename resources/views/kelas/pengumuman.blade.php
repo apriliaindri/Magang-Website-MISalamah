@@ -5,7 +5,7 @@
 <div class="custom-navbar" style="background:#4CAF50; padding:15px 8%; color:white;">
     <h2>Pengumuman - {{ $kelas->nama_kelas }}</h2>
 
-    <a href="{{ route('kelas.show', $kelas->id) }}" style="color:white; font-weight:600;">
+    <a href="{{ route('kelas.dashboard', $kelas->id) }}" style="color:white; font-weight:600;">
         ← Back
     </a>
 </div>

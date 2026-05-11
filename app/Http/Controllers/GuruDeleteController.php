@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tugas;
-use App\Models\Pengumuman;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; // ✅ INI WAJIB
 
 class GuruDeleteController extends Controller
 {
     public function deleteTugas($id)
     {
-        $tugas = Tugas::findOrFail($id);
-        $tugas->delete(); // Soft delete
+        // ambil data tugas dulu
+        $tugas = DB::table('tugas')->where('id',$id)->first();
 
-        return back()->with('success', 'Tugas berhasil dihapus');
-    }
+        if(!$tugas){
+            return back()->with('error','Tugas tidak ditemukan');
+        }
 
-    public function deletePengumuman($id)
-    {
-        $pengumuman = Pengumuman::findOrFail($id);
-        $pengumuman->delete(); // Soft delete
+        // hapus soal terkait
+        DB::table('soal_pg')
+            ->where('kelas_id',$tugas->kelas_id)
+            ->where('mapel',$tugas->mapel)
+            ->where('judul',$tugas->judul)
+            ->delete();
 
-        return back()->with('success', 'Pengumuman berhasil dihapus');
+        // hapus tugas
+        DB::table('tugas')->where('id',$id)->delete();
+
+        return back()->with('success','Tugas berhasil dihapus');
     }
 }
