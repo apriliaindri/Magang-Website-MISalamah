@@ -126,22 +126,123 @@
 
 
     <!-- PENGUMUMAN -->
-    <div id="pengumuman" class="hidden">
-        <div class="card">
+<div id="pengumuman" class="hidden">
 
-            <h3>Pengumuman</h3>
+    @if($pengumuman->count())
 
-            @forelse($pengumuman as $p)
-                <div style="margin-bottom:15px; padding:10px; background:#fff; border-radius:8px;">
-                    <h4>{{ $p->judul }}</h4>
-                    <p>{{ $p->isi }}</p>
-                </div>
-            @empty
-                <p>Tidak ada pengumuman</p>
-            @endforelse
+    <div class="pengumuman-grid">
+
+        @foreach($pengumuman as $p)
+
+        <a href="{{ route('pengumuman.detail.pengumuman', $p->id) }}"
+           class="pengumuman-card">
+
+@php
+
+$gambar = [];
+
+if(is_array($p->gambar)){
+
+    $gambar = $p->gambar;
+
+}else{
+
+    $gambar = json_decode($p->gambar, true) ?? [];
+
+}
+
+$filePertama = $gambar[0] ?? null;
+
+$ext = $filePertama
+    ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
+    : null;
+
+@endphp
+
+<!-- IMAGE / PDF -->
+<div class="card-image">
+
+@if($filePertama)
+
+    @if(in_array($ext, ['jpg','jpeg','png','webp']))
+
+        <img
+            src="{{ asset('storage/'.$filePertama) }}"
+            alt="">
+
+    @elseif($ext == 'pdf')
+
+        <div class="pdf-preview">
+
+            <img
+                src="{{ asset('img/pdf-icon.png') }}"
+                alt="PDF">
+
+            <span>PDF Document</span>
 
         </div>
+
+    @else
+
+        <img
+            src="{{ asset('img/default-news.jpg') }}"
+            alt="">
+
+    @endif
+
+@else
+
+    <img
+        src="{{ asset('img/default-news.jpg') }}"
+        alt="">
+
+@endif
+
+</div>
+
+<!-- CONTENT -->
+<div class="pengumuman-content">
+
+    <!-- KATEGORI -->
+    <div class="info-row">
+
+        <span class="kategori-home">
+
+            {{ $p->kelas ? $p->kelas->nama_kelas : 'Umum' }}
+
+        </span>
+
+        <span class="tanggal">
+            {{ $p->created_at->format('d M Y') }}
+        </span>
+
     </div>
+
+    <!-- JUDUL -->
+    <h3>
+        {{ \Illuminate\Support\Str::limit($p->judul, 60) }}
+    </h3>
+
+    <!-- ISI -->
+    <p>
+        {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 100) }}
+    </p>
+
+</div>
+
+</a>
+
+        @endforeach
+
+    </div>
+
+    @else
+
+        <p>Tidak ada pengumuman</p>
+
+    @endif
+
+</div>
 
 </div>
 

@@ -1,0 +1,219 @@
+body{
+    margin:0;
+    font-family:Poppins,sans-serif;
+    background:#f5f7fa;
+}
+
+/* Topbar */
+
+.topbar{
+    height:60px;
+
+    background:#4CAF50;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 20px;
+
+    color:white;
+
+    position:fixed;
+    top:0;
+
+    width:100%;
+
+    z-index:1000;
+}
+
+.topbar-title{
+    margin-left:15px;
+    font-weight:600;
+}
+
+.back-btn img{
+    width:20px;
+
+    margin-left:10px;
+
+    filter:invert(1);
+
+    cursor:pointer;
+}
+
+/* Content */
+
+.content{
+    display:flex;
+    justify-content:center;
+
+    margin-top:55px;
+
+    padding:40px 20px;
+}
+
+/* Card */
+
+.card{
+    width:100%;
+    max-width:700px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Header */
+
+.header-flex{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.header-flex h3{
+    margin:0;
+}
+
+/* Button Link */
+
+.link-btn{
+    background:#2196F3;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    font-size:14px;
+}
+
+.link-btn:hover{
+    opacity:0.9;
+}
+
+/* Form */
+
+select,
+input,
+textarea{
+    width:100%;
+
+    padding:12px;
+
+    margin-bottom:15px;
+
+    border:1px solid #ddd;
+    border-radius:8px;
+
+    font-size:14px;
+
+    box-sizing:border-box;
+}
+
+select:focus,
+input:focus,
+textarea:focus{
+    outline:none;
+
+    border-color:#4CAF50;
+
+    box-shadow:0 0 0 3px rgba(76,175,80,0.15);
+}
+
+/* Submit Button */
+
+.btn{
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#4CAF50;
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+
+/* Alert */
+
+.alert-success{
+    background:#e8f5e9;
+
+    color:#2e7d32;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    margin-bottom:15px;
+}
+
+/* File Preview */
+
+#file-list{
+    margin-top:10px;
+}
+
+.file-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#f1f5f9;
+
+    padding:10px 14px;
+
+    border-radius:10px;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+    color:#333;
+}
+
+.file-left{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.remove-file{
+    width:24px;
+    height:24px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#ef4444;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:14px;
+    font-weight:bold;
+}
+
+.remove-file:hover{
+    opacity:0.85;
+}

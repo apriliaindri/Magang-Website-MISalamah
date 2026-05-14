@@ -127,22 +127,127 @@
 
 
     <!-- PENGUMUMAN -->
-    <div id="pengumuman" class="hidden">
-        <div class="card">
+<div id="pengumuman" class="hidden">
 
-            <h3>Pengumuman</h3>
+    <?php if($pengumuman->count()): ?>
 
-            <?php $__empty_1 = true; $__currentLoopData = $pengumuman; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                <div style="margin-bottom:15px; padding:10px; background:#fff; border-radius:8px;">
-                    <h4><?php echo e($p->judul); ?></h4>
-                    <p><?php echo e($p->isi); ?></p>
-                </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                <p>Tidak ada pengumuman</p>
-            <?php endif; ?>
+    <div class="pengumuman-grid">
+
+        <?php $__currentLoopData = $pengumuman; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+        <a href="<?php echo e(route('pengumuman.detail.pengumuman', $p->id)); ?>"
+           class="pengumuman-card">
+
+<?php
+
+$gambar = [];
+
+if(is_array($p->gambar)){
+
+    $gambar = $p->gambar;
+
+}else{
+
+    $gambar = json_decode($p->gambar, true) ?? [];
+
+}
+
+$filePertama = $gambar[0] ?? null;
+
+$ext = $filePertama
+    ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
+    : null;
+
+?>
+
+<!-- IMAGE / PDF -->
+<div class="card-image">
+
+<?php if($filePertama): ?>
+
+    <?php if(in_array($ext, ['jpg','jpeg','png','webp'])): ?>
+
+        <img
+            src="<?php echo e(asset('storage/'.$filePertama)); ?>"
+            alt="">
+
+    <?php elseif($ext == 'pdf'): ?>
+
+        <div class="pdf-preview">
+
+            <img
+                src="<?php echo e(asset('img/pdf-icon.png')); ?>"
+                alt="PDF">
+
+            <span>PDF Document</span>
 
         </div>
+
+    <?php else: ?>
+
+        <img
+            src="<?php echo e(asset('img/default-news.jpg')); ?>"
+            alt="">
+
+    <?php endif; ?>
+
+<?php else: ?>
+
+    <img
+        src="<?php echo e(asset('img/default-news.jpg')); ?>"
+        alt="">
+
+<?php endif; ?>
+
+</div>
+
+<!-- CONTENT -->
+<div class="pengumuman-content">
+
+    <!-- KATEGORI -->
+    <div class="info-row">
+
+        <span class="kategori-home">
+
+            <?php echo e($p->kelas ? $p->kelas->nama_kelas : 'Umum'); ?>
+
+
+        </span>
+
+        <span class="tanggal">
+            <?php echo e($p->created_at->format('d M Y')); ?>
+
+        </span>
+
     </div>
+
+    <!-- JUDUL -->
+    <h3>
+        <?php echo e(\Illuminate\Support\Str::limit($p->judul, 60)); ?>
+
+    </h3>
+
+    <!-- ISI -->
+    <p>
+        <?php echo e(\Illuminate\Support\Str::limit(strip_tags($p->isi), 100)); ?>
+
+    </p>
+
+</div>
+
+</a>
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    </div>
+
+    <?php else: ?>
+
+        <p>Tidak ada pengumuman</p>
+
+    <?php endif; ?>
+
+</div>
 
 </div>
 

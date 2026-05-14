@@ -1,0 +1,265 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f5f7fb;
+}
+
+/* Navbar */
+
+.navbar{
+    width:100%;
+    height:86px;
+
+    background:white;
+
+    padding:18px 60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    z-index:1000;
+}
+
+.back-btn{
+    position:absolute;
+    left:60px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+
+    color:#4CAF50;
+
+    font-size:16px;
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    opacity:0.8;
+}
+
+.back-icon{
+    font-size:22px;
+}
+
+.navbar-title{
+    font-size:24px;
+    font-weight:700;
+
+    color:#4CAF50;
+}
+
+/* Layout */
+
+.daftar-pengumuman-section{
+    min-height:100vh;
+
+    padding:140px 20px 60px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+/* Grid */
+
+.pengumuman-grid{
+    display:grid;
+
+    grid-template-columns:repeat(3, 380px);
+
+    justify-content:left;
+
+    gap:10px;
+}
+
+/* Card */
+
+.pengumuman-card{
+    margin-top:-10px;
+    margin-bottom: 40px;
+    margin-left:40px;
+
+    overflow:hidden;
+
+    background:white;
+
+    border-radius:15px;
+
+    border:1px solid rgba(255,255,255,0.7);
+
+    text-decoration:none;
+    color:inherit;
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,0.20),
+        0 8px 28px rgba(0,0,0,0.25);
+
+    transition:0.3s ease;
+}
+
+.pengumuman-card h3,
+.pengumuman-card p,
+.pengumuman-card span{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* Image */
+
+.card-image{
+    width:100%;
+    height:150px;
+
+    overflow:hidden;
+}
+
+.card-image img{
+    width:100%;
+    height:150px;
+
+    object-fit:cover;
+
+    transition:0.4s;
+}
+
+/* PDF */
+
+.pdf-preview{
+    width:100%;
+    height:150px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:10px;
+
+    background:#f8fafc;
+}
+
+.pdf-preview img{
+    width:60px;
+    height:60px;
+
+    object-fit:contain;
+}
+
+.pdf-preview span{
+    font-size:14px;
+    font-weight:600;
+
+    color:#555;
+}
+
+/* Content */
+
+.card-content{
+    padding:22px;
+}
+
+.kategori-home{
+    display:inline-block;
+
+    width:fit-content;
+
+    margin-bottom:12px;
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    background:rgba(76, 175, 80, 0.25);
+
+    color:#2e7d32 !important;
+
+    font-size:12px;
+    font-weight:600;
+}
+
+.tanggal{
+    display:inline-block;
+
+    margin-bottom:12px;
+
+    font-size:13px;
+
+    color:#888;
+}
+
+.card-content h3{
+    margin-bottom:14px;
+
+    font-size:21px;
+    line-height:1.4;
+
+    color:black;
+}
+
+.card-content p{
+    color:#666;
+
+    font-size:15px;
+    line-height:1.7;
+}
+
+/* Empty */
+
+.empty-state{
+    text-align:center;
+
+    padding:80px 20px;
+
+    color:#777;
+
+    font-size:18px;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .navbar{
+        padding:16px 20px;
+    }
+
+    .page-header h1{
+        font-size:32px;
+    }
+
+    .pengumuman-grid{
+        grid-template-columns:1fr;
+    }
+
+    .pengumuman-card{
+        margin-left:0;
+    }
+
+    .card-image{
+        height:200px;
+    }
+
+    .card-image img{
+        height:200px;
+    }
+
+}

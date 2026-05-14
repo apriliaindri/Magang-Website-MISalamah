@@ -72,29 +72,83 @@
                     <a href="<?php echo e(route('pengumuman.detail.pengumuman', $p->id)); ?>"
    class="pengumuman-card">
 
-                        <?php if($p->gambar): ?>
-                            <img src="<?php echo e(asset('storage/'.$p->gambar)); ?>" alt="">
-                        <?php else: ?>
-                            <img src="<?php echo e(asset('img/default-news.jpg')); ?>" alt="">
-                        <?php endif; ?>
 
-                        <div class="pengumuman-content">
+<?php
 
-                            <span class="tanggal">
-                                <?php echo e($p->created_at->format('d M Y')); ?>
+$gambar = [];
 
-                            </span>
+if(is_array($p->gambar)){
 
-                           <h3>
-    <?php echo e(\Illuminate\Support\Str::limit($p->judul, 55)); ?>
+    $gambar = $p->gambar;
 
-</h3>
+}else{
 
-<p>
-    <?php echo e(\Illuminate\Support\Str::limit(strip_tags($p->isi), 90)); ?>
+    $gambar = json_decode($p->gambar, true) ?? [];
 
-</p>
-                        </div>
+}
+
+$filePertama = $gambar[0] ?? null;
+
+$ext = $filePertama
+    ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
+    : null;
+
+?>
+
+
+<?php if($filePertama): ?>
+
+    <?php if(in_array($ext, ['jpg','jpeg','png','webp'])): ?>
+
+        <img src="<?php echo e(asset('storage/'.$filePertama)); ?>">
+
+    <?php elseif($ext == 'pdf'): ?>
+
+        <div class="pdf-preview">
+
+            <img src="<?php echo e(asset('img/pdf-icon.png')); ?>">
+
+            <span>PDF Document</span>
+
+        </div>
+
+    <?php else: ?>
+
+        <img src="<?php echo e(asset('img/default-news.jpg')); ?>">
+
+    <?php endif; ?>
+
+<?php else: ?>
+
+    <img src="<?php echo e(asset('img/default-news.jpg')); ?>">
+
+<?php endif; ?>
+
+
+<div class="pengumuman-content">
+
+    <div class="meta-row">
+
+        <span class="kategori-home">
+
+            <?php echo e($p->kelas ? $p->kelas->nama_kelas : 'Umum'); ?>
+
+
+        </span>
+
+        <span class="tanggal">
+            <?php echo e($p->created_at->format('d M Y')); ?>
+
+        </span>
+
+    </div>
+
+    <h3>
+        <?php echo e(\Illuminate\Support\Str::limit($p->judul, 40)); ?>
+
+    </h3>
+
+</div>
 
 </a>
 
@@ -181,12 +235,6 @@
                                 <?php echo e(\Illuminate\Support\Str::limit($a->title, 55)); ?>
 
                             </h3>
-
-                            <p>
-                                <?php echo e(\Illuminate\Support\Str::limit(strip_tags($a->content), 90)); ?>
-
-                            </p>
-
                         </div>
 
                     </a>

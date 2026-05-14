@@ -20,18 +20,18 @@
     <!-- CSS -->
     <link
         rel="stylesheet"
-        href="{{ asset('css/daftar_pengumuman.css') }}"
+        href="<?php echo e(asset('css/daftar_pengumuman.css')); ?>"
     >
 
 </head>
 
 <body>
 
-    {{-- Navbar --}}
+    
     <nav class="navbar">
 
         <a
-            href="{{ url('/') }}"
+            href="<?php echo e(url('/')); ?>"
             class="back-btn"
         >
 
@@ -49,18 +49,18 @@
 
     </nav>
 
-    {{-- Content --}}
+    
     <section class="daftar-pengumuman-section">
 
         <div class="container">
 
-            @if($pengumuman->count() > 0)
+            <?php if($pengumuman->count() > 0): ?>
 
                 <div class="pengumuman-grid">
 
-                    @foreach($pengumuman as $p)
+                    <?php $__currentLoopData = $pengumuman; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                        @php
+                        <?php
 
                             $gambar = is_array($p->gambar)
                                 ? $p->gambar
@@ -72,31 +72,31 @@
                                 ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
                                 : null;
 
-                        @endphp
+                        ?>
 
                         <a
-                            href="{{ route('pengumuman.detail.pengumuman', $p->id) }}"
+                            href="<?php echo e(route('pengumuman.detail.pengumuman', $p->id)); ?>"
                             class="pengumuman-card"
                         >
 
-                            {{-- Thumbnail --}}
+                            
                             <div class="card-image">
 
-                                @if($filePertama)
+                                <?php if($filePertama): ?>
 
-                                    @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
+                                    <?php if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])): ?>
 
                                         <img
-                                            src="{{ asset('storage/' . $filePertama) }}"
+                                            src="<?php echo e(asset('img/LogoMI.png' . $filePertama)); ?>"
                                             alt="thumbnail"
                                         >
 
-                                    @elseif($ext == 'pdf')
+                                    <?php elseif($ext == 'pdf'): ?>
 
                                         <div class="pdf-preview">
 
                                             <img
-                                                src="{{ asset('img/pdf-icon.png') }}"
+                                                src="<?php echo e(asset('img/pdf-icon.png')); ?>"
                                                 alt="PDF"
                                             >
 
@@ -104,50 +104,54 @@
 
                                         </div>
 
-                                    @else
+                                    <?php else: ?>
 
                                         <img
-                                            src="{{ asset('img/default-news.jpg') }}"
+                                            src="<?php echo e(asset('img/default-news.jpg')); ?>"
                                             alt="default"
                                         >
 
-                                    @endif
+                                    <?php endif; ?>
 
-                                @else
+                                <?php else: ?>
 
                                     <img
-                                        src="{{ asset('img/default-news.jpg') }}"
+                                        src="<?php echo e(asset('img/default-news.jpg')); ?>"
                                         alt="default"
                                     >
 
-                                @endif
+                                <?php endif; ?>
 
                             </div>
 
-                            {{-- Content --}}
+                            
                             <div class="card-content">
 
                                 <span class="kategori-home">
 
-                                    {{ $p->kelas ? $p->kelas->nama_kelas : 'Umum' }}
+                                    <?php echo e($p->kelas ? $p->kelas->nama_kelas : 'Umum'); ?>
+
 
                                 </span>
 
                                 <span class="tanggal">
 
-                                    {{ $p->created_at->format('d M Y') }}
+                                    <?php echo e($p->created_at->format('d M Y')); ?>
+
 
                                 </span>
 
                                 <h3>
 
-                                    {{ \Illuminate\Support\Str::limit($p->judul, 70) }}
+                                    <?php echo e(\Illuminate\Support\Str::limit($p->judul, 70)); ?>
+
 
                                 </h3>
 
                                 <p>
 
-                                    {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 120) }}
+                                    <?php echo e(\Illuminate\Support\Str::limit(strip_tags($p->isi), 120)); ?>
+
 
                                 </p>
 
@@ -155,11 +159,11 @@
 
                         </a>
 
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 </div>
 
-            @else
+            <?php else: ?>
 
                 <div class="empty-state">
 
@@ -167,7 +171,7 @@
 
                 </div>
 
-            @endif
+            <?php endif; ?>
 
         </div>
 
@@ -175,3 +179,4 @@
 
 </body>
 </html>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/pengumuman/daftar_pengumuman.blade.php ENDPATH**/ ?>

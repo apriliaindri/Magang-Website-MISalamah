@@ -15,16 +15,25 @@ class Pengumuman extends Model
         'user_id',
         'kelas_id',
         'judul',
-        'isi'
+        'isi',
+        'file',
+        'gambar',
     ];
 
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    // Cast gambar sebagai array
+    protected $casts = [
+        'gambar' => 'array',
+    ];
 
-public function kelas()
-{
-    return $this->belongsTo(Kelas::class);
-}
+    // Relasi ke user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Relasi ke kelas
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
 }

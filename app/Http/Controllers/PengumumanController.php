@@ -2,83 +2,147 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Pengumuman;
 use App\Models\Kelas;
+use App\Models\Pengumuman;
+use Illuminate\Http\Request;
 
 class PengumumanController extends Controller
 {
+    // Admin list
+    public function index()
+    {
+        $pengumuman = Pengumuman::latest()->get();
 
-    // ✅ LIST (untuk home / publik)
-public function index(Request $request)
-{
-    $pengumuman = Pengumuman::all();
-
-    $detail = null;
-    if($request->id){
-        $detail = Pengumuman::find($request->id);
+        return view('pengumuman.index', compact('pengumuman'));
     }
 
-    return view('pengumuman.daftar_pengumuman', compact('pengumuman','detail'));
-}
+    // Halaman publik
+    public function daftarPengumuman()
+    {
+        $pengumuman = Pengumuman::latest()->get();
 
-public function daftarPengumuman()
-{
-    $pengumuman = Pengumuman::latest()->paginate(12);
+        return view(
+            'pengumuman.daftar_pengumuman',
+            compact('pengumuman')
+        );
+    }
 
-    return view('pengumuman.daftar_pengumuman', compact('pengumuman'));
-}
+    // Detail pengumuman
+    public function detail($id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
 
-public function create()
-{
-    $kelas = \App\Models\Kelas::all(); // kalau pakai kelas
-    return view('pengumuman.create', compact('kelas'));
-}
+        return view(
+            'pengumuman.detail_pengumuman',
+            compact('pengumuman')
+        );
+    }
 
-    // ✅ SIMPAN
+    // Form create
+    public function create()
+    {
+        $kelas = Kelas::all();
+
+        return view('pengumuman.create', compact('kelas'));
+    }
+
+    // Simpan pengumuman
     public function store(Request $request)
     {
-        if(!in_array(auth()->user()->role, ['guru','kepala_sekolah'])){
+        if (!in_array(auth()->user()->role, ['guru', 'kepala_sekolah'])) {
             abort(403);
         }
 
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',
-            'kelas_id' => 'nullable'
         ]);
 
+        // Upload file
+        $filePath = null;
+
+        if ($request->hasFile('file')) {
+
+            $filePath = $request->file('file')
+                ->store('pengumuman/file', 'public');
+        }
+
+        // Upload multiple gambar
+        $gambarPaths = [];
+
+        if ($request->hasFile('files')) {
+
+            foreach ($request->file('files') as $gambar) {
+
+                $path = $gambar->store(
+                    'pengumuman/gambar',
+                    'public'
+                );
+
+                $gambarPaths[] = $path;
+            }
+        }
+
+        // Simpan data
         Pengumuman::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'kelas_id' => $request->kelas_id,
-            'user_id' => auth()->id(), // penting!
-            'file' => $request->file('file') ? $request->file('file')->store('pengumuman') : null,
+            'user_id' => auth()->id(),
+
+            'file' => $filePath,
+            'gambar' => json_encode($gambarPaths),
         ]);
 
-return redirect()->back()
-    ->with('success', 'Pengumuman berhasil ditambahkan');
+        return redirect()
+            ->back()
+            ->with('success', 'Pengumuman berhasil ditambahkan');
     }
 
+    // Form edit
     public function edit($id)
-{
-    $pengumuman = Pengumuman::findOrFail($id);
-    $kelas = Kelas::all();
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
 
-    return view('pengumuman.edit_pengumuman', compact('pengumuman','kelas'));
-}
+        $kelas = Kelas::all();
 
-public function update(Request $request, $id)
-{
-    $pengumuman = Pengumuman::findOrFail($id);
+        return view(
+            'pengumuman.edit_pengumuman',
+            compact('pengumuman', 'kelas')
+        );
+    }
 
-    $pengumuman->update([
-        'judul' => $request->judul,
-        'isi' => $request->isi,
-        'kelas_id' => $request->kelas_id,
-    ]);
+    // Update pengumuman
+    public function update(Request $request, $id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
 
-    return redirect()->back()->with('success', 'Pengumuman berhasil diupdate');
-}
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'kelas_id' => 'nullable',
+        ]);
 
+        $pengumuman->update([
+            'judul' => $request->judul,
+            'isi' => $request->isi,
+            'kelas_id' => $request->kelas_id,
+        ]);
+
+        return redirect()
+            ->route('pengumuman.index')
+            ->with('success', 'Pengumuman berhasil diupdate');
+    }
+
+    // Hapus pengumuman
+    public function destroy($id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
+
+        $pengumuman->delete();
+
+        return redirect()
+            ->route('pengumuman.index')
+            ->with('success', 'Pengumuman berhasil dihapus');
+    }
 }

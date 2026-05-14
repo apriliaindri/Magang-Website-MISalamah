@@ -1,0 +1,109 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f5f7fa;
+}
+
+/* Layout */
+
+.content{
+    display:flex;
+    justify-content:center;
+
+    padding:60px 20px;
+}
+
+/* Card */
+
+.card{
+    width:100%;
+    max-width:700px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    margin-bottom:20px;
+}
+
+/* Form */
+
+input,
+textarea,
+select{
+    width:100%;
+
+    padding:12px;
+
+    margin-bottom:15px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    font-family:inherit;
+}
+
+textarea{
+    resize:vertical;
+}
+
+/* Button */
+
+.btn{
+    border:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.btn-success{
+    background:#4CAF50;
+    color:white;
+}
+
+.btn-success:hover{
+    opacity:0.9;
+}
+
+/* Alert */
+
+.alert-success{
+    background:#e8f5e9;
+
+    color:#2e7d32;
+
+    padding:10px;
+
+    margin-bottom:15px;
+
+    border-radius:8px;
+}
+
+/* File Info */
+
+.file-info{
+    display:block;
+
+    margin-bottom:20px;
+
+    color:#666;
+}
