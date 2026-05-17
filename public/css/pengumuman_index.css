@@ -38,8 +38,9 @@ body{
 }
 
 .topbar-title{
-    margin-left:15px;
+    margin-left: 0;
     font-weight:600;
+    font-size: 16px;
 }
 
 .back-btn img{
@@ -173,7 +174,6 @@ td{
 /* Badge */
 
 .badge{
-    display:inline-block;
 
     padding:6px 12px;
 
@@ -181,16 +181,18 @@ td{
 
     font-size:13px;
     font-weight:600;
+        display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    white-space:nowrap;
 }
 
-.badge-umum{
-    background:#e0f2fe;
-    color:#0284c7;
-}
 
-.badge-kelas{
-    background:#dcfce7;
-    color:#16a34a;
+.badge-kelas,
+.badge-semua-kelas{
+    background:rgba(76, 175, 80, 0.25);
+color:#2e7d32 !important;
 }
 
 /* Action */

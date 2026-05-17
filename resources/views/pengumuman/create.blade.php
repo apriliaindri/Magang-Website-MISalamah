@@ -28,21 +28,32 @@
 <body>
 
     {{-- Topbar --}}
-    <div class="topbar">
+    {{-- Topbar --}}
+<div class="topbar">
+
+    <div class="topbar-left">
 
         <a
-            href="#"
-            onclick="goBack()"
+            href="{{ route('pengumuman.index') }}"
             class="back-btn"
         >
-            <img src="/img/back.png" alt="Back">
+
+            <img
+                src="/img/back.png"
+                alt="Back"
+            >
+
         </a>
 
         <div class="topbar-title">
+
             Tambah Pengumuman
+
         </div>
 
     </div>
+
+</div>
 
     {{-- Content --}}
     <div class="page-wrapper">
@@ -105,7 +116,7 @@
                     <select name="kelas_id">
 
                         <option value="">
-                            Umum (Semua Kelas)
+                            Semua Kelas
                         </option>
 
                         @foreach($kelas as $k)
@@ -148,104 +159,194 @@
 
     </div>
 
-    <script>
+<script>
 
-        function goBack() {
+    const inputFiles = document.getElementById('files');
 
-            if (
-                document.referrer === window.location.href ||
-                document.referrer === ""
-            ) {
+    const fileList = document.getElementById('file-list');
 
-                window.location.href = "{{ route('kepalasekolah.dashboard') }}";
+    let selectedFiles = [];
 
-            } else {
+    inputFiles.addEventListener('change', function (e) {
 
-                window.history.back();
+        Array.from(e.target.files).forEach(file => {
 
-            }
-
-        }
-
-        const inputFiles = document.getElementById('files');
-
-        const fileList = document.getElementById('file-list');
-
-        let selectedFiles = [];
-
-        inputFiles.addEventListener('change', function (e) {
-
-            Array.from(e.target.files).forEach(file => {
-
-                selectedFiles.push(file);
-
-            });
-
-            updateInputFiles();
-
-            renderFiles();
+            selectedFiles.push(file);
 
         });
 
-        function renderFiles() {
+        updateInputFiles();
 
-            fileList.innerHTML = '';
+        renderFiles();
 
-            selectedFiles.forEach((file, index) => {
+    });
 
-                const div = document.createElement('div');
+    function renderFiles() {
 
-                div.classList.add('file-item');
+        fileList.innerHTML = '';
+
+        selectedFiles.forEach((file, index) => {
+
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            const div = document.createElement('div');
+
+            div.classList.add('preview-item');
+
+            // ================= IMAGE =================
+            if(['jpg','jpeg','png','webp'].includes(ext)){
+
+                const imageUrl = URL.createObjectURL(file);
 
                 div.innerHTML = `
-                    <div class="file-left">
+                    <div class="preview-card">
 
-                        <span>📎</span>
+                        <img
+                            src="${imageUrl}"
+                            class="preview-image"
+                            onclick="openModal('${imageUrl}')"
+                        >
 
-                        <span>${file.name}</span>
+                        <div class="preview-name">
+                            ${file.name}
+                        </div>
+
+                        <button
+                            type="button"
+                            class="remove-file"
+                            onclick="removeFile(${index})"
+                        >
+                            ×
+                        </button>
 
                     </div>
-
-                    <button
-                        type="button"
-                        class="remove-file"
-                        onclick="removeFile(${index})"
-                    >
-                        ×
-                    </button>
                 `;
+            }
 
-                fileList.appendChild(div);
+            // ================= PDF =================
+           else if(ext === 'pdf'){
 
-            });
+    const pdfUrl = URL.createObjectURL(file);
 
-        }
+    div.innerHTML = `
+        <div class="preview-card">
 
-        function updateInputFiles() {
+            <a
+                href="${pdfUrl}"
+                target="_blank"
+                class="pdf-preview"
+            >
 
-            const dataTransfer = new DataTransfer();
+                <img
+                    src="/img/pdf-icon.png"
+                    class="pdf-icon"
+                    alt="PDF"
+                >
 
-            selectedFiles.forEach(file => {
+                <span>
+                    ${file.name}
+                </span>
 
-                dataTransfer.items.add(file);
+            </a>
 
-            });
+            <button
+                type="button"
+                class="remove-file"
+                onclick="removeFile(${index})"
+            >
+                ×
+            </button>
 
-            inputFiles.files = dataTransfer.files;
+        </div>
+    `;
+}
 
-        }
+            // ================= OTHER FILE =================
+            else{
 
-        function removeFile(index) {
+                div.innerHTML = `
+                    <div class="preview-card file-card">
 
-            selectedFiles.splice(index, 1);
+                        <div class="preview-name">
+                            📎 ${file.name}
+                        </div>
 
-            updateInputFiles();
+                        <button
+                            type="button"
+                            class="remove-file"
+                            onclick="removeFile(${index})"
+                        >
+                            ×
+                        </button>
 
-            renderFiles();
+                    </div>
+                `;
+            }
 
-        }
+            fileList.appendChild(div);
 
-    </script>
+        });
+
+    }
+
+    function updateInputFiles() {
+
+        const dataTransfer = new DataTransfer();
+
+        selectedFiles.forEach(file => {
+
+            dataTransfer.items.add(file);
+
+        });
+
+        inputFiles.files = dataTransfer.files;
+
+    }
+
+    function removeFile(index) {
+
+        selectedFiles.splice(index, 1);
+
+        updateInputFiles();
+
+        renderFiles();
+
+    }
+
+    // ================= MODAL IMAGE =================
+
+    function openModal(src){
+
+        document.getElementById('imageModal').style.display = 'flex';
+
+        document.getElementById('modalImage').src = src;
+
+    }
+
+    function closeModal(){
+
+        document.getElementById('imageModal').style.display = 'none';
+
+    }
+
+</script>
+
+{{-- Image Modal --}}
+<div id="imageModal" class="image-modal">
+
+    <span
+        class="close-modal"
+        onclick="closeModal()"
+    >
+        &times;
+    </span>
+
+    <img
+        id="modalImage"
+        class="modal-content"
+    >
+
+</div>
 
 </body>
 </html>

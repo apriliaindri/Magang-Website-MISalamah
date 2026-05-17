@@ -38,8 +38,9 @@
 }
 
 .login-box input {
-    width: 100%;
+    width: 93%;
     padding: 12px;
+    justify-content: center;
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;

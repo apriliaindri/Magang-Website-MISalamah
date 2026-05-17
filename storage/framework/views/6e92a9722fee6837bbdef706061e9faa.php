@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Daftar Pengumuman</title>
+    <title>Daftar Artikel</title>
 
     <!-- Font -->
     <link
@@ -44,7 +44,7 @@
         </a>
 
         <h1 class="navbar-title">
-            Daftar Pengumuman
+            Daftar Artikel
         </h1>
 
     </nav>
@@ -54,19 +54,19 @@
 
         <div class="container">
 
-            <?php if($pengumuman->count() > 0): ?>
+            <?php if($articles->count() > 0): ?>
 
                 <div class="pengumuman-grid">
 
-                    <?php $__currentLoopData = $pengumuman; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                         <?php
 
-                            $gambar = is_array($p->gambar)
-                                ? $p->gambar
-                                : json_decode($p->gambar, true) ?? [];
+                            $gambar = is_array($a->image)
+                                ? $a->image
+                                : json_decode($a->image, true) ?? [];
 
-                            $filePertama = $gambar[0] ?? null;
+                            $filePertama = $gambar[0] ?? $a->image ?? null;
 
                             $ext = $filePertama
                                 ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
@@ -75,7 +75,7 @@
                         ?>
 
                         <a
-                            href="<?php echo e(route('pengumuman.detail.pengumuman', $p->id)); ?>"
+                            href="<?php echo e(route('artikel.detail.artikel', $a->id)); ?>"
                             class="pengumuman-card"
                         >
 
@@ -87,7 +87,7 @@
                                     <?php if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])): ?>
 
                                         <img
-                                            src="<?php echo e(asset('img/LogoMI.png' . $filePertama)); ?>"
+                                            src="<?php echo e(asset('storage/' . $filePertama)); ?>"
                                             alt="thumbnail"
                                         >
 
@@ -129,32 +129,29 @@
 
                                 <span class="kategori-home">
 
-                                    <?php echo e($p->kelas ? $p->kelas->nama_kelas : 'Umum'); ?>
+                                    <?php echo e($a->category); ?>
 
 
                                 </span>
 
                                 <span class="tanggal">
 
-                                    <?php echo e($p->created_at->format('d M Y')); ?>
+                                    <?php echo e($a->created_at->format('d M Y')); ?>
 
 
                                 </span>
 
                                 <h3>
 
-                                    <?php echo e(\Illuminate\Support\Str::limit($p->judul, 70)); ?>
+                                    <?php echo e(\Illuminate\Support\Str::limit($a->title, 70)); ?>
 
 
                                 </h3>
 
-                                <p>
+                            <p class="preview-text">
+    <?php echo e(\Illuminate\Support\Str::limit(strip_tags($a->content), 120)); ?>
 
-                                    <?php echo e(\Illuminate\Support\Str::limit(strip_tags($p->isi), 120)); ?>
-
-
-                                </p>
-
+</p>
                             </div>
 
                         </a>
@@ -167,7 +164,7 @@
 
                 <div class="empty-state">
 
-                    <p>Belum ada pengumuman.</p>
+                    <p>Belum ada artikel.</p>
 
                 </div>
 
@@ -179,4 +176,4 @@
 
 </body>
 </html>
-<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/pengumuman/daftar_pengumuman.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/artikel/daftar_artikel.blade.php ENDPATH**/ ?>

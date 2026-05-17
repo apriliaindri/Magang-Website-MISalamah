@@ -24,6 +24,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaRegisterController;
 use App\Http\Controllers\SiswaSoalController;
 use App\Http\Controllers\SoalController;
+use App\Http\Controllers\HomeController;
 
 
 /*
@@ -32,9 +33,8 @@ use App\Http\Controllers\SoalController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [ArticleController::class, 'index'])
+Route::get('/', [ArticleController::class, 'home'])
     ->name('home');
-
 Route::get('/artikel', fn () => view('artikel'))
     ->name('artikel');
 
@@ -51,14 +51,30 @@ Route::get('/tata-tertib', fn () => view('profil.tatib'))
 |--------------------------------------------------------------------------
 */
 
-Route::get('/artikel/daftar_artikel',
-    [HomeController::class, 'daftarArtikel'])
-    ->name('artikel.daftar.artikel');
 
 Route::get('/artikel/detail_artikel/{id}',
-    [HomeController::class, 'detailArtikel'])
+    [ArticleController::class, 'detailArtikel'])
     ->name('artikel.detail.artikel');
 
+Route::get(
+    '/kepalasekolah/artikel/index',
+    [ArticleController::class, 'index']
+)->name('kepalasekolah.artikel.index');
+
+Route::get(
+    '/artikel/daftar_artikel',
+    [ArticleController::class, 'daftarArtikel']
+)->name('artikel.daftar.artikel');
+
+Route::get(
+    '/kepalasekolah/artikel/edit/{id}',
+    [ArticleController::class, 'editArtikel']
+)->name('kepalasekolah.artikel.edit.artikel');
+
+Route::put(
+    '/kepalasekolah/artikel/update/{id}',
+    [ArticleController::class, 'updateArtikel']
+)->name('artikel.update');
 
 /*
 |--------------------------------------------------------------------------
@@ -208,9 +224,9 @@ Route::middleware('auth')->group(function () {
         [KepalaSekolahController::class, 'storeUser'])
         ->name('kepalasekolah.user.store');
 
-    Route::post('/kepalasekolah/user/reset/{id}',
-        [KepalaSekolahController::class, 'resetPassword'])
-        ->name('kepalasekolah.user.reset');
+Route::post('/kepalasekolah/user/reset/{id}',
+    [KepalaSekolahController::class, 'resetPassword'])
+    ->name('kepalasekolah.user.reset');
 
     Route::delete('/kepalasekolah/user/{id}',
         [KepalaSekolahController::class, 'deleteUser'])
@@ -359,3 +375,4 @@ Route::post('/tugas/store',
 Route::delete('/tugas/{id}',
     [GuruDeleteController::class, 'deleteTugas'])
     ->name('tugas.delete');
+

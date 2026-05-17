@@ -43,14 +43,21 @@ return redirect()->route('kepalasekolah.dashboard')
     }
 
     // RESET PASSWORD
-    public function resetPassword($id)
-    {
-        $user = User::findOrFail($id);
+    public function resetPassword(Request $request, $id)
+{
+    $request->validate([
+        'new_password' => 'required|min:6'
+    ]);
 
-        $user->update([
-            'password' => Hash::make('password123')
-        ]);
+    $user = User::findOrFail($id);
 
-        return back()->with('success', 'Password direset ke password123');
-    }
+    $user->password = Hash::make($request->new_password);
+
+    $user->save();
+
+    return back()->with(
+        'success',
+        'Password berhasil direset'
+    );
+}
 }

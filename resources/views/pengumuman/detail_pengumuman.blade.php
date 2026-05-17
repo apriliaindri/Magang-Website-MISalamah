@@ -41,7 +41,7 @@
                     <div class="detail-meta">
 
                         <span class="kategori-badge">
-                            {{ $pengumuman->kelas ? $pengumuman->kelas->nama_kelas : 'Umum' }}
+                            {{ $pengumuman->kelas ? $pengumuman->kelas->nama_kelas : 'Semua Kelas' }}
                         </span>
 
                         <span class="detail-date">

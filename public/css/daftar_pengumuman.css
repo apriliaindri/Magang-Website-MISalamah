@@ -261,5 +261,11 @@ body{
     .card-image img{
         height:200px;
     }
-
+    
+.preview-text{
+    margin-top:10px;
+    color:#666;
+    font-size:14px;
+    line-height:1.6;
+}
 }

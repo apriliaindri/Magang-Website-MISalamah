@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Daftar Pengumuman</title>
+    <title>Daftar Artikel</title>
 
     <!-- Font -->
     <link
@@ -20,14 +20,14 @@
     <!-- CSS -->
     <link
         rel="stylesheet"
-        href="{{ asset('css/pengumuman_index.css') }}"
+        href="<?php echo e(asset('css/pengumuman_index.css')); ?>"
     >
 
 </head>
 
 <body>
 
-    {{-- Topbar --}}
+    
     <div class="topbar">
 
         <div class="topbar-left">
@@ -46,7 +46,7 @@
 
             <div class="topbar-title">
 
-                Daftar Pengumuman
+                Daftar Artikel
 
             </div>
 
@@ -54,42 +54,43 @@
 
     </div>
 
-    {{-- Content --}}
+    
     <div class="page-content">
 
         <div class="container">
 
             <div class="card">
 
-                {{-- Header --}}
+                
                 <div class="card-header">
 
-                    <h2>Daftar Pengumuman</h2>
+                    <h2>Semua Artikel</h2>
 
                     <a
-                        href="{{ route('pengumuman.create') }}"
+                        href="<?php echo e(route('kepalasekolah.artikel.create')); ?>"
                         class="tambah-btn"
                     >
 
-                        + Tambah Pengumuman
+                        + Upload Artikel
 
                     </a>
 
                 </div>
 
-                {{-- Alert --}}
-                @if(session('success'))
+                
+                <?php if(session('success')): ?>
 
                     <div class="alert-success">
 
-                        {{ session('success') }}
+                        <?php echo e(session('success')); ?>
+
 
                     </div>
 
-                @endif
+                <?php endif; ?>
 
-                {{-- Table --}}
-                @if($pengumuman->count() > 0)
+                
+                <?php if($articles->count() > 0): ?>
 
                     <div class="table-wrapper">
 
@@ -115,80 +116,69 @@
 
                             <tbody>
 
-                                @foreach($pengumuman as $p)
+                                <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                     <tr>
 
                                         <td>
 
-                                            {{ $loop->iteration }}
+                                            <?php echo e($loop->iteration); ?>
+
 
                                         </td>
 
                                         <td class="judul">
 
-                                            {{ $p->judul }}
+                                            <?php echo e($article->title); ?>
+
 
                                         </td>
 
                                         <td>
 
-                                            @if($p->kelas_id)
+                                            <span class="badge badge-umum">
 
-                                                <span class="badge badge-kelas">
+                                                <?php echo e($article->category); ?>
 
-                                                    Kelas {{ $p->kelas_id }}
 
-                                                </span>
-
-                                            @else
-
-                                                <span class="badge badge-semua-kelas">
-
-                                                    Semua Kelas
-
-                                                </span>
-
-                                            @endif
+                                            </span>
 
                                         </td>
 
                                         <td>
 
-                                            {{ $p->created_at->format('d M Y') }}
+                                            <?php echo e($article->created_at->format('d M Y')); ?>
+
 
                                         </td>
 
                                         <td>
 
                                             <div class="aksi">
+<a
+    href="<?php echo e(route('artikel.detail.artikel', $article->id)); ?>"
+    class="btn btn-detail"
+>
 
-                                                <a
-                                                    href="{{ route('pengumuman.detail.pengumuman', $p->id) }}"
-                                                    class="btn btn-detail"
-                                                >
+    Detail
 
-                                                    Detail
+</a>
 
-                                                </a>
-
-                                                <a
-                                                    href="{{ route('pengumuman.edit', $p->id) }}"
-                                                    class="btn btn-edit"
-                                                >
-
-                                                    Edit
-
-                                                </a>
+<a
+    href="<?php echo e(route('kepalasekolah.artikel.edit.artikel', $article->id)); ?>"
+    class="btn btn-edit"
+>
+    Edit
+</a>
 
                                                 <form
-                                                    action="{{ route('pengumuman.destroy', $p->id) }}"
+                                                    action="#"
                                                     method="POST"
-                                                    onsubmit="return confirm('Yakin hapus pengumuman ini?')"
+                                                    onsubmit="return confirm('Yakin hapus artikel ini?')"
                                                 >
 
-                                                    @csrf
-                                                    @method('DELETE')
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('DELETE'); ?>
 
                                                     <button
                                                         type="submit"
@@ -207,7 +197,7 @@
 
                                     </tr>
 
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </tbody>
 
@@ -215,15 +205,15 @@
 
                     </div>
 
-                @else
+                <?php else: ?>
 
                     <div class="empty">
 
-                        Belum ada pengumuman.
+                        Belum ada artikel.
 
                     </div>
 
-                @endif
+                <?php endif; ?>
 
             </div>
 
@@ -233,3 +223,4 @@
 
 </body>
 </html>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/kepalasekolah/artikel/index_artikel.blade.php ENDPATH**/ ?>

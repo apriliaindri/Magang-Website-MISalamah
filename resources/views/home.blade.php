@@ -186,9 +186,9 @@ $ext = $filePertama
 
             <div class="header-line"></div>
 
-                        <a href="{{ route('artikel.daftar.artikel') }}" class="lihat-semua">
-                Lihat semua
-            </a>
+                      <a href="{{ route('artikel.daftar.artikel') }}" class="lihat-semua">
+    Lihat semua
+</a>
         </div>
 
         @php
@@ -225,14 +225,23 @@ $ext = $filePertama
 
                         <div class="artikel-content">
 
-                            <span class="tanggal">
-                                {{ $a->created_at->format('d M Y') }}
-                            </span>
+    <div class="meta-row">
 
-                            <h3>
-                                {{ \Illuminate\Support\Str::limit($a->title, 55) }}
-                            </h3>
-                        </div>
+        <span class="kategori-home">
+            {{ $a->category }}
+        </span>
+
+        <span class="tanggal">
+            {{ $a->created_at->format('d M Y') }}
+        </span>
+
+    </div>
+
+    <h3>
+        {{ \Illuminate\Support\Str::limit($a->title, 55) }}
+    </h3>
+
+</div>
 
                     </a>
 

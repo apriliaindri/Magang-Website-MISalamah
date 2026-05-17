@@ -129,7 +129,7 @@
 
                                 <span class="kategori-home">
 
-                                    {{ $p->kelas ? $p->kelas->nama_kelas : 'Umum' }}
+                                    {{ $p->kelas ? $p->kelas->nama_kelas : 'Semua Kelas' }}
 
                                 </span>
 

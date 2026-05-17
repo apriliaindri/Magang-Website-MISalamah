@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
 {
@@ -112,37 +113,94 @@ class PengumumanController extends Controller
         );
     }
 
-    // Update pengumuman
-    public function update(Request $request, $id)
-    {
-        $pengumuman = Pengumuman::findOrFail($id);
+public function update(Request $request, $id)
+{
+    $pengumuman = Pengumuman::findOrFail($id);
 
-        $request->validate([
-            'judul' => 'required',
-            'isi' => 'required',
-            'kelas_id' => 'nullable',
-        ]);
+    $request->validate([
+        'judul' => 'required',
+        'isi' => 'required',
+    ]);
 
-        $pengumuman->update([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
-            'kelas_id' => $request->kelas_id,
-        ]);
+    // file lama
+    $gambarLama = json_decode($pengumuman->gambar, true) ?? [];
 
-        return redirect()
-            ->route('pengumuman.index')
-            ->with('success', 'Pengumuman berhasil diupdate');
+    // ================= HAPUS FILE =================
+
+    if($request->hapus_file){
+
+        foreach($request->hapus_file as $hapus){
+
+            // hapus dari storage
+            Storage::disk('public')->delete($hapus);
+
+            // hapus dari array
+            $gambarLama = array_filter(
+                $gambarLama,
+                fn($item) => $item != $hapus
+            );
+        }
     }
 
-    // Hapus pengumuman
-    public function destroy($id)
-    {
-        $pengumuman = Pengumuman::findOrFail($id);
+    // ================= TAMBAH FILE BARU =================
 
-        $pengumuman->delete();
+    if($request->hasFile('gambar')){
 
-        return redirect()
-            ->route('pengumuman.index')
-            ->with('success', 'Pengumuman berhasil dihapus');
+        foreach($request->file('gambar') as $file){
+
+            $path = $file->store(
+                'pengumuman/gambar',
+                'public'
+            );
+
+            $gambarLama[] = $path;
+        }
     }
+
+    // ================= UPDATE DB =================
+
+    $pengumuman->update([
+        'judul' => $request->judul,
+        'isi' => $request->isi,
+        'kelas_id' => $request->kelas_id,
+        'gambar' => json_encode(array_values($gambarLama)),
+    ]);
+
+    return redirect()
+        ->route('pengumuman.index')
+        ->with('success', 'Pengumuman berhasil diupdate');
+}
+
+// Hapus pengumuman
+public function destroy($id)
+{
+    $pengumuman = Pengumuman::findOrFail($id);
+
+    // Hapus semua gambar
+    $gambar = is_array($pengumuman->gambar)
+        ? $pengumuman->gambar
+        : json_decode($pengumuman->gambar, true) ?? [];
+
+    foreach($gambar as $file)
+    {
+        Storage::disk('public')->delete($file);
+    }
+
+    // Hapus file lama jika ada
+    if($pengumuman->file)
+    {
+        Storage::disk('public')
+            ->delete($pengumuman->file);
+    }
+
+    // Hapus data
+    $pengumuman->delete();
+
+    return redirect()
+        ->route('pengumuman.index')
+        ->with(
+            'success',
+            'Pengumuman berhasil dihapus'
+        );
+}
 }

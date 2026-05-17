@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Daftar Pengumuman</title>
+    <title>Daftar Artikel</title>
 
     <!-- Font -->
     <link
@@ -46,7 +46,7 @@
 
             <div class="topbar-title">
 
-                Daftar Pengumuman
+                Daftar Artikel
 
             </div>
 
@@ -64,14 +64,14 @@
                 {{-- Header --}}
                 <div class="card-header">
 
-                    <h2>Daftar Pengumuman</h2>
+                    <h2>Semua Artikel</h2>
 
                     <a
-                        href="{{ route('pengumuman.create') }}"
+                        href="{{ route('kepalasekolah.artikel.create') }}"
                         class="tambah-btn"
                     >
 
-                        + Tambah Pengumuman
+                        + Upload Artikel
 
                     </a>
 
@@ -89,7 +89,7 @@
                 @endif
 
                 {{-- Table --}}
-                @if($pengumuman->count() > 0)
+                @if($articles->count() > 0)
 
                     <div class="table-wrapper">
 
@@ -115,7 +115,7 @@
 
                             <tbody>
 
-                                @foreach($pengumuman as $p)
+                                @foreach($articles as $article)
 
                                     <tr>
 
@@ -127,64 +127,49 @@
 
                                         <td class="judul">
 
-                                            {{ $p->judul }}
+                                            {{ $article->title }}
 
                                         </td>
 
                                         <td>
 
-                                            @if($p->kelas_id)
+                                            <span class="badge badge-umum">
 
-                                                <span class="badge badge-kelas">
+                                                {{ $article->category }}
 
-                                                    Kelas {{ $p->kelas_id }}
-
-                                                </span>
-
-                                            @else
-
-                                                <span class="badge badge-semua-kelas">
-
-                                                    Semua Kelas
-
-                                                </span>
-
-                                            @endif
+                                            </span>
 
                                         </td>
 
                                         <td>
 
-                                            {{ $p->created_at->format('d M Y') }}
+                                            {{ $article->created_at->format('d M Y') }}
 
                                         </td>
 
                                         <td>
 
                                             <div class="aksi">
+<a
+    href="{{ route('artikel.detail.artikel', $article->id) }}"
+    class="btn btn-detail"
+>
 
-                                                <a
-                                                    href="{{ route('pengumuman.detail.pengumuman', $p->id) }}"
-                                                    class="btn btn-detail"
-                                                >
+    Detail
 
-                                                    Detail
+</a>
 
-                                                </a>
-
-                                                <a
-                                                    href="{{ route('pengumuman.edit', $p->id) }}"
-                                                    class="btn btn-edit"
-                                                >
-
-                                                    Edit
-
-                                                </a>
+<a
+    href="{{ route('kepalasekolah.artikel.edit.artikel', $article->id) }}"
+    class="btn btn-edit"
+>
+    Edit
+</a>
 
                                                 <form
-                                                    action="{{ route('pengumuman.destroy', $p->id) }}"
+                                                    action="#"
                                                     method="POST"
-                                                    onsubmit="return confirm('Yakin hapus pengumuman ini?')"
+                                                    onsubmit="return confirm('Yakin hapus artikel ini?')"
                                                 >
 
                                                     @csrf
@@ -219,7 +204,7 @@
 
                     <div class="empty">
 
-                        Belum ada pengumuman.
+                        Belum ada artikel.
 
                     </div>
 

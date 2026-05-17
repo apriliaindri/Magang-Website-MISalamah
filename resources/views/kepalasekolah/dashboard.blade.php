@@ -76,6 +76,17 @@
             color:white; cursor:pointer;
         }
 
+        .btn-reset{
+    background:#FFC107 !important;
+    color:white;
+    margin-bottom: 10px;
+}
+
+.btn-delete{
+    background:#f44336 !important;
+    color:white;
+}
+
         table { width:100%; border-collapse:collapse; margin-top:15px; }
 
         table th, table td {
@@ -207,14 +218,22 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                        <form action="{{ route('kepalasekolah.user.reset',$user->id) }}" method="POST">
-                            @csrf
-                            <button type="submit">Reset</button>
-                        </form>
+<button
+    type="button"
+    class="btn-reset"
+    onclick="openResetModal({{ $user->id }})"
+>
+    Reset
+</button>
                         <form action="{{ route('kepalasekolah.user.delete',$user->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Hapus</button>
+                            <button
+    type="submit"
+    class="btn-delete"
+>
+    Hapus
+</button>
                         </form>
                     </td>
                 </tr>
@@ -230,21 +249,87 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <h3>Tambah User</h3>
 
-        <form method="POST" action="{{ route('kepalasekolah.user.store') }}">
+       <form method="POST" action="{{ route('kepalasekolah.user.store') }}">
+    @csrf
+
+    <input type="text" name="name" placeholder="Nama" required>
+
+    <input type="email" name="email" placeholder="Email" required>
+
+    <input type="password" name="password" placeholder="Password" required>
+
+    <select name="role" required>
+        <option value="">-- Pilih Role --</option>
+        <option value="guru">Guru</option>
+        <option value="kepala_sekolah">Kepala Sekolah</option>
+    </select>
+
+    <button type="submit">
+        Simpan
+    </button>
+
+</form>
+
+</div>
+</div>
+
+<!-- MODAL RESET PASSWORD -->
+<div id="resetModal" class="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="closeResetModal()"
+        >
+            &times;
+        </span>
+
+        <h3>Reset Password</h3>
+
+        <form
+            id="resetForm"
+            method="POST"
+        >
+
             @csrf
-            <input type="text" name="name" placeholder="Nama" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
 
-            <select name="role" required>
-                <option value="">-- Pilih Role --</option>
-                <option value="guru">Guru</option>
-                <option value="kepala_sekolah">Kepala Sekolah</option>
-            </select>
+<div style="position:relative;">
 
-            <button type="submit">Simpan</button>
+    <input
+        type="password"
+        name="new_password"
+        id="newPassword"
+        placeholder="Password Baru"
+        required
+        style="padding-right:45px;"
+    >
+
+    <span
+        onclick="togglePassword()"
+        style="
+            position:absolute;
+            right:15px;
+            top:30%;
+            transform:translateY(-50%);
+            cursor:pointer;
+            user-select:none;
+            font-size:18px;
+        "
+    >
+        👁
+    </span>
+
+</div>
+
+            <button type="submit">
+                Simpan Password
+            </button>
+
         </form>
+
     </div>
+
 </div>
 
 <!-- NOTIFICATION POPUP -->
@@ -292,6 +377,21 @@
 </style>
 
 <script>
+    function togglePassword()
+{
+    const input =
+        document.getElementById("newPassword");
+
+    if(input.type === "password")
+    {
+        input.type = "text";
+    }
+    else
+    {
+        input.type = "password";
+    }
+}
+
 function toggleSidebar() {
     document.getElementById("sidebar").classList.toggle("active");
 }
@@ -325,10 +425,38 @@ function closeModal() {
     document.getElementById("userModal").style.display = "none";
 }
 
-window.onclick = function(event) {
-    const modal = document.getElementById("userModal");
+function openResetModal(userId)
+{
+    document.getElementById("resetModal")
+        .style.display = "flex";
+
+    document.getElementById("resetForm")
+        .action =
+        "/kepalasekolah/user/reset/" + userId;
+}
+
+function closeResetModal()
+{
+    document.getElementById("resetModal")
+        .style.display = "none";
+}
+
+window.onclick = function(event)
+{
+    const modal =
+        document.getElementById("userModal");
+
+    const resetModal =
+        document.getElementById("resetModal");
+
     if (event.target == modal) {
+
         modal.style.display = "none";
+    }
+
+    if (event.target == resetModal) {
+
+        resetModal.style.display = "none";
     }
 }
 

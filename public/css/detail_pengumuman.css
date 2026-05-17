@@ -120,9 +120,10 @@ body{
 }
 
 .kategori-badge{
-    background:#dff1ff;
 
-    color:#3498db;
+    background:rgba(76, 175, 80, 0.25);
+
+    color:#2e7d32 !important;
 
     padding:8px 18px;
 

@@ -15,31 +15,141 @@ class ArticleController extends Controller
 
     public function store(Request $request)
 {
-    $path = null;
+    $request->validate([
 
-    if($request->hasFile('image')){
-        $path = $request->file('image')->store('artikel','public');
+        'title' => 'required',
+        'category' => 'required',
+        'content' => 'required',
+
+        'images.*' =>
+        'nullable|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:20480'
+
+    ]);
+
+    $files = [];
+
+    if($request->hasFile('images')){
+
+        foreach($request->file('images') as $file){
+
+            $path = $file->store('artikel', 'public');
+
+            $files[] = $path;
+        }
     }
 
     Article::create([
+
         'title' => $request->title,
+
         'category' => $request->category,
+
         'sub_category' => $request->sub_category,
+
         'content' => $request->content,
-        'image' => $path,
+
+        'image' => json_encode($files),
+
         'user_id' => auth()->id()
+
     ]);
 
-    // ⬇️ INI YANG DIUBAH
     return redirect()->route('home')
         ->with('success','Artikel berhasil dipublish');
+}
+
+public function daftarArtikel()
+{
+    $articles = Article::latest()->get();
+
+    return view(
+        'artikel.daftar_artikel',
+        compact('articles')
+    );
+}
+
+public function detailArtikel($id)
+{
+    $article = Article::findOrFail($id);
+
+    return view(
+        'artikel.detail_artikel',
+        compact('article')
+    );
+}
+
+public function editArtikel($id)
+{
+    $article = Article::findOrFail($id);
+
+    return view(
+        'kepalasekolah.artikel.edit_artikel',
+        compact('article')
+    );
+}
+
+public function updateArtikel(Request $request, $id)
+{
+    $article = Article::findOrFail($id);
+
+    $request->validate([
+        'title' => 'required',
+        'category' => 'required',
+        'content' => 'required',
+    ]);
+
+    $files = json_decode($article->image, true) ?? [];
+
+    if($request->hasFile('images')){
+
+        $files = [];
+
+        foreach($request->file('images') as $file){
+
+            $path = $file->store('artikel', 'public');
+
+            $files[] = $path;
+        }
+    }
+
+    $article->update([
+
+        'title' => $request->title,
+
+        'category' => $request->category,
+
+        'sub_category' => $request->sub_category,
+
+        'content' => $request->content,
+
+        'image' => json_encode($files),
+
+    ]);
+
+    return redirect()
+        ->route('kepalasekolah.artikel.index')
+        ->with('success', 'Artikel berhasil diupdate');
 }
 
 public function index()
 {
     $articles = Article::latest()->get();
-    $pengumuman = Pengumuman::latest()->get(); // ⬅️ ini yang kurang
 
-    return view('home', compact('articles','pengumuman'));
+    return view(
+        'kepalasekolah.artikel.index_artikel',
+        compact('articles')
+    );
+}
+
+public function home()
+{
+    $articles = Article::latest()->get();
+
+    $pengumuman = Pengumuman::latest()->get();
+
+    return view(
+        'home',
+        compact('articles', 'pengumuman')
+    );
 }
 }

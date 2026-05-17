@@ -1,16 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?php echo e($pengumuman->judul); ?></title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title><?php echo e($article->title); ?></title>
 
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo e(asset('css/detail_pengumuman.css')); ?>">
+    <link
+        rel="stylesheet"
+        href="<?php echo e(asset('css/detail_pengumuman.css')); ?>"
+    >
+
 </head>
 
 <body>
@@ -41,12 +54,12 @@
                     <div class="detail-meta">
 
                         <span class="kategori-badge">
-                            <?php echo e($pengumuman->kelas ? $pengumuman->kelas->nama_kelas : 'Semua Kelas'); ?>
+                            <?php echo e($article->category); ?>
 
                         </span>
 
                         <span class="detail-date">
-                            <?php echo e($pengumuman->created_at->format('d M Y, H:i')); ?>
+                            <?php echo e($article->created_at->format('d M Y, H:i')); ?>
 
                         </span>
 
@@ -54,14 +67,16 @@
 
                     
                     <h1 class="detail-title">
-                        <?php echo e($pengumuman->judul); ?>
+                        <?php echo e($article->title); ?>
 
                     </h1>
 
                     <?php
-                        $gambar = is_array($pengumuman->gambar)
-                            ? $pengumuman->gambar
-                            : json_decode($pengumuman->gambar, true) ?? [];
+
+                        $gambar = is_array($article->image)
+                            ? $article->image
+                            : json_decode($article->image, true) ?? [];
+
                     ?>
 
                     
@@ -124,6 +139,7 @@
                                     <img
                                         src="<?php echo e(asset('storage/' . $img)); ?>"
                                         alt="gallery"
+                                        onclick="openModal(this.src)"
                                     >
 
                                 </div>
@@ -137,7 +153,7 @@
                     
                     <div class="detail-text">
 
-                        <?php echo nl2br(e($pengumuman->isi)); ?>
+                        <?php echo nl2br(e($article->content)); ?>
 
 
                     </div>
@@ -193,4 +209,4 @@
 
 </body>
 </html>
-<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/pengumuman/detail_pengumuman.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/artikel/detail_artikel.blade.php ENDPATH**/ ?>

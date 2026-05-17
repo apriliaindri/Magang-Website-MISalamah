@@ -187,9 +187,9 @@ $ext = $filePertama
 
             <div class="header-line"></div>
 
-                        <a href="<?php echo e(route('artikel.daftar.artikel')); ?>" class="lihat-semua">
-                Lihat semua
-            </a>
+                      <a href="<?php echo e(route('artikel.daftar.artikel')); ?>" class="lihat-semua">
+    Lihat semua
+</a>
         </div>
 
         <?php
@@ -226,16 +226,26 @@ $ext = $filePertama
 
                         <div class="artikel-content">
 
-                            <span class="tanggal">
-                                <?php echo e($a->created_at->format('d M Y')); ?>
+    <div class="meta-row">
 
-                            </span>
+        <span class="kategori-home">
+            <?php echo e($a->category); ?>
 
-                            <h3>
-                                <?php echo e(\Illuminate\Support\Str::limit($a->title, 55)); ?>
+        </span>
 
-                            </h3>
-                        </div>
+        <span class="tanggal">
+            <?php echo e($a->created_at->format('d M Y')); ?>
+
+        </span>
+
+    </div>
+
+    <h3>
+        <?php echo e(\Illuminate\Support\Str::limit($a->title, 55)); ?>
+
+    </h3>
+
+</div>
 
                     </a>
 

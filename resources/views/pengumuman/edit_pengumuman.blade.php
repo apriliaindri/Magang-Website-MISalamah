@@ -26,8 +26,34 @@
 </head>
 
 <body>
+{{-- Topbar --}}
+<div class="topbar">
 
-    <div class="content">
+    <div class="topbar-left">
+
+        <a
+            href="{{ route('pengumuman.index') }}"
+            class="back-btn"
+        >
+
+            <img
+                src="/img/back.png"
+                alt="Back"
+            >
+
+        </a>
+
+        <div class="topbar-title">
+
+            Edit Pengumuman
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="content with-navbar">
 
         <div class="card">
 
@@ -73,7 +99,7 @@
                 <select name="kelas_id">
 
                     <option value="">
-                        Umum (Semua Kelas)
+                        Semua Kelas
                     </option>
 
                     @foreach($kelas as $k)
@@ -91,23 +117,120 @@
 
                 </select>
 
-                <label>Upload File (Opsional)</label>
+@php
 
-                <input
-                    type="file"
-                    name="file"
-                >
+    $files = json_decode($pengumuman->gambar, true) ?? [];
 
-                @if($pengumuman->file)
+@endphp
 
-                    <small class="file-info">
+<label>File Saat Ini</label>
 
-                        File saat ini:
-                        {{ $pengumuman->file }}
+@if(count($files) > 0)
 
-                    </small>
+    <div class="file-list">
+
+    @foreach($files as $index => $file)
+
+        @php
+
+            $ext = strtolower(
+                pathinfo($file, PATHINFO_EXTENSION)
+            );
+
+        @endphp
+
+<div
+    class="file-item"
+    id="file-{{ $index }}"
+>
+
+            <div class="preview-card">
+
+                {{-- IMAGE --}}
+                @if(in_array($ext, ['jpg','jpeg','png','webp']))
+
+                    <img
+                        src="{{ asset('storage/' . $file) }}"
+                        class="preview-image"
+                        onclick="openModal(this.src)"
+                    >
+
+                    <div class="preview-name">
+
+                        {{ basename($file) }}
+
+                    </div>
+
+                {{-- PDF --}}
+                @elseif($ext == 'pdf')
+
+                    <a
+                        href="{{ asset('storage/' . $file) }}"
+                        target="_blank"
+                        class="pdf-preview"
+                    >
+
+                        <img
+                            src="{{ asset('img/pdf-icon.png') }}"
+                            class="pdf-icon"
+                        >
+
+                        <span>
+
+                            {{ basename($file) }}
+
+                        </span>
+
+                    </a>
+
+                {{-- FILE --}}
+                @else
+
+                    <div class="file-card">
+
+                        <div class="preview-name">
+
+                            📎 {{ basename($file) }}
+
+                        </div>
+
+                    </div>
 
                 @endif
+
+                {{-- BUTTON HAPUS --}}
+                <button
+                    type="button"
+                    class="remove-file"
+                    onclick="removeExistingFile(
+                        '{{ $index }}',
+                        '{{ $file }}'
+                    )"
+                >
+                    ×
+                </button>
+
+            </div>
+
+        </div>
+
+    @endforeach
+
+</div>
+
+{{-- input hidden penampung file yg dihapus --}}
+<div id="deleted-files"></div>
+
+
+@endif
+
+<label>Tambah File Baru</label>
+
+<input
+    type="file"
+    name="gambar[]"
+    multiple
+>
 
                 <button
                     type="submit"
@@ -123,6 +246,62 @@
         </div>
 
     </div>
+
+    <script>
+
+    function removeExistingFile(index, file){
+
+        // hapus preview dari tampilan
+        document
+            .getElementById(`file-${index}`)
+            .remove();
+
+        // buat input hidden
+        const input = document.createElement('input');
+
+        input.type = 'hidden';
+
+        input.name = 'hapus_file[]';
+
+        input.value = file;
+
+        document
+            .getElementById('deleted-files')
+            .appendChild(input);
+
+    }
+
+    function openModal(src){
+
+        document.getElementById('imageModal').style.display = 'flex';
+
+        document.getElementById('modalImage').src = src;
+
+    }
+
+    function closeModal(){
+
+        document.getElementById('imageModal').style.display = 'none';
+
+    }
+
+</script>
+
+<div id="imageModal" class="image-modal">
+
+    <span
+        class="close-modal"
+        onclick="closeModal()"
+    >
+        &times;
+    </span>
+
+    <img
+        id="modalImage"
+        class="modal-content"
+    >
+
+</div>
 
 </body>
 </html>
