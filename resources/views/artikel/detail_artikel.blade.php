@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
     <meta charset="UTF-8">
@@ -12,13 +12,13 @@
 
     <title>{{ $article->title }}</title>
 
-    <!-- Font -->
+    {{-- Font --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
-    <!-- CSS -->
+    {{-- CSS --}}
     <link
         rel="stylesheet"
         href="{{ asset('css/detail_pengumuman.css') }}"
@@ -31,12 +31,12 @@
     {{-- Navbar --}}
     <nav class="navbar">
 
-        <a href="{{ url()->previous() }}" class="back-btn">
-
+        <a
+            href="{{ url()->previous() }}"
+            class="back-btn"
+        >
             <span class="back-icon">&#10094;</span>
-
             <span>Kembali</span>
-
         </a>
 
     </nav>
@@ -89,13 +89,13 @@
 
                                 <img
                                     src="{{ asset('storage/' . $file) }}"
-                                    alt="gambar"
+                                    alt="Gambar Artikel"
                                     onclick="openModal(this.src)"
                                 >
 
                             </div>
 
-                        @elseif($ext == 'pdf')
+                        @elseif($ext === 'pdf')
 
                             <div class="file-card">
 
@@ -135,7 +135,7 @@
 
                                     <img
                                         src="{{ asset('storage/' . $img) }}"
-                                        alt="gallery"
+                                        alt="Gallery Artikel"
                                         onclick="openModal(this.src)"
                                     >
 
@@ -163,45 +163,29 @@
     </section>
 
     {{-- Image Modal --}}
-    <div id="imageModal" class="image-modal">
+    <div
+        id="imageModal"
+        class="image-modal"
+    >
 
-        <span class="close-modal" onclick="closeModal()">
+        <span
+            class="close-modal"
+            onclick="closeModal()"
+        >
             &times;
         </span>
 
-        <img id="modalImage" class="modal-content" alt="Preview">
+        <img
+            id="modalImage"
+            class="modal-content"
+            alt="Preview"
+        >
 
     </div>
 
-    <script>
-
-        function openModal(src) {
-
-            document.getElementById('imageModal').style.display = 'flex';
-
-            document.getElementById('modalImage').src = src;
-
-        }
-
-        function closeModal() {
-
-            document.getElementById('imageModal').style.display = 'none';
-
-        }
-
-        document
-            .getElementById('imageModal')
-            .addEventListener('click', function (e) {
-
-                if (e.target.id === 'imageModal') {
-
-                    closeModal();
-
-                }
-
-            });
-
-    </script>
+    {{-- JS --}}
+    <script src="{{ asset('js/detail_artikel.js') }}"></script>
 
 </body>
+
 </html>

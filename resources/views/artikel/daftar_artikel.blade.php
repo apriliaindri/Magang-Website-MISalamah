@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
     <meta charset="UTF-8">
@@ -11,13 +12,13 @@
 
     <title>Daftar Artikel</title>
 
-    <!-- Font -->
+    {{-- Font --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <!-- CSS -->
+    {{-- CSS --}}
     <link
         rel="stylesheet"
         href="{{ asset('css/daftar_pengumuman.css') }}"
@@ -34,13 +35,8 @@
             href="{{ url('/') }}"
             class="back-btn"
         >
-
-            <span class="back-icon">
-                &#10094;
-            </span>
-
+            <span class="back-icon">&#10094;</span>
             <span>Kembali</span>
-
         </a>
 
         <h1 class="navbar-title">
@@ -58,15 +54,15 @@
 
                 <div class="pengumuman-grid">
 
-                    @foreach($articles as $a)
+                    @foreach($articles as $article)
 
                         @php
 
-                            $gambar = is_array($a->image)
-                                ? $a->image
-                                : json_decode($a->image, true) ?? [];
+                            $gambar = is_array($article->image)
+                                ? $article->image
+                                : json_decode($article->image, true) ?? [];
 
-                            $filePertama = $gambar[0] ?? $a->image ?? null;
+                            $filePertama = $gambar[0] ?? $article->image ?? null;
 
                             $ext = $filePertama
                                 ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
@@ -75,7 +71,7 @@
                         @endphp
 
                         <a
-                            href="{{ route('artikel.detail.artikel', $a->id) }}"
+                            href="{{ route('artikel.detail.artikel', $article->id) }}"
                             class="pengumuman-card"
                         >
 
@@ -88,10 +84,10 @@
 
                                         <img
                                             src="{{ asset('storage/' . $filePertama) }}"
-                                            alt="thumbnail"
+                                            alt="Thumbnail Artikel"
                                         >
 
-                                    @elseif($ext == 'pdf')
+                                    @elseif($ext === 'pdf')
 
                                         <div class="pdf-preview">
 
@@ -108,7 +104,7 @@
 
                                         <img
                                             src="{{ asset('img/default-news.jpg') }}"
-                                            alt="default"
+                                            alt="Default Thumbnail"
                                         >
 
                                     @endif
@@ -117,7 +113,7 @@
 
                                     <img
                                         src="{{ asset('img/default-news.jpg') }}"
-                                        alt="default"
+                                        alt="Default Thumbnail"
                                     >
 
                                 @endif
@@ -128,26 +124,21 @@
                             <div class="card-content">
 
                                 <span class="kategori-home">
-
-                                    {{ $a->category }}
-
+                                    {{ $article->category }}
                                 </span>
 
                                 <span class="tanggal">
-
-                                    {{ $a->created_at->format('d M Y') }}
-
+                                    {{ $article->created_at->format('d M Y') }}
                                 </span>
 
                                 <h3>
-
-                                    {{ \Illuminate\Support\Str::limit($a->title, 70) }}
-
+                                    {{ \Illuminate\Support\Str::limit($article->title, 70) }}
                                 </h3>
 
-                            <p class="preview-text">
-    {{ \Illuminate\Support\Str::limit(strip_tags($a->content), 120) }}
-</p>
+                                <p class="preview-text">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 120) }}
+                                </p>
+
                             </div>
 
                         </a>
@@ -159,9 +150,7 @@
             @else
 
                 <div class="empty-state">
-
                     <p>Belum ada artikel.</p>
-
                 </div>
 
             @endif
@@ -170,5 +159,9 @@
 
     </section>
 
+    {{-- JS --}}
+    <script src="{{ asset('js/daftar_artikel.js') }}"></script>
+
 </body>
+
 </html>
