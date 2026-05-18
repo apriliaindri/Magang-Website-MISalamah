@@ -1,176 +1,110 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Daftar Pengumuman</title>
 
-    <!-- Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <!-- CSS -->
     <link
         rel="stylesheet"
         href="{{ asset('css/daftar_pengumuman.css') }}"
     >
-
 </head>
 
 <body>
 
     {{-- Navbar --}}
     <nav class="navbar">
-
-        <a
-            href="{{ url('/') }}"
-            class="back-btn"
-        >
-
-            <span class="back-icon">
-                &#10094;
-            </span>
-
+        <a href="{{ url('/') }}" class="back-btn">
+            <span class="back-icon">&#10094;</span>
             <span>Kembali</span>
-
         </a>
 
         <h1 class="navbar-title">
             Daftar Pengumuman
         </h1>
-
     </nav>
 
     {{-- Content --}}
     <section class="daftar-pengumuman-section">
-
         <div class="container">
 
-            @if($pengumuman->count() > 0)
+            @forelse($pengumuman as $p)
 
-                <div class="pengumuman-grid">
+                @php
+                    $file = $p->first_file;
+                    $ext = $p->first_file_extension;
+                @endphp
 
-                    @foreach($pengumuman as $p)
+                <a href="{{ route('pengumuman.detail.pengumuman', $p->id) }}" class="pengumuman-card">
 
-                        @php
+                    {{-- Thumbnail --}}
+                    <div class="card-image">
 
-                            $gambar = is_array($p->gambar)
-                                ? $p->gambar
-                                : json_decode($p->gambar, true) ?? [];
+                        @if($file)
 
-                            $filePertama = $gambar[0] ?? null;
+                            @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
 
-                            $ext = $filePertama
-                                ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
-                                : null;
+                                <img src="{{ asset('storage/' . $file) }}" alt="thumbnail">
 
-                        @endphp
+                            @elseif($ext === 'pdf')
 
-                        <a
-                            href="{{ route('pengumuman.detail.pengumuman', $p->id) }}"
-                            class="pengumuman-card"
-                        >
+                                <div class="pdf-preview">
+                                    <img src="{{ asset('img/pdf-icon.png') }}" alt="PDF">
+                                    <span>PDF Document</span>
+                                </div>
 
-                            {{-- Thumbnail --}}
-                            <div class="card-image">
+                            @else
 
-                                @if($filePertama)
+                                <img src="{{ asset('img/default-news.jpg') }}" alt="default">
 
-                                    @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
+                            @endif
 
-                                        <img
-                                            src="{{ asset('storage/' . $filePertama) }}"
-                                            alt="thumbnail"
-                                        >
+                        @else
 
-                                    @elseif($ext == 'pdf')
+                            <img src="{{ asset('img/default-news.jpg') }}" alt="default">
 
-                                        <div class="pdf-preview">
+                        @endif
 
-                                            <img
-                                                src="{{ asset('img/pdf-icon.png') }}"
-                                                alt="PDF"
-                                            >
+                    </div>
 
-                                            <span>PDF Document</span>
+                    {{-- Content --}}
+                    <div class="card-content">
 
-                                        </div>
+                        <span class="kategori-home">
+                            {{ $p->kelas?->nama_kelas ?? 'Semua Kelas' }}
+                        </span>
 
-                                    @else
+                        <span class="tanggal">
+                            {{ $p->created_at->format('d M Y') }}
+                        </span>
 
-                                        <img
-                                            src="{{ asset('img/default-news.jpg') }}"
-                                            alt="default"
-                                        >
+                        <h3>
+                            {{ \Illuminate\Support\Str::limit($p->judul, 70) }}
+                        </h3>
 
-                                    @endif
+                        <p>
+                            {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 120) }}
+                        </p>
 
-                                @else
+                    </div>
 
-                                    <img
-                                        src="{{ asset('img/default-news.jpg') }}"
-                                        alt="default"
-                                    >
+                </a>
 
-                                @endif
-
-                            </div>
-
-                            {{-- Content --}}
-                            <div class="card-content">
-
-                                <span class="kategori-home">
-
-                                    {{ $p->kelas ? $p->kelas->nama_kelas : 'Semua Kelas' }}
-
-                                </span>
-
-                                <span class="tanggal">
-
-                                    {{ $p->created_at->format('d M Y') }}
-
-                                </span>
-
-                                <h3>
-
-                                    {{ \Illuminate\Support\Str::limit($p->judul, 70) }}
-
-                                </h3>
-
-                                <p>
-
-                                    {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 120) }}
-
-                                </p>
-
-                            </div>
-
-                        </a>
-
-                    @endforeach
-
-                </div>
-
-            @else
-
+            @empty
                 <div class="empty-state">
-
                     <p>Belum ada pengumuman.</p>
-
                 </div>
-
-            @endif
+            @endforelse
 
         </div>
-
     </section>
 
 </body>

@@ -6,10 +6,8 @@
 
     <title>{{ $pengumuman->judul }}</title>
 
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/detail_pengumuman.css') }}">
 </head>
 
@@ -17,37 +15,28 @@
 
     {{-- Navbar --}}
     <nav class="navbar">
-
         <a href="{{ url()->previous() }}" class="back-btn">
-
             <span class="back-icon">&#10094;</span>
-
             <span>Kembali</span>
-
         </a>
-
     </nav>
 
     {{-- Content --}}
     <section class="detail-section">
-
         <div class="container">
-
             <div class="detail-wrapper">
 
                 <div class="detail-content">
 
                     {{-- Meta --}}
                     <div class="detail-meta">
-
                         <span class="kategori-badge">
-                            {{ $pengumuman->kelas ? $pengumuman->kelas->nama_kelas : 'Semua Kelas' }}
+                            {{ $pengumuman->kelas?->nama_kelas ?? 'Semua Kelas' }}
                         </span>
 
                         <span class="detail-date">
                             {{ $pengumuman->created_at->format('d M Y, H:i') }}
                         </span>
-
                     </div>
 
                     {{-- Title --}}
@@ -56,13 +45,11 @@
                     </h1>
 
                     @php
-                        $gambar = is_array($pengumuman->gambar)
-                            ? $pengumuman->gambar
-                            : json_decode($pengumuman->gambar, true) ?? [];
+                        $media = $pengumuman->media_list;
                     @endphp
 
                     {{-- File & Image --}}
-                    @foreach($gambar as $file)
+                    @foreach($media ?? [] as $file)
 
                         @php
                             $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
@@ -71,38 +58,25 @@
                         @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
 
                             <div class="detail-image">
-
                                 <img
                                     src="{{ asset('storage/' . $file) }}"
                                     alt="gambar"
-                                    onclick="openModal(this.src)"
+                                    data-image="{{ asset('storage/' . $file) }}"
                                 >
-
                             </div>
 
-                        @elseif($ext == 'pdf')
+                        @elseif($ext === 'pdf')
 
                             <div class="file-card">
-
-                                <img
-                                    src="{{ asset('img/pdf-icon.png') }}"
-                                    class="file-icon"
-                                    alt="PDF"
-                                >
+                                <img src="{{ asset('img/pdf-icon.png') }}" class="file-icon" alt="PDF">
 
                                 <div>
-
                                     <h3>File PDF</h3>
 
-                                    <a
-                                        href="{{ asset('storage/' . $file) }}"
-                                        target="_blank"
-                                    >
+                                    <a href="{{ asset('storage/' . $file) }}" target="_blank">
                                         Buka PDF
                                     </a>
-
                                 </div>
-
                             </div>
 
                         @endif
@@ -110,82 +84,42 @@
                     @endforeach
 
                     {{-- Gallery --}}
-                    @if(count($gambar) > 1)
+@if(count($media ?? []) > 0)
 
                         <div class="gallery-wrapper">
-
-                            @foreach(array_slice($gambar, 1) as $img)
+                            @foreach(array_slice($media, 1) as $img)
 
                                 <div class="gallery-item">
-
                                     <img
                                         src="{{ asset('storage/' . $img) }}"
                                         alt="gallery"
                                     >
-
                                 </div>
 
                             @endforeach
-
                         </div>
 
                     @endif
 
                     {{-- Text --}}
                     <div class="detail-text">
-
                         {!! nl2br(e($pengumuman->isi)) !!}
-
                     </div>
 
                 </div>
 
             </div>
-
         </div>
-
     </section>
 
-    {{-- Image Modal --}}
+    {{-- Modal --}}
     <div id="imageModal" class="image-modal">
-
-        <span class="close-modal" onclick="closeModal()">
-            &times;
-        </span>
-
+        <span class="close-modal">&times;</span>
         <img id="modalImage" class="modal-content" alt="Preview">
-
     </div>
 
-    <script>
-
-        function openModal(src) {
-
-            document.getElementById('imageModal').style.display = 'flex';
-
-            document.getElementById('modalImage').src = src;
-
-        }
-
-        function closeModal() {
-
-            document.getElementById('imageModal').style.display = 'none';
-
-        }
-
-        document
-            .getElementById('imageModal')
-            .addEventListener('click', function (e) {
-
-                if (e.target.id === 'imageModal') {
-
-                    closeModal();
-
-                }
-
-            });
-
-    </script>
+    {{-- JS dipisah --}}
+    <script src="{{ asset('js/detail_pengumuman.js') }}"></script>
 
 </body>
 </html>
