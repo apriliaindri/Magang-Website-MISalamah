@@ -1,45 +1,90 @@
-@extends('layouts.auth')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-@section('content')
-<section class="login-section">
-    <div class="login-box">
+    <title>Login</title>
 
-        <h2>Login</h2>
-@if(session('success'))
-    <p style="color:green;">
-        {{ session('success') }}
-    </p>
-@endif
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+</head>
+<body>
 
-            <input type="email" name="email" placeholder="Email" required>
+    {{-- NAVBAR --}}
+    <nav class="navbar">
 
-            <div class="password-wrapper">
-                <input type="password" name="password" id="password" placeholder="Password" required>
-                <span class="toggle-password" onclick="togglePassword()">👁</span>
-            </div>
+        <a href="{{ url('/') }}" class="back-btn">
+            &#10094; Kembali
+        </a>
 
-            <button type="submit">Login</button>
+    </nav>
 
-            <p style="margin-top:15px;">
-                Belum memiliki akun?
-                <a href="{{ route('register.kode') }}">Register</a>
-            </p>
+    {{-- LOGIN --}}
+    <section class="login-section">
 
-            @error('email')
-                <p class="error">{{ $message }}</p>
-            @enderror
+        <div class="login-box">
 
-        </form>
+            <h2>Login</h2>
 
-    </div>
-</section>
+            @if(session('success'))
+                <p class="success">
+                    {{ session('success') }}
+                </p>
+            @endif
 
-<script>
-function togglePassword() {
-    const password = document.getElementById("password");
-    password.type = password.type === "password" ? "text" : "password";
-}
-</script>
-@endsection
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                >
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        required
+                    >
+
+                    <span
+                        class="toggle-password"
+                        id="togglePassword"
+                    >
+                        👁
+                    </span>
+
+                </div>
+
+                <button type="submit">
+                    Login
+                </button>
+
+                <p class="register-text">
+                    Belum memiliki akun?
+                    <a href="{{ route('register.kode') }}">
+                        Register
+                    </a>
+                </p>
+
+                @error('email')
+                    <p class="error">
+                        {{ $message }}
+                    </p>
+                @enderror
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <script src="{{ asset('js/login.js') }}"></script>
+
+</body>
+</html>

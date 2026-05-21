@@ -12,195 +12,143 @@ class PengumumanController extends Controller
     // Admin list
     public function index()
     {
-        $pengumuman = Pengumuman::latest()->get();
-
-        return view('pengumuman.index', compact('pengumuman'));
+        return view('pengumuman.index', [
+            'pengumuman' => Pengumuman::latest()->get()
+        ]);
     }
 
-    // Halaman publik
+    // Publik list
     public function daftarPengumuman()
     {
-        $pengumuman = Pengumuman::latest()->get();
-
-        return view(
-            'pengumuman.daftar_pengumuman',
-            compact('pengumuman')
-        );
+        return view('pengumuman.daftar_pengumuman', [
+            'pengumuman' => Pengumuman::latest()->get()
+        ]);
     }
 
-    // Detail pengumuman
+    // Detail
     public function detail($id)
     {
-        $pengumuman = Pengumuman::findOrFail($id);
-
-        return view(
-            'pengumuman.detail_pengumuman',
-            compact('pengumuman')
-        );
+        return view('pengumuman.detail_pengumuman', [
+            'pengumuman' => Pengumuman::findOrFail($id)
+        ]);
     }
 
-    // Form create
+    // Create form
     public function create()
     {
-        $kelas = Kelas::all();
-
-        return view('pengumuman.create', compact('kelas'));
+        return view('pengumuman.create', [
+            'kelas' => Kelas::all()
+        ]);
     }
 
-    // Simpan pengumuman
+    // STORE
     public function store(Request $request)
     {
-        if (!in_array(auth()->user()->role, ['guru', 'kepala_sekolah'])) {
-            abort(403);
-        }
+        abort_unless(
+            in_array(auth()->user()->role, ['guru', 'kepala_sekolah']),
+            403
+        );
 
-        $request->validate([
+        $validated = $request->validate([
             'judul' => 'required',
             'isi' => 'required',
         ]);
 
-        // Upload file
-        $filePath = null;
+        // file tunggal
+        $filePath = $request->hasFile('file')
+            ? $request->file('file')->store('pengumuman/file', 'public')
+            : null;
 
-        if ($request->hasFile('file')) {
-
-            $filePath = $request->file('file')
-                ->store('pengumuman/file', 'public');
-        }
-
-        // Upload multiple gambar
+        // multiple gambar
         $gambarPaths = [];
 
         if ($request->hasFile('files')) {
-
-            foreach ($request->file('files') as $gambar) {
-
-                $path = $gambar->store(
-                    'pengumuman/gambar',
-                    'public'
-                );
-
-                $gambarPaths[] = $path;
+            foreach ($request->file('files') as $file) {
+                $gambarPaths[] = $file->store('pengumuman/gambar', 'public');
             }
         }
 
-        // Simpan data
         Pengumuman::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
+            'judul' => $validated['judul'],
+            'isi' => $validated['isi'],
             'kelas_id' => $request->kelas_id,
             'user_id' => auth()->id(),
-
             'file' => $filePath,
-            'gambar' => json_encode($gambarPaths),
+            'gambar' => $gambarPaths, // 👉 kalau pakai cast (lihat bawah)
         ]);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Pengumuman berhasil ditambahkan');
+        return back()->with('success', 'Pengumuman berhasil ditambahkan');
     }
 
-    // Form edit
+    // EDIT
     public function edit($id)
+    {
+        return view('pengumuman.edit_pengumuman', [
+            'pengumuman' => Pengumuman::findOrFail($id),
+            'kelas' => Kelas::all()
+        ]);
+    }
+
+    // UPDATE
+    public function update(Request $request, $id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
 
-        $kelas = Kelas::all();
+        $validated = $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+        ]);
 
-        return view(
-            'pengumuman.edit_pengumuman',
-            compact('pengumuman', 'kelas')
-        );
-    }
+        $gambar = $pengumuman->gambar ?? [];
 
-public function update(Request $request, $id)
-{
-    $pengumuman = Pengumuman::findOrFail($id);
+        // hapus gambar
+        if ($request->hapus_file) {
+            foreach ($request->hapus_file as $hapus) {
+                Storage::disk('public')->delete($hapus);
 
-    $request->validate([
-        'judul' => 'required',
-        'isi' => 'required',
-    ]);
-
-    // file lama
-    $gambarLama = json_decode($pengumuman->gambar, true) ?? [];
-
-    // ================= HAPUS FILE =================
-
-    if($request->hapus_file){
-
-        foreach($request->hapus_file as $hapus){
-
-            // hapus dari storage
-            Storage::disk('public')->delete($hapus);
-
-            // hapus dari array
-            $gambarLama = array_filter(
-                $gambarLama,
-                fn($item) => $item != $hapus
-            );
+                $gambar = array_values(array_filter(
+                    $gambar,
+                    fn ($item) => $item !== $hapus
+                ));
+            }
         }
-    }
 
-    // ================= TAMBAH FILE BARU =================
-
-    if($request->hasFile('gambar')){
-
-        foreach($request->file('gambar') as $file){
-
-            $path = $file->store(
-                'pengumuman/gambar',
-                'public'
-            );
-
-            $gambarLama[] = $path;
+        // tambah gambar baru
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $file) {
+                $gambar[] = $file->store('pengumuman/gambar', 'public');
+            }
         }
+
+        $pengumuman->update([
+            'judul' => $validated['judul'],
+            'isi' => $validated['isi'],
+            'kelas_id' => $request->kelas_id,
+            'gambar' => $gambar,
+        ]);
+
+        return redirect()
+            ->route('pengumuman.index')
+            ->with('success', 'Pengumuman berhasil diupdate');
     }
 
-    // ================= UPDATE DB =================
-
-    $pengumuman->update([
-        'judul' => $request->judul,
-        'isi' => $request->isi,
-        'kelas_id' => $request->kelas_id,
-        'gambar' => json_encode(array_values($gambarLama)),
-    ]);
-
-    return redirect()
-        ->route('pengumuman.index')
-        ->with('success', 'Pengumuman berhasil diupdate');
-}
-
-// Hapus pengumuman
-public function destroy($id)
-{
-    $pengumuman = Pengumuman::findOrFail($id);
-
-    // Hapus semua gambar
-    $gambar = is_array($pengumuman->gambar)
-        ? $pengumuman->gambar
-        : json_decode($pengumuman->gambar, true) ?? [];
-
-    foreach($gambar as $file)
+    // DELETE
+    public function destroy($id)
     {
-        Storage::disk('public')->delete($file);
+        $pengumuman = Pengumuman::findOrFail($id);
+
+        foreach (($pengumuman->gambar ?? []) as $file) {
+            Storage::disk('public')->delete($file);
+        }
+
+        if ($pengumuman->file) {
+            Storage::disk('public')->delete($pengumuman->file);
+        }
+
+        $pengumuman->delete();
+
+        return redirect()
+            ->route('pengumuman.index')
+            ->with('success', 'Pengumuman berhasil dihapus');
     }
-
-    // Hapus file lama jika ada
-    if($pengumuman->file)
-    {
-        Storage::disk('public')
-            ->delete($pengumuman->file);
-    }
-
-    // Hapus data
-    $pengumuman->delete();
-
-    return redirect()
-        ->route('pengumuman.index')
-        ->with(
-            'success',
-            'Pengumuman berhasil dihapus'
-        );
-}
 }

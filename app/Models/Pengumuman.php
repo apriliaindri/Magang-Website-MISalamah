@@ -21,10 +21,10 @@ class Pengumuman extends Model
     ];
 
     // Cast gambar sebagai array
-    protected $casts = [
-        'gambar' => 'array',
-    ];
-
+protected $casts = [
+    'media_list' => 'array',
+    'gambar' => 'array',
+];
     // Relasi ke user
     public function user()
     {

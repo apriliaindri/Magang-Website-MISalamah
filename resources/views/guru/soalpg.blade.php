@@ -2,126 +2,223 @@
 
 @section('content')
 
-<div style="max-width:900px;margin:auto;padding:40px">
+    <div class="container-pg">
 
-<h2 style="margin-bottom:30px">Buat Soal Pilihan Ganda</h2>
+        {{-- Title --}}
+        <h2 class="page-title">
+            Buat Soal Pilihan Ganda
+        </h2>
 
-@if(session('success'))
-<div style="background:#d4edda;padding:15px;border-radius:8px;margin-bottom:20px">
-{{ session('success') }}
-</div>
-@endif
+        {{-- Success Message --}}
+        @if(session('success'))
 
-{{-- =========================
-FORM TAMBAH SOAL (SUDAH FIX)
-========================= --}}
+            <div class="alert-success">
+                {{ session('success') }}
+            </div>
 
-<form action="{{ route('simpan.pg') }}" method="POST">
-@csrf
+        @endif
 
-<input type="hidden" name="tugas_id" value="{{ request('tugas_id') }}">
+        {{-- Form Tambah Soal --}}
+        <form
+            action="{{ route('simpan.pg') }}"
+            method="POST"
+        >
 
-<div style="background:white;padding:25px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,0.1)">
+            @csrf
 
-<label>Pertanyaan</label>
-<textarea name="pertanyaan" class="form-control"></textarea>
+            <input
+                type="hidden"
+                name="tugas_id"
+                value="{{ request('tugas_id') }}"
+            >
 
-<br>
+            <div class="form-card">
 
-<label>Score Soal</label>
-<input type="number" name="score" value="10" class="form-control">
+                {{-- Pertanyaan --}}
+                <label>
+                    Pertanyaan
+                </label>
 
-<br>
+                <textarea
+                    name="pertanyaan"
+                    class="form-control"
+                ></textarea>
 
-<label>Opsi A</label>
-<input type="text" name="opsi_a" class="form-control">
+                <br>
 
-<label>Opsi B</label>
-<input type="text" name="opsi_b" class="form-control">
+                {{-- Score --}}
+                <label>
+                    Score Soal
+                </label>
 
-<label>Opsi C</label>
-<input type="text" name="opsi_c" class="form-control">
+                <input
+                    type="number"
+                    name="score"
+                    value="10"
+                    class="form-control"
+                >
 
-<label>Opsi D</label>
-<input type="text" name="opsi_d" class="form-control">
+                <br>
 
-<br>
+                {{-- Opsi --}}
+                <label>
+                    Opsi A
+                </label>
 
-<label>Jawaban Benar</label>
-<select name="jawaban_benar" class="form-control">
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-</select>
+                <input
+                    type="text"
+                    name="opsi_a"
+                    class="form-control"
+                >
 
-<br>
+                <label>
+                    Opsi B
+                </label>
 
-<button style="background:#4CAF50;color:white;padding:10px 20px;border:none;border-radius:8px">
-Simpan Soal
-</button>
+                <input
+                    type="text"
+                    name="opsi_b"
+                    class="form-control"
+                >
 
-</div>
+                <label>
+                    Opsi C
+                </label>
 
-</form>
+                <input
+                    type="text"
+                    name="opsi_c"
+                    class="form-control"
+                >
 
-{{-- =========================
-PUBLISH (SUDAH DIKUNCI PER TUGAS)
-========================= --}}
+                <label>
+                    Opsi D
+                </label>
 
-<form action="{{ route('publish.pg') }}" method="POST" style="margin-top:10px">
-@csrf
+                <input
+                    type="text"
+                    name="opsi_d"
+                    class="form-control"
+                >
 
-<input type="hidden" name="tugas_id" value="{{ request('tugas_id') }}">
+                <br>
 
-<button style="background:#2196F3;color:white;padding:10px 20px;border:none;border-radius:8px">
-Publish ke Siswa
-</button>
+                {{-- Jawaban Benar --}}
+                <label>
+                    Jawaban Benar
+                </label>
 
-</form>
+                <select
+                    name="jawaban_benar"
+                    class="form-control"
+                >
 
-{{-- =========================
-DAFTAR SOAL
-========================= --}}
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
 
-<h3 style="margin-top:40px">Daftar Soal</h3>
+                </select>
 
-<table border="1" width="100%" cellpadding="10">
+                <br>
 
-<tr>
-<th>No</th>
-<th>Pertanyaan</th>
-<th>Score</th>
-<th>Aksi</th>
-</tr>
+                {{-- Submit --}}
+                <button class="btn btn-success">
+                    Simpan Soal
+                </button>
 
-@foreach($soal as $s)
+            </div>
 
-<tr>
-<td>{{ $loop->iteration }}</td>
-<td>{{ $s->pertanyaan }}</td>
-<td>{{ $s->score }}</td>
+        </form>
 
-<td>
+        {{-- Publish --}}
+        <form
+            action="{{ route('publish.pg') }}"
+            method="POST"
+            class="publish-form"
+        >
 
-<form action="{{ route('hapus.pg',$s->id) }}" method="POST">
-@csrf
-@method('DELETE')
+            @csrf
 
-<button style="background:red;color:white;border:none;padding:6px 10px;border-radius:6px">
-Hapus
-</button>
+            <input
+                type="hidden"
+                name="tugas_id"
+                value="{{ request('tugas_id') }}"
+            >
 
-</form>
+            <button class="btn btn-primary">
+                Publish ke Siswa
+            </button>
 
-</td>
+        </form>
 
-</tr>
+        {{-- Daftar Soal --}}
+        <h3 class="section-title">
+            Daftar Soal
+        </h3>
 
-@endforeach
+        <table class="table-soal">
 
-</table>
+            <thead>
 
-</div>
+                <tr>
+
+                    <th>No</th>
+                    <th>Pertanyaan</th>
+                    <th>Score</th>
+                    <th>Aksi</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach($soal as $s)
+
+                    <tr>
+
+                        <td>
+                            {{ $loop->iteration }}
+                        </td>
+
+                        <td>
+                            {{ $s->pertanyaan }}
+                        </td>
+
+                        <td>
+                            {{ $s->score }}
+                        </td>
+
+                        <td>
+
+                            <form
+                                action="{{ route('hapus.pg', $s->id) }}"
+                                method="POST"
+                            >
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button class="btn btn-danger">
+                                    Hapus
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                @endforeach
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {{-- JS --}}
+    <script src="{{ asset('js/buat_pg.js') }}"></script>
 
 @endsection

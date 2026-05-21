@@ -31,12 +31,14 @@
     {{-- Navbar --}}
     <nav class="navbar">
 
-        <a
-            href="{{ url('/') }}"
-            class="back-btn"
-        >
+        <a href="{{ url()->previous() }}" class="back-btn">
+
             <span class="back-icon">&#10094;</span>
-            <span>Kembali</span>
+
+            <span class="back-text">
+                Kembali
+            </span>
+
         </a>
 
         <h1 class="navbar-title">
@@ -50,64 +52,56 @@
 
         <div class="container">
 
-            @if($articles->count() > 0)
+            {{-- GRID --}}
+            <div class="pengumuman-grid">
 
-                <div class="pengumuman-grid">
+                @forelse($articles as $article)
 
-                    @foreach($articles as $article)
+                    @php
 
-                        @php
+                        $gambar = is_array($article->image)
+                            ? $article->image
+                            : json_decode($article->image, true) ?? [];
 
-                            $gambar = is_array($article->image)
-                                ? $article->image
-                                : json_decode($article->image, true) ?? [];
+                        $filePertama = $gambar[0] ?? $article->image ?? null;
 
-                            $filePertama = $gambar[0] ?? $article->image ?? null;
+                        $ext = $filePertama
+                            ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
+                            : null;
 
-                            $ext = $filePertama
-                                ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
-                                : null;
+                    @endphp
 
-                        @endphp
+                    <a
+                        href="{{ route('artikel.detail.artikel', $article->id) }}"
+                        class="pengumuman-card"
+                    >
 
-                        <a
-                            href="{{ route('artikel.detail.artikel', $article->id) }}"
-                            class="pengumuman-card"
-                        >
+                        {{-- Thumbnail --}}
+                        <div class="card-image">
 
-                            {{-- Thumbnail --}}
-                            <div class="card-image">
+                            @if($filePertama)
 
-                                @if($filePertama)
+                                @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
 
-                                    @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
+                                    <img
+                                        src="{{ asset('storage/' . $filePertama) }}"
+                                        alt="Thumbnail Artikel"
+                                    >
 
-                                        <img
-                                            src="{{ asset('storage/' . $filePertama) }}"
-                                            alt="Thumbnail Artikel"
-                                        >
+                                @elseif($ext === 'pdf')
 
-                                    @elseif($ext === 'pdf')
-
-                                        <div class="pdf-preview">
-
-                                            <img
-                                                src="{{ asset('img/pdf-icon.png') }}"
-                                                alt="PDF"
-                                            >
-
-                                            <span>PDF Document</span>
-
-                                        </div>
-
-                                    @else
+                                    <div class="pdf-preview">
 
                                         <img
-                                            src="{{ asset('img/default-news.jpg') }}"
-                                            alt="Default Thumbnail"
+                                            src="{{ asset('img/pdf-icon.png') }}"
+                                            alt="PDF"
                                         >
 
-                                    @endif
+                                        <span>
+                                            PDF Document
+                                        </span>
+
+                                    </div>
 
                                 @else
 
@@ -118,42 +112,51 @@
 
                                 @endif
 
-                            </div>
+                            @else
 
-                            {{-- Content --}}
-                            <div class="card-content">
+                                <img
+                                    src="{{ asset('img/default-news.jpg') }}"
+                                    alt="Default Thumbnail"
+                                >
 
-                                <span class="kategori-home">
-                                    {{ $article->category }}
-                                </span>
+                            @endif
 
-                                <span class="tanggal">
-                                    {{ $article->created_at->format('d M Y') }}
-                                </span>
+                        </div>
 
-                                <h3>
-                                    {{ \Illuminate\Support\Str::limit($article->title, 70) }}
-                                </h3>
+                        {{-- Content --}}
+                        <div class="card-content">
 
-                                <p class="preview-text">
-                                    {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 120) }}
-                                </p>
+                            <span class="kategori-home">
+                                {{ $article->category }}
+                            </span>
 
-                            </div>
+                            <br>
 
-                        </a>
+                            <span class="tanggal">
+                                {{ $article->created_at->format('d M Y') }}
+                            </span>
 
-                    @endforeach
+                            <h3>
+                                {{ \Illuminate\Support\Str::limit($article->title, 70) }}
+                            </h3>
 
-                </div>
+                            <p>
+                                {{ \Illuminate\Support\Str::limit(strip_tags($article->content), 120) }}
+                            </p>
 
-            @else
+                        </div>
 
-                <div class="empty-state">
-                    <p>Belum ada artikel.</p>
-                </div>
+                    </a>
 
-            @endif
+                @empty
+
+                    <div class="empty-state">
+                        <p>Belum ada artikel.</p>
+                    </div>
+
+                @endforelse
+
+            </div>
 
         </div>
 

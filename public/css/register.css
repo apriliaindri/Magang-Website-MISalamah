@@ -1,0 +1,212 @@
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* BODY */
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    width:100%;
+    height:70px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 25px;
+
+    background:white;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+    text-decoration:none;
+
+    color:#4CAF50;
+
+    font-size:16px;
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    opacity:0.8;
+}
+
+/* ================= REGISTER ================= */
+
+.register-section{
+    min-height:calc(100vh - 70px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px 20px;
+}
+
+/* BOX */
+
+.register-box{
+    width:100%;
+    max-width:400px;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+
+.register-box h2{
+    text-align:center;
+
+    margin-bottom:25px;
+
+    color:#4CAF50;
+
+    font-size:28px;
+    font-weight:700;
+}
+
+/* INPUT */
+
+.register-box input{
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #ddd;
+    border-radius:12px;
+
+    font-size:15px;
+    font-family:'Poppins', sans-serif;
+
+    outline:none;
+
+    margin-bottom:18px;
+
+    transition:0.3s;
+}
+
+.register-box input:focus{
+    border-color:#4CAF50;
+
+    box-shadow:
+        0 0 0 4px rgba(76,175,80,0.12);
+}
+
+/* PASSWORD */
+
+.password-wrapper{
+    position:relative;
+}
+
+.toggle-password{
+    position:absolute;
+
+    top:40%;
+    right:15px;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+/* BUTTON */
+
+.register-box button{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#4CAF50;
+    color:white;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.register-box button:hover{
+    background:#43a047;
+}
+
+/* LOGIN TEXT */
+
+.login-text{
+    margin-top:18px;
+
+    text-align:center;
+
+    font-size:14px;
+}
+
+.login-text a{
+    color:#4CAF50;
+
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* ERROR */
+
+.error{
+    margin-top:15px;
+
+    color:red;
+
+    text-align:center;
+
+    font-size:14px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+    .navbar{
+        height:65px;
+        padding:0 18px;
+    }
+
+    .register-section{
+        padding:20px;
+    }
+
+    .register-box{
+        padding:28px 22px;
+        border-radius:16px;
+    }
+
+    .register-box h2{
+        font-size:24px;
+    }
+
+}

@@ -1,0 +1,15 @@
+body{
+    font-family:Poppins,sans-serif;
+    background:#f5f7fa;
+    padding:30px;
+}
+
+.mapel{
+    display:block;
+    background:#4CAF50;
+    color:white;
+    padding:15px;
+    margin-bottom:10px;
+    text-decoration:none;
+    border-radius:8px;
+}

@@ -1,0 +1,13 @@
+.jawaban-group{
+    margin-bottom:15px;
+}
+
+.jawaban-item{
+    display:block;
+    margin-bottom:8px;
+}
+
+.jawaban-item input{
+    width:auto;
+    margin-right:10px;
+}

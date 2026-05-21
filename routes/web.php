@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +159,14 @@ Route::get('/pilih-kelas/{id}', function ($id) {
 
     session(['selected_kelas' => $id]);
 
+    // kalau sudah login
+    if (Auth::check()) {
+
+        return redirect()->route('kelas.dashboard', $id);
+
+    }
+
+    // kalau belum login
     return redirect()->route('siswa.kode', $id);
 
 })->name('pilih.kelas');

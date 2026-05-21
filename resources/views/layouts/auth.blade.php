@@ -2,81 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Auth</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <style>
-        body {
-            background: #f4f6f9;
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
 
-/* ================= LOGIN ================= */
+    <title>@yield('title', 'Auth')</title>
 
-.login-section {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f9f4;
-    padding-top: 5px;
-}
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 
-.login-box {
-    background: white;
-    padding: 40px;
-    width: 350px;
-    border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.login-box h2 {
-    margin-bottom: 25px;
-    color: #3BB143;
-}
-
-.login-box input {
-    width: 93%;
-    padding: 12px;
-    justify-content: center;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.password-wrapper {
-    position: relative;
-}
-
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    cursor: pointer;
-}
-
-.login-box button {
-    width: 100%;
-    padding: 12px;
-    background-color: #66BB6A;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.login-box button:hover {
-    background-color: #4CAF50;
-}
-
-.error {
-    color: red;
-    font-size: 14px;
-}
-    </style>
+    @stack('styles')
 </head>
+
 <body>
 
     @yield('content')

@@ -11,13 +11,13 @@
 
     <title>Daftar Artikel</title>
 
-    <!-- Font -->
+    {{-- Font --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <!-- CSS -->
+    {{-- CSS --}}
     <link
         rel="stylesheet"
         href="{{ asset('css/pengumuman_index.css') }}"
@@ -28,7 +28,7 @@
 <body>
 
     {{-- Topbar --}}
-    <div class="topbar">
+    <header class="topbar">
 
         <div class="topbar-left">
 
@@ -38,33 +38,33 @@
             >
 
                 <img
-                    src="/img/back.png"
+                    src="{{ asset('img/back.png') }}"
                     alt="Back"
                 >
 
             </a>
 
-            <div class="topbar-title">
-
+            <h1 class="topbar-title">
                 Daftar Artikel
-
-            </div>
+            </h1>
 
         </div>
 
-    </div>
+    </header>
 
-    {{-- Content --}}
-    <div class="page-content">
+    {{-- Main Content --}}
+    <main class="page-content">
 
         <div class="container">
 
             <div class="card">
 
-                {{-- Header --}}
+                {{-- Card Header --}}
                 <div class="card-header">
 
-                    <h2>Semua Artikel</h2>
+                    <h2>
+                        Daftar Artikel
+                    </h2>
 
                     <a
                         href="{{ route('kepalasekolah.artikel.create') }}"
@@ -77,7 +77,7 @@
 
                 </div>
 
-                {{-- Alert --}}
+                {{-- Alert Success --}}
                 @if(session('success'))
 
                     <div class="alert-success">
@@ -119,18 +119,21 @@
 
                                     <tr>
 
+                                        {{-- Nomor --}}
                                         <td>
 
                                             {{ $loop->iteration }}
 
                                         </td>
 
+                                        {{-- Judul --}}
                                         <td class="judul">
 
                                             {{ $article->title }}
 
                                         </td>
 
+                                        {{-- Kategori --}}
                                         <td>
 
                                             <span class="badge badge-umum">
@@ -141,31 +144,39 @@
 
                                         </td>
 
+                                        {{-- Tanggal --}}
                                         <td>
 
                                             {{ $article->created_at->format('d M Y') }}
 
                                         </td>
 
+                                        {{-- Aksi --}}
                                         <td>
 
                                             <div class="aksi">
-<a
-    href="{{ route('artikel.detail.artikel', $article->id) }}"
-    class="btn btn-detail"
->
 
-    Detail
+                                                {{-- Detail --}}
+                                                <a
+                                                    href="{{ route('artikel.detail.artikel', $article->id) }}"
+                                                    class="btn btn-detail"
+                                                >
 
-</a>
+                                                    Detail
 
-<a
-    href="{{ route('kepalasekolah.artikel.edit.artikel', $article->id) }}"
-    class="btn btn-edit"
->
-    Edit
-</a>
+                                                </a>
 
+                                                {{-- Edit --}}
+                                                <a
+                                                    href="{{ route('kepalasekolah.artikel.edit.artikel', $article->id) }}"
+                                                    class="btn btn-edit"
+                                                >
+
+                                                    Edit
+
+                                                </a>
+
+                                                {{-- Hapus --}}
                                                 <form
                                                     action="#"
                                                     method="POST"
@@ -202,6 +213,7 @@
 
                 @else
 
+                    {{-- Empty State --}}
                     <div class="empty">
 
                         Belum ada artikel.
@@ -214,7 +226,7 @@
 
         </div>
 
-    </div>
+    </main>
 
 </body>
 </html>

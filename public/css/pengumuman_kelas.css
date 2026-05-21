@@ -1,0 +1,15 @@
+.custom-navbar{
+    background:#4CAF50;
+    padding:15px 8%;
+    color:white;
+}
+
+.back-link{
+    color:white;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.content-wrapper{
+    padding:50px 8%;
+}

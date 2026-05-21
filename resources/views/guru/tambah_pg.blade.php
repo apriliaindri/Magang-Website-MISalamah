@@ -1,468 +1,389 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
+
 <head>
-<title>Buat Soal Pilihan Ganda</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <meta charset="UTF-8">
 
-body{
-margin:0;
-font-family:Poppins,sans-serif;
-background:#f5f7fa;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-/* TOPBAR */
-.topbar{
-height:60px;
-background:#4CAF50;
-display:flex;
-align-items:center;
-padding:0 20px;
-color:white;
-position:fixed;
-width:100%;
-top:0;
-}
+    <title>
+        Buat Soal Pilihan Ganda
+    </title>
 
-.topbar-title{
-font-weight:600;
-margin-left:15px;
-}
+    {{-- CSS --}}
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/tambah_pg.css') }}"
+    >
 
-/* CONTENT */
-.content{
-padding-top:100px;
-display:flex;
-justify-content:center;
-}
-
-/* CARD */
-.card{
-background:white;
-padding:30px;
-border-radius:16px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-width:100%;
-max-width:700px;
-}
-
-/* INPUT */
-select,input,textarea{
-width:100%;
-padding:12px;
-margin-bottom:15px;
-border-radius:8px;
-border:1px solid #ddd;
-font-size:14px;
-box-sizing:border-box;
-}
-
-select:focus,input:focus,textarea:focus{
-border-color:#4CAF50;
-outline:none;
-box-shadow:0 0 0 3px rgba(76,175,80,0.15);
-}
-
-/* BUTTON */
-.btn{
-padding:12px;
-border:none;
-border-radius:8px;
-font-weight:600;
-cursor:pointer;
-}
-
-.btn-success{
-background:#4CAF50;
-color:white;
-}
-
-.btn-primary{
-background:#2196F3;
-color:white;
-}
-
-.btn-danger{
-background:#f44336;
-color:white;
-}
-
-.btn:hover{
-opacity:0.9;
-}
-
-/* TABLE */
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:30px;
-}
-
-th,td{
-padding:10px;
-border:1px solid #ddd;
-text-align:center;
-}
-
-th{
-background:#f1f1f1;
-}
-
-.back-btn{
-margin-right:5px;
-display:flex;
-align-items:center;
-}
-
-.back-btn img{
-width:20px;
-height:20px;
-cursor:pointer;
-margin-left:20px;
-filter: invert(1);
-}
-
-.info-box{
-background:#f5f5f5;
-padding:15px;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-</style>
 </head>
 
 <body>
 
-<div class="topbar">
+    {{-- Topbar --}}
+    <div class="topbar">
 
-<a href="#" onclick="goBack()" class="back-btn">
-<img src="/img/back.png" alt="Back">
-</a>
+        <a
+            href="#"
+            onclick="goBack()"
+            class="back-btn"
+        >
 
-<div class="topbar-title">
-Manajemen Soal
-</div>
+            <img
+                src="/img/back.png"
+                alt="Back"
+            >
 
-</div>
+        </a>
 
+        <div class="topbar-title">
+            Manajemen Soal
+        </div>
 
-<div class="content">
-<div class="card">
+    </div>
 
+    {{-- Content --}}
+    <div class="content">
 
-{{-- =========================
-PILIH KELAS + MAPEL + JUDUL (SEKALI SAJA)
-========================= --}}
+        <div class="card">
 
-@if(!request('kelas_id') || !request('mapel') || !request('judul'))
+            {{-- FORM PILIH KELAS --}}
+            @if(!request('kelas_id') || !request('mapel') || !request('judul'))
 
-<h3>Pilih Kelas dan Mata Pelajaran</h3>
+                <h3>
+                    Pilih Kelas dan Mata Pelajaran
+                </h3>
 
-<form method="GET">
+                <form method="GET">
 
-<label>Pilih Kelas</label>
-<select name="kelas_id" required>
-<option value="">Pilih kelas</option>
-@foreach($kelas as $k)
-<option value="{{ $k->id }}">
-{{ $k->nama_kelas }}
-</option>
-@endforeach
-</select>
+                    {{-- Kelas --}}
+                    <label>
+                        Pilih Kelas
+                    </label>
 
-<label>Pilih Mata Pelajaran</label>
-<select name="mapel" required>
-<option value="">Pilih Mata Pelajaran</option>
-<option value="IPA">IPA</option>
-<option value="Matematika">Matematika</option>
-<option value="Bahasa Indonesia">Bahasa Indonesia</option>
-<option value="Bahasa Inggris">Bahasa Inggris</option>
-</select>
+                    <select
+                        name="kelas_id"
+                        required
+                    >
 
-<label>Judul Tugas</label>
-<input type="text" name="judul" required>
+                        <option value="">
+                            Pilih kelas
+                        </option>
 
-<label>Instruksi Soal</label>
-<textarea name="instruksi" rows="2"
-placeholder="Contoh: Pilih jawaban yang paling benar">{{ request('instruksi') }}</textarea>
+                        @foreach($kelas as $k)
 
-<button class="btn btn-primary">
-Mulai Buat Soal
-</button>
+                            <option value="{{ $k->id }}">
+                                {{ $k->nama_kelas }}
+                            </option>
 
-</form>
+                        @endforeach
 
-{{-- =========================
-HALAMAN TAMBAH SOAL
-========================= --}}
-@else
+                    </select>
 
+                    {{-- Mapel --}}
+                    <label>
+                        Pilih Mata Pelajaran
+                    </label>
 
-<h3>Buat Soal</h3>
+                    <select
+                        name="mapel"
+                        required
+                    >
 
+                        <option value="">
+                            Pilih Mata Pelajaran
+                        </option>
 
-<div class="info-box">
-<b>Judul:</b> {{ request('judul') }} <br>
-<b>Mapel:</b> {{ request('mapel') }} <br>
-<b>Instruksi:</b> {{ request('instruksi') }}
-</div>
+                        <option value="IPA">IPA</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                        <option value="Bahasa Inggris">Bahasa Inggris</option>
 
+                    </select>
 
-@if(session('success_soal'))
-<div style="color:green;margin-bottom:10px;">
-{{ session('success_soal') }}
-</div>
-@endif
+                    {{-- Judul --}}
+                    <label>
+                        Judul Tugas
+                    </label>
 
+                    <input
+                        type="text"
+                        name="judul"
+                        required
+                    >
 
-<form action="{{ route('guru.simpan.pg') }}" method="POST">
+                    {{-- Instruksi --}}
+                    <label>
+                        Instruksi Soal
+                    </label>
 
-@csrf
+                    <textarea
+                        name="instruksi"
+                        rows="2"
+                        placeholder="Contoh: Pilih jawaban yang paling benar"
+                    >{{ request('instruksi') }}</textarea>
 
-<input type="hidden" name="instruksi"
-value="{{ request('instruksi') }}">
+                    <button class="btn btn-primary">
+                        Mulai Buat Soal
+                    </button>
 
-<input type="hidden" name="kelas_id"
-value="{{ request('kelas_id') }}">
+                </form>
 
-<input type="hidden" name="mapel"
-value="{{ request('mapel') }}">
+            @else
 
-<input type="hidden" name="judul"
-value="{{ request('judul') }}">
+                {{-- FORM TAMBAH SOAL --}}
+                <h3>
+                    Buat Soal
+                </h3>
 
-<input type="hidden" name="tugas_id"
-value="{{ request('tugas_id') }}">
+                <div class="info-box">
 
-<input type="hidden" name="mapel"
-value="{{ request('mapel') }}">
+                    <b>Judul:</b> {{ request('judul') }}
+                    <br>
 
-<label>Pertanyaan</label>
-<textarea name="pertanyaan" rows="3" required></textarea>
+                    <b>Mapel:</b> {{ request('mapel') }}
+                    <br>
 
+                    <b>Instruksi:</b> {{ request('instruksi') }}
 
-<label>Opsi A</label>
-<input type="text" name="opsi_a" required>
+                </div>
 
-<label>Opsi B</label>
-<input type="text" name="opsi_b" required>
+                @if(session('success_soal'))
 
-<label>Opsi C</label>
-<input type="text" name="opsi_c" required>
+                    <div class="success-message">
+                        {{ session('success_soal') }}
+                    </div>
 
-<label>Opsi D</label>
-<input type="text" name="opsi_d" required>
+                @endif
 
+                <form
+                    action="{{ route('guru.simpan.pg') }}"
+                    method="POST"
+                >
 
-<label>Jawaban Benar</label>
+                    @csrf
 
-<div style="margin-bottom:15px;">
+                    {{-- Hidden --}}
+                    <input type="hidden" name="instruksi" value="{{ request('instruksi') }}">
+                    <input type="hidden" name="kelas_id" value="{{ request('kelas_id') }}">
+                    <input type="hidden" name="mapel" value="{{ request('mapel') }}">
+                    <input type="hidden" name="judul" value="{{ request('judul') }}">
+                    <input type="hidden" name="tugas_id" value="{{ request('tugas_id') }}">
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="A"
-style="width:auto;margin-right:10px;">
-A
-</label>
+                    {{-- Pertanyaan --}}
+                    <label>
+                        Pertanyaan
+                    </label>
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="B"
-style="width:auto;margin-right:10px;">
-B
-</label>
+                    <textarea
+                        name="pertanyaan"
+                        rows="3"
+                        required
+                    ></textarea>
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="C"
-style="width:auto;margin-right:10px;">
-C
-</label>
+                    {{-- Opsi --}}
+                    <label>Opsi A</label>
+                    <input type="text" name="opsi_a" required>
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="D"
-style="width:auto;margin-right:10px;">
-D
-</label>
+                    <label>Opsi B</label>
+                    <input type="text" name="opsi_b" required>
 
-</div>
+                    <label>Opsi C</label>
+                    <input type="text" name="opsi_c" required>
 
+                    <label>Opsi D</label>
+                    <input type="text" name="opsi_d" required>
 
-<label>Nilai Soal</label>
-<input type="number" name="nilai" required>
+                    {{-- Jawaban --}}
+                    <label>
+                        Jawaban Benar
+                    </label>
 
+                    <div class="jawaban-group">
 
-<button type="submit" class="btn btn-success">
-Tambah Soal
-</button>
+                        @foreach(['A', 'B', 'C', 'D'] as $opsi)
 
-</form>
+                            <label class="jawaban-item">
 
+                                <input
+                                    type="checkbox"
+                                    name="jawaban_benar[]"
+                                    value="{{ $opsi }}"
+                                >
 
-<hr>
+                                {{ $opsi }}
 
+                            </label>
 
-<h3>Daftar Soal</h3>
+                        @endforeach
 
-<table>
+                    </div>
 
-<thead>
-<tr>
-<th>No</th>
-<th>Pertanyaan</th>
-<th>Opsi Jawaban</th>
-<th>Kunci</th>
-<th>Nilai</th>
-<th>Aksi</th>
-</tr>
-</thead>
+                    {{-- Nilai --}}
+                    <label>
+                        Nilai Soal
+                    </label>
 
+                    <input
+                        type="number"
+                        name="nilai"
+                        required
+                    >
 
-<tbody>
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+                        Tambah Soal
+                    </button>
 
-@foreach($soal as $s)
+                </form>
 
-<tr>
+                <hr>
 
-<td>{{ $loop->iteration }}</td>
+                {{-- TABLE --}}
+                <h3>
+                    Daftar Soal
+                </h3>
 
-<td>{{ $s->pertanyaan }}</td>
+                <table>
 
-<td style="text-align:left">
+                    <thead>
 
-A. {{ $s->opsi_a }} <br>
-B. {{ $s->opsi_b }} <br>
-C. {{ $s->opsi_c }} <br>
-D. {{ $s->opsi_d }}
+                        <tr>
 
-</td>
+                            <th>No</th>
+                            <th>Pertanyaan</th>
+                            <th>Opsi Jawaban</th>
+                            <th>Kunci</th>
+                            <th>Nilai</th>
+                            <th>Aksi</th>
 
-<td>
-<strong>{{ $s->jawaban_benar }}</strong>
-</td>
+                        </tr>
 
-<td>{{ $s->nilai }}</td>
+                    </thead>
 
-<td>
+                    <tbody>
 
-<a href="{{ route('guru.edit.pg',$s->id) }}?kelas_id={{ request('kelas_id') }}&mapel={{ request('mapel') }}&judul={{ request('judul') }}"
-class="btn btn-primary">
-Edit
-</a>
+                        @foreach($soal as $s)
 
-<br><br>
+                            <tr>
 
-<form action="{{ route('guru.hapus.pg',$s->id) }}"
-method="POST">
+                                <td>{{ $loop->iteration }}</td>
 
-@csrf
-@method('DELETE')
+                                <td>{{ $s->pertanyaan }}</td>
 
-<button class="btn btn-danger">
-Hapus
-</button>
+                                <td class="opsi-column">
 
-</form>
+                                    A. {{ $s->opsi_a }} <br>
+                                    B. {{ $s->opsi_b }} <br>
+                                    C. {{ $s->opsi_c }} <br>
+                                    D. {{ $s->opsi_d }}
 
-</td>
+                                </td>
 
-</tr>
+                                <td>
+                                    <strong>{{ $s->jawaban_benar }}</strong>
+                                </td>
 
-@endforeach
+                                <td>
+                                    {{ $s->nilai }}
+                                </td>
 
-</tbody>
+                                <td>
 
-</table>
+                                    <a
+                                        href="{{ route('guru.edit.pg', $s->id) }}?kelas_id={{ request('kelas_id') }}&mapel={{ request('mapel') }}&judul={{ request('judul') }}"
+                                        class="btn btn-primary"
+                                    >
+                                        Edit
+                                    </a>
 
+                                    <br><br>
 
-<br>
+                                    <form
+                                        action="{{ route('guru.hapus.pg', $s->id) }}"
+                                        method="POST"
+                                    >
 
+                                        @csrf
+                                        @method('DELETE')
 
-<form action="{{ route('guru.simpan.tugas') }}" method="POST">
+                                        <button class="btn btn-danger">
+                                            Hapus
+                                        </button>
 
-@csrf
+                                    </form>
 
-<input type="hidden" name="instruksi"
-value="{{ request('instruksi') }}">
+                                </td>
 
-<input type="hidden" name="kelas_id"
-value="{{ request('kelas_id') }}">
+                            </tr>
 
-<input type="hidden" name="mapel"
-value="{{ request('mapel') }}">
+                        @endforeach
 
-<input type="hidden" name="judul"
-value="{{ request('judul') }}">
+                    </tbody>
 
+                </table>
 
-<button class="btn btn-success" style="width:100%;">
-Simpan Tugas
-</button>
+                <br>
 
-</form>
+                {{-- SIMPAN TUGAS --}}
+                <form
+                    action="{{ route('guru.simpan.tugas') }}"
+                    method="POST"
+                >
 
-@endif
-</div>
-</div>
+                    @csrf
 
-<div id="modalSuccess" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-justify-content:center;
-align-items:center;
-">
+                    <input type="hidden" name="instruksi" value="{{ request('instruksi') }}">
+                    <input type="hidden" name="kelas_id" value="{{ request('kelas_id') }}">
+                    <input type="hidden" name="mapel" value="{{ request('mapel') }}">
+                    <input type="hidden" name="judul" value="{{ request('judul') }}">
 
-<div style="
-background:white;
-padding:30px;
-border-radius:12px;
-text-align:center;
-width:300px;
-">
+                    <button class="btn btn-success btn-full">
+                        Simpan Tugas
+                    </button>
 
-<h3>CBT berhasil dibuat</h3>
+                </form>
 
-<button onclick="closeModal()" class="btn btn-success">
-OK
-</button>
+            @endif
 
-</div>
-</div>
+        </div>
 
+    </div>
 
-<script>
-function goBack(){
-    if(window.history.length > 1){
-        window.history.back();
-    }else{
-        window.location.href = "{{ route('guru.dashboard') }}";
-    }
-}
+    {{-- Modal --}}
+    <div id="modalSuccess" class="modal-success">
 
-function closeModal(){
-    document.getElementById('modalSuccess').style.display = 'none';
-    window.location.href = "{{ route('guru.dashboard') }}";
-}
+        <div class="modal-box">
 
-@if(session('success_tugas'))
-window.onload = function(){
-    document.getElementById('modalSuccess').style.display = 'flex';
-};
-@endif
+            <h3>
+                CBT berhasil dibuat
+            </h3>
 
-</script>
+            <button
+                onclick="closeModal()"
+                class="btn btn-success"
+            >
+                OK
+            </button>
+
+        </div>
+
+    </div>
+
+    {{-- JS --}}
+    <script>
+        window.successTugas = @json(session('success_tugas'));
+        window.dashboardUrl = @json(route('guru.dashboard'));
+    </script>
+
+    <script src="{{ asset('js/tambah_pg.js') }}"></script>
 
 </body>
+
 </html>

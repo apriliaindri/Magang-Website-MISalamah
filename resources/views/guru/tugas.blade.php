@@ -1,67 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
+
 <head>
 
-<title>Daftar Soal</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-body{
-font-family:Poppins;
-background:#f5f7fa;
-padding:30px;
-}
+    <title>
+        Daftar Soal
+    </title>
 
-table{
-width:100%;
-border-collapse:collapse;
-background:white;
-}
-
-th,td{
-border:1px solid #ddd;
-padding:10px;
-text-align:center;
-}
-
-th{
-background:#f1f1f1;
-}
-
-</style>
+    {{-- CSS --}}
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/daftar_soal.css') }}"
+    >
 
 </head>
 
 <body>
 
-<h2>Daftar Soal - {{ $mapel }}</h2>
+    {{-- Title --}}
+    <h2>
+        Daftar Soal - {{ $mapel }}
+    </h2>
 
-<table>
+    {{-- Table --}}
+    <table>
 
-<tr>
-<th>No</th>
-<th>Pertanyaan</th>
-<th>Jawaban</th>
-<th>Nilai</th>
-</tr>
+        <thead>
 
-@foreach($soal as $s)
+            <tr>
 
-<tr>
+                <th>No</th>
+                <th>Pertanyaan</th>
+                <th>Jawaban</th>
+                <th>Nilai</th>
 
-<td>{{ $loop->iteration }}</td>
+            </tr>
 
-<td>{{ $s->pertanyaan }}</td>
+        </thead>
 
-<td>{{ $s->jawaban_benar }}</td>
+        <tbody>
 
-<td>{{ $s->nilai }}</td>
+            @foreach($soal as $s)
 
-</tr>
+                <tr>
 
-@endforeach
+                    <td>
+                        {{ $loop->iteration }}
+                    </td>
 
-</table>
+                    <td>
+                        {{ $s->pertanyaan }}
+                    </td>
+
+                    <td>
+                        {{ $s->jawaban_benar }}
+                    </td>
+
+                    <td>
+                        {{ $s->nilai }}
+                    </td>
+
+                </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
 
 </body>
+
 </html>

@@ -1,0 +1,90 @@
+body{
+    font-family: Poppins, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+.header{
+    background: white;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.container{
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.soal-area{
+    flex: 3;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.nav-area{
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.nomor-grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.nomor{
+    padding: 10px;
+    text-align: center;
+    background: #eee;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.nomor.active{
+    background: #2196F3;
+    color: white;
+}
+
+.opsi label{
+    display: block;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.footer{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-next{
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-prev{
+    background: #999;
+    color: white;
+}
+
+.btn-selesai{
+    background: #f44336;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}

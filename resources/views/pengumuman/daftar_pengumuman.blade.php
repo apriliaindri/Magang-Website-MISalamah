@@ -22,89 +22,127 @@
 
     {{-- Navbar --}}
     <nav class="navbar">
-        <a href="{{ url('/') }}" class="back-btn">
+
+        <a href="{{ url()->previous() }}" class="back-btn">
+
             <span class="back-icon">&#10094;</span>
-            <span>Kembali</span>
+
+            <span class="back-text">
+                Kembali
+            </span>
+
         </a>
 
         <h1 class="navbar-title">
             Daftar Pengumuman
         </h1>
+
     </nav>
 
     {{-- Content --}}
     <section class="daftar-pengumuman-section">
+
         <div class="container">
 
-            @forelse($pengumuman as $p)
+            {{-- GRID --}}
+            <div class="pengumuman-grid">
 
-                @php
-                    $file = $p->first_file;
-                    $ext = $p->first_file_extension;
-                @endphp
+                @forelse($pengumuman as $p)
 
-                <a href="{{ route('pengumuman.detail.pengumuman', $p->id) }}" class="pengumuman-card">
+                    @php
+                        $file = $p->first_file;
+                        $ext = $p->first_file_extension;
+                    @endphp
 
-                    {{-- Thumbnail --}}
-                    <div class="card-image">
+                    <a
+                        href="{{ route('pengumuman.detail.pengumuman', $p->id) }}"
+                        class="pengumuman-card"
+                    >
 
-                        @if($file)
+                        {{-- Thumbnail --}}
+                        <div class="card-image">
 
-                            @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
+                            @if($file)
 
-                                <img src="{{ asset('storage/' . $file) }}" alt="thumbnail">
+                                @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
 
-                            @elseif($ext === 'pdf')
+                                    <img
+                                        src="{{ asset('storage/' . $file) }}"
+                                        alt="thumbnail"
+                                    >
 
-                                <div class="pdf-preview">
-                                    <img src="{{ asset('img/pdf-icon.png') }}" alt="PDF">
-                                    <span>PDF Document</span>
-                                </div>
+                                @elseif($ext === 'pdf')
+
+                                    <div class="pdf-preview">
+
+                                        <img
+                                            src="{{ asset('img/pdf-icon.png') }}"
+                                            alt="PDF"
+                                        >
+
+                                        <span>
+                                            PDF Document
+                                        </span>
+
+                                    </div>
+
+                                @else
+
+                                    <img
+                                        src="{{ asset('img/LogoMI.png') }}"
+                                        alt="default"
+                                    >
+
+                                @endif
 
                             @else
 
-                                <img src="{{ asset('img/default-news.jpg') }}" alt="default">
+                                <img
+                                    src="{{ asset('img/LogoMI.png') }}"
+                                    alt="default"
+                                >
 
                             @endif
 
-                        @else
+                        </div>
 
-                            <img src="{{ asset('img/default-news.jpg') }}" alt="default">
+                        {{-- Content --}}
+                        <div class="card-content">
 
-                        @endif
+                            <span class="kategori-home">
+                                {{ $p->kelas?->nama_kelas ?? 'Semua Kelas' }}
+                            </span>
 
+                            <br>
+
+                            <span class="tanggal">
+                                {{ $p->created_at->format('d M Y') }}
+                            </span>
+
+                            <h3>
+                                {{ \Illuminate\Support\Str::limit($p->judul, 70) }}
+                            </h3>
+
+                            <p>
+                                {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 120) }}
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                @empty
+
+                    <div class="empty-state">
+                        <p>Belum ada pengumuman.</p>
                     </div>
 
-                    {{-- Content --}}
-                    <div class="card-content">
+                @endforelse
 
-                        <span class="kategori-home">
-                            {{ $p->kelas?->nama_kelas ?? 'Semua Kelas' }}
-                        </span>
-
-                        <span class="tanggal">
-                            {{ $p->created_at->format('d M Y') }}
-                        </span>
-
-                        <h3>
-                            {{ \Illuminate\Support\Str::limit($p->judul, 70) }}
-                        </h3>
-
-                        <p>
-                            {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 120) }}
-                        </p>
-
-                    </div>
-
-                </a>
-
-            @empty
-                <div class="empty-state">
-                    <p>Belum ada pengumuman.</p>
-                </div>
-            @endforelse
+            </div>
 
         </div>
+
     </section>
 
 </body>

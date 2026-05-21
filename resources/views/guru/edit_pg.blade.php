@@ -1,140 +1,209 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
+
 <head>
-<title>Edit Soal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <meta charset="UTF-8">
 
-body{
-margin:0;
-font-family:Poppins,sans-serif;
-background:#f5f7fa;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-.content{
-padding:60px;
-display:flex;
-justify-content:center;
-}
+    <title>Edit Soal</title>
 
-.card{
-background:white;
-padding:30px;
-border-radius:16px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-width:100%;
-max-width:700px;
-}
+    {{-- CSS --}}
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/edit_soal.css') }}"
+    >
 
-input,textarea,select{
-width:100%;
-padding:12px;
-margin-bottom:15px;
-border-radius:8px;
-border:1px solid #ddd;
-}
-
-.btn{
-padding:12px;
-border:none;
-border-radius:8px;
-font-weight:600;
-cursor:pointer;
-}
-
-.btn-success{
-background:#4CAF50;
-color:white;
-}
-
-</style>
 </head>
 
 <body>
 
-<div class="content">
-<div class="card">
+    <div class="content">
 
-<h3>Edit Soal</h3>
+        <div class="card">
 
-<form action="{{ route('guru.update.pg',$soal->id) }}" method="POST">
-@csrf
+            <h3>
+                Edit Soal
+            </h3>
 
-<input type="hidden" name="kelas_id" value="{{ request('kelas_id') }}">
-<input type="hidden" name="mapel" value="{{ request('mapel') }}">
-<input type="hidden" name="judul" value="{{ request('judul') }}">
+            <form
+                action="{{ route('guru.update.pg', $soal->id) }}"
+                method="POST"
+            >
 
-<label>Judul</label>
-<input type="text" name="judul" value="{{ $soal->judul }}" required>
+                @csrf
 
-<label>Pertanyaan</label>
-<textarea name="pertanyaan" rows="3">{{ $soal->pertanyaan }}</textarea>
+                {{-- Hidden Input --}}
+                <input
+                    type="hidden"
+                    name="kelas_id"
+                    value="{{ request('kelas_id') }}"
+                >
 
-<label>Opsi A</label>
-<input type="text" name="opsi_a" value="{{ $soal->opsi_a }}">
+                <input
+                    type="hidden"
+                    name="mapel"
+                    value="{{ request('mapel') }}"
+                >
 
-<label>Opsi B</label>
-<input type="text" name="opsi_b" value="{{ $soal->opsi_b }}">
+                <input
+                    type="hidden"
+                    name="judul"
+                    value="{{ request('judul') }}"
+                >
 
-<label>Opsi C</label>
-<input type="text" name="opsi_c" value="{{ $soal->opsi_c }}">
+                {{-- Judul --}}
+                <label>
+                    Judul
+                </label>
 
-<label>Opsi D</label>
-<input type="text" name="opsi_d" value="{{ $soal->opsi_d }}">
+                <input
+                    type="text"
+                    name="judul"
+                    value="{{ $soal->judul }}"
+                    required
+                >
 
-<label>Jawaban Benar</label>
+                {{-- Pertanyaan --}}
+                <label>
+                    Pertanyaan
+                </label>
 
-<div style="margin-bottom:15px;">
+                <textarea
+                    name="pertanyaan"
+                    rows="3"
+                >{{ $soal->pertanyaan }}</textarea>
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="A"
-style="width:auto;margin-right:10px;">
-A
-</label>
+                {{-- Opsi A --}}
+                <label>
+                    Opsi A
+                </label>
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="B"
-style="width:auto;margin-right:10px;">
-B
-</label>
+                <input
+                    type="text"
+                    name="opsi_a"
+                    value="{{ $soal->opsi_a }}"
+                >
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="C"
-style="width:auto;margin-right:10px;">
-C
-</label>
+                {{-- Opsi B --}}
+                <label>
+                    Opsi B
+                </label>
 
-<label style="display:block;margin-bottom:8px;">
-<input type="checkbox"
-name="jawaban_benar[]"
-value="D"
-style="width:auto;margin-right:10px;">
-D
-</label>
+                <input
+                    type="text"
+                    name="opsi_b"
+                    value="{{ $soal->opsi_b }}"
+                >
 
-</div>
+                {{-- Opsi C --}}
+                <label>
+                    Opsi C
+                </label>
 
+                <input
+                    type="text"
+                    name="opsi_c"
+                    value="{{ $soal->opsi_c }}"
+                >
 
-</select>
+                {{-- Opsi D --}}
+                <label>
+                    Opsi D
+                </label>
 
-<label>Nilai</label>
-<input type="number" name="nilai" value="{{ $soal->nilai }}">
+                <input
+                    type="text"
+                    name="opsi_d"
+                    value="{{ $soal->opsi_d }}"
+                >
 
-<button class="btn btn-success">
-Update Soal
-</button>
+                {{-- Jawaban Benar --}}
+                <label>
+                    Jawaban Benar
+                </label>
 
-</form>
+                <div class="jawaban-group">
 
-</div>
-</div>
+                    <label class="jawaban-item">
+
+                        <input
+                            type="checkbox"
+                            name="jawaban_benar[]"
+                            value="A"
+                        >
+
+                        A
+
+                    </label>
+
+                    <label class="jawaban-item">
+
+                        <input
+                            type="checkbox"
+                            name="jawaban_benar[]"
+                            value="B"
+                        >
+
+                        B
+
+                    </label>
+
+                    <label class="jawaban-item">
+
+                        <input
+                            type="checkbox"
+                            name="jawaban_benar[]"
+                            value="C"
+                        >
+
+                        C
+
+                    </label>
+
+                    <label class="jawaban-item">
+
+                        <input
+                            type="checkbox"
+                            name="jawaban_benar[]"
+                            value="D"
+                        >
+
+                        D
+
+                    </label>
+
+                </div>
+
+                {{-- Nilai --}}
+                <label>
+                    Nilai
+                </label>
+
+                <input
+                    type="number"
+                    name="nilai"
+                    value="{{ $soal->nilai }}"
+                >
+
+                {{-- Submit --}}
+                <button class="btn btn-success">
+                    Update Soal
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {{-- JS --}}
+    <script src="{{ asset('js/edit_soal.js') }}"></script>
 
 </body>
+
 </html>

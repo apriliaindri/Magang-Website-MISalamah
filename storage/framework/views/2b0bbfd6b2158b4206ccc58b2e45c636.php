@@ -9,6 +9,7 @@
 </div>
 
 <div class="content-section">
+
     <ol class="tatib-list">
         <li>Siswa wajib hadir tepat waktu.</li>
         <li>Siswa mengenakan seragam sesuai ketentuan.</li>
@@ -17,6 +18,7 @@
         <li>Tidak membawa barang terlarang ke sekolah.</li>
         <li>Mematuhi seluruh peraturan sekolah.</li>
     </ol>
+
 </div>
 
 <?php $__env->stopSection(); ?>

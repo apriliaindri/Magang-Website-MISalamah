@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
     <meta charset="UTF-8">
@@ -11,13 +12,13 @@
 
     <title>Daftar Artikel</title>
 
-    <!-- Font -->
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <!-- CSS -->
+    
     <link
         rel="stylesheet"
         href="<?php echo e(asset('css/daftar_pengumuman.css')); ?>"
@@ -30,16 +31,13 @@
     
     <nav class="navbar">
 
-        <a
-            href="<?php echo e(url('/')); ?>"
-            class="back-btn"
-        >
+        <a href="<?php echo e(url()->previous()); ?>" class="back-btn">
 
-            <span class="back-icon">
-                &#10094;
+            <span class="back-icon">&#10094;</span>
+
+            <span class="back-text">
+                Kembali
             </span>
-
-            <span>Kembali</span>
 
         </a>
 
@@ -54,126 +52,124 @@
 
         <div class="container">
 
-            <?php if($articles->count() > 0): ?>
+            
+            <div class="pengumuman-grid">
 
-                <div class="pengumuman-grid">
+                <?php $__empty_1 = true; $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
 
-                    <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
 
-                        <?php
+                        $gambar = is_array($article->image)
+                            ? $article->image
+                            : json_decode($article->image, true) ?? [];
 
-                            $gambar = is_array($a->image)
-                                ? $a->image
-                                : json_decode($a->image, true) ?? [];
+                        $filePertama = $gambar[0] ?? $article->image ?? null;
 
-                            $filePertama = $gambar[0] ?? $a->image ?? null;
+                        $ext = $filePertama
+                            ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
+                            : null;
 
-                            $ext = $filePertama
-                                ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
-                                : null;
+                    ?>
 
-                        ?>
+                    <a
+                        href="<?php echo e(route('artikel.detail.artikel', $article->id)); ?>"
+                        class="pengumuman-card"
+                    >
 
-                        <a
-                            href="<?php echo e(route('artikel.detail.artikel', $a->id)); ?>"
-                            class="pengumuman-card"
-                        >
+                        
+                        <div class="card-image">
 
-                            
-                            <div class="card-image">
+                            <?php if($filePertama): ?>
 
-                                <?php if($filePertama): ?>
+                                <?php if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])): ?>
 
-                                    <?php if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])): ?>
+                                    <img
+                                        src="<?php echo e(asset('storage/' . $filePertama)); ?>"
+                                        alt="Thumbnail Artikel"
+                                    >
 
-                                        <img
-                                            src="<?php echo e(asset('storage/' . $filePertama)); ?>"
-                                            alt="thumbnail"
-                                        >
+                                <?php elseif($ext === 'pdf'): ?>
 
-                                    <?php elseif($ext == 'pdf'): ?>
-
-                                        <div class="pdf-preview">
-
-                                            <img
-                                                src="<?php echo e(asset('img/pdf-icon.png')); ?>"
-                                                alt="PDF"
-                                            >
-
-                                            <span>PDF Document</span>
-
-                                        </div>
-
-                                    <?php else: ?>
+                                    <div class="pdf-preview">
 
                                         <img
-                                            src="<?php echo e(asset('img/default-news.jpg')); ?>"
-                                            alt="default"
+                                            src="<?php echo e(asset('img/pdf-icon.png')); ?>"
+                                            alt="PDF"
                                         >
 
-                                    <?php endif; ?>
+                                        <span>
+                                            PDF Document
+                                        </span>
+
+                                    </div>
 
                                 <?php else: ?>
 
                                     <img
                                         src="<?php echo e(asset('img/default-news.jpg')); ?>"
-                                        alt="default"
+                                        alt="Default Thumbnail"
                                     >
 
                                 <?php endif; ?>
 
-                            </div>
+                            <?php else: ?>
 
-                            
-                            <div class="card-content">
+                                <img
+                                    src="<?php echo e(asset('img/default-news.jpg')); ?>"
+                                    alt="Default Thumbnail"
+                                >
 
-                                <span class="kategori-home">
+                            <?php endif; ?>
 
-                                    <?php echo e($a->category); ?>
+                        </div>
 
+                        
+                        <div class="card-content">
 
-                                </span>
+                            <span class="kategori-home">
+                                <?php echo e($article->category); ?>
 
-                                <span class="tanggal">
+                            </span>
 
-                                    <?php echo e($a->created_at->format('d M Y')); ?>
+                            <br>
 
+                            <span class="tanggal">
+                                <?php echo e($article->created_at->format('d M Y')); ?>
 
-                                </span>
+                            </span>
 
-                                <h3>
+                            <h3>
+                                <?php echo e(\Illuminate\Support\Str::limit($article->title, 70)); ?>
 
-                                    <?php echo e(\Illuminate\Support\Str::limit($a->title, 70)); ?>
+                            </h3>
 
+                            <p>
+                                <?php echo e(\Illuminate\Support\Str::limit(strip_tags($article->content), 120)); ?>
 
-                                </h3>
+                            </p>
 
-                            <p class="preview-text">
-    <?php echo e(\Illuminate\Support\Str::limit(strip_tags($a->content), 120)); ?>
+                        </div>
 
-</p>
-                            </div>
+                    </a>
 
-                        </a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
 
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <div class="empty-state">
+                        <p>Belum ada artikel.</p>
+                    </div>
 
-                </div>
+                <?php endif; ?>
 
-            <?php else: ?>
-
-                <div class="empty-state">
-
-                    <p>Belum ada artikel.</p>
-
-                </div>
-
-            <?php endif; ?>
+            </div>
 
         </div>
 
     </section>
 
+    
+    <script src="<?php echo e(asset('js/daftar_artikel.js')); ?>"></script>
+
 </body>
+
 </html>
 <?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/artikel/daftar_artikel.blade.php ENDPATH**/ ?>

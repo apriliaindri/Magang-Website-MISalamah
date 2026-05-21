@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
+
 <head>
 
-<title>Pilih Mapel</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-body{
-font-family:Poppins;
-background:#f5f7fa;
-padding:30px;
-}
+    <title>
+        Pilih Mapel
+    </title>
 
-.mapel{
-display:block;
-background:#4CAF50;
-color:white;
-padding:15px;
-margin-bottom:10px;
-text-decoration:none;
-border-radius:8px;
-}
-
-</style>
+    {{-- CSS --}}
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/pilih_mapel.css') }}"
+    >
 
 </head>
 
 <body>
 
-<h2>Mapel - {{ $kelas->nama_kelas }}</h2>
+    {{-- Title --}}
+    <h2>
+        Mapel - {{ $kelas->nama_kelas }}
+    </h2>
 
-@foreach($mapel as $m)
+    {{-- List Mapel --}}
+    @foreach($mapel as $m)
 
-<a class="mapel"
-href="/tugas/mapel/{{ $kelas->id }}/{{ $m->mapel }}">
-{{ $m->mapel }}
-</a>
+        <a
+            class="mapel"
+            href="/tugas/mapel/{{ $kelas->id }}/{{ $m->mapel }}"
+        >
 
-@endforeach
+            {{ $m->mapel }}
+
+        </a>
+
+    @endforeach
+
+    {{-- JS --}}
+    <script src="{{ asset('js/pilih_mapel.js') }}"></script>
 
 </body>
+
 </html>

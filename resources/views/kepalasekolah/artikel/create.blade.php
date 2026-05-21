@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
     <meta charset="UTF-8">
-
-    <title>Upload Artikel</title>
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
+    <title>
+        Upload Artikel
+    </title>
+
+    {{-- CSS --}}
     <link
         rel="stylesheet"
         href="{{ asset('css/tambah_pengumuman.css') }}"
@@ -28,10 +32,12 @@
             onclick="goBack()"
             class="back-btn"
         >
+
             <img
                 src="/img/back.png"
                 alt="Back"
             >
+
         </a>
 
         <div class="topbar-title">
@@ -45,9 +51,12 @@
 
         <div class="card">
 
+            {{-- Header --}}
             <div class="header-flex">
 
-                <h3>Upload Artikel</h3>
+                <h3>
+                    Upload Artikel
+                </h3>
 
                 <a
                     href="{{ route('kepalasekolah.artikel.index') }}"
@@ -58,6 +67,7 @@
 
             </div>
 
+            {{-- Success Alert --}}
             @if(session('success'))
 
                 <div class="alert-success">
@@ -68,6 +78,7 @@
 
             @endif
 
+            {{-- Form --}}
             <form
                 method="POST"
                 action="{{ route('kepalasekolah.artikel.store') }}"
@@ -77,19 +88,25 @@
                 @csrf
 
                 {{-- Judul --}}
-                <label>Judul</label>
+                <label for="title">
+                    Judul
+                </label>
 
                 <input
                     type="text"
+                    id="title"
                     name="title"
                     placeholder="Masukkan judul artikel"
                     required
                 >
 
                 {{-- Kategori --}}
-                <label>Kategori</label>
+                <label for="category">
+                    Kategori
+                </label>
 
                 <select
+                    id="category"
                     name="category"
                     required
                 >
@@ -121,18 +138,24 @@
                 </select>
 
                 {{-- Sub Kategori --}}
-                <label>Sub Kategori</label>
+                <label for="sub_category">
+                    Sub Kategori
+                </label>
 
                 <input
                     type="text"
+                    id="sub_category"
                     name="sub_category"
                     placeholder="Contoh: Upacara, Lomba, Study Tour"
                 >
 
                 {{-- Isi Artikel --}}
-                <label>Isi Artikel</label>
+                <label for="content">
+                    Isi Artikel
+                </label>
 
                 <textarea
+                    id="content"
                     name="content"
                     rows="5"
                     placeholder="Tulis isi artikel..."
@@ -140,7 +163,9 @@
                 ></textarea>
 
                 {{-- Upload File --}}
-                <label>Upload Foto / File</label>
+                <label for="files">
+                    Upload Foto / File
+                </label>
 
                 <input
                     type="file"
@@ -153,6 +178,7 @@
                 {{-- Preview File --}}
                 <div id="file-list"></div>
 
+                {{-- Submit --}}
                 <button
                     type="submit"
                     class="btn"
@@ -166,110 +192,9 @@
 
     </div>
 
-    <script>
-
-        function goBack() {
-
-            if (
-                document.referrer === window.location.href ||
-                document.referrer === ""
-            ) {
-
-                window.location.href =
-                "{{ route('kepalasekolah.dashboard') }}";
-
-            } else {
-
-                window.history.back();
-
-            }
-
-        }
-
-        const inputFiles =
-        document.getElementById('files');
-
-        const fileList =
-        document.getElementById('file-list');
-
-        let selectedFiles = [];
-
-        inputFiles.addEventListener('change', function (e) {
-
-            Array.from(e.target.files).forEach(file => {
-
-                selectedFiles.push(file);
-
-            });
-
-            updateInputFiles();
-
-            renderFiles();
-
-        });
-
-        function renderFiles() {
-
-            fileList.innerHTML = '';
-
-            selectedFiles.forEach((file, index) => {
-
-                const div =
-                document.createElement('div');
-
-                div.classList.add('file-item');
-
-                div.innerHTML = `
-                    <div class="file-left">
-
-                        <span>📎</span>
-
-                        <span>${file.name}</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="remove-file"
-                        onclick="removeFile(${index})"
-                    >
-                        ×
-                    </button>
-                `;
-
-                fileList.appendChild(div);
-
-            });
-
-        }
-
-        function updateInputFiles() {
-
-            const dataTransfer =
-            new DataTransfer();
-
-            selectedFiles.forEach(file => {
-
-                dataTransfer.items.add(file);
-
-            });
-
-            inputFiles.files =
-            dataTransfer.files;
-
-        }
-
-        function removeFile(index) {
-
-            selectedFiles.splice(index, 1);
-
-            updateInputFiles();
-
-            renderFiles();
-
-        }
-
-    </script>
+    {{-- JS --}}
+    <script src="{{ asset('js/upload_artikel.js') }}"></script>
 
 </body>
+
 </html>

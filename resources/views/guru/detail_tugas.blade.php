@@ -1,298 +1,235 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
+
 <head>
-<title>CBT Pilihan Ganda</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+    <meta charset="UTF-8">
 
-body{
-font-family:Poppins,sans-serif;
-background:#f4f6f9;
-margin:0;
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-.header{
-background:white;
-padding:20px 40px;
-border-bottom:1px solid #ddd;
-}
+    <title>CBT Pilihan Ganda</title>
 
-.container{
-display:flex;
-padding:30px;
-gap:30px;
-}
+    {{-- CSS --}}
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/cbt_pg.css') }}"
+    >
 
-.soal-area{
-flex:3;
-background:white;
-padding:30px;
-border-radius:10px;
-}
-
-.nav-area{
-flex:1;
-background:white;
-padding:20px;
-border-radius:10px;
-height:fit-content;
-}
-
-.nomor-grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:10px;
-}
-
-.nomor{
-padding:10px;
-text-align:center;
-background:#eee;
-border-radius:6px;
-cursor:pointer;
-}
-
-.nomor.active{
-background:#2196F3;
-color:white;
-}
-
-.opsi{
-margin-top:20px;
-}
-
-.opsi label{
-display:block;
-padding:10px;
-border:1px solid #ddd;
-border-radius:6px;
-margin-bottom:10px;
-cursor:pointer;
-}
-
-.opsi input{
-margin-right:10px;
-}
-
-.footer{
-margin-top:30px;
-display:flex;
-justify-content:space-between;
-}
-
-button{
-padding:10px 20px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
-
-.btn-next{
-background:#4CAF50;
-color:white;
-}
-
-.btn-prev{
-background:#999;
-color:white;
-}
-
-.btn-selesai{
-background:#f44336;
-color:white;
-width:100%;
-margin-top:20px;
-}
-
-</style>
 </head>
 
 <body>
 
-<div class="header">
-<h2>{{ $judul }}</h2>
-<p>Kelas : {{ $kelas->nama_kelas }}</p>
-<p>Mapel : {{ $mapel }}</p>
-</div>
+    {{-- Header --}}
+    <div class="header">
+
+        <h2>
+            {{ $judul }}
+        </h2>
+
+        <p>
+            Kelas : {{ $kelas->nama_kelas }}
+        </p>
+
+        <p>
+            Mapel : {{ $mapel }}
+        </p>
+
+    </div>
+
+    {{-- Container --}}
+    <div class="container">
+
+        {{-- Soal Area --}}
+        <div class="soal-area">
+
+            @if($soal->count() == 0)
+
+                <p>Tidak ada soal</p>
+
+            @else
+
+                @foreach($soal as $index => $s)
+
+                    <div
+                        class="soal-item"
+                        id="soal{{ $index }}"
+                        style="{{ $index == 0 ? '' : 'display:none' }}"
+                    >
+
+                        <h3>
+                            Soal {{ $index + 1 }}
+                        </h3>
+
+                        <p>
+                            {{ $s->pertanyaan }}
+                        </p>
+
+                        <div class="opsi">
+
+                            @php
+
+                                $kunci = explode(',', $s->jawaban_benar);
+
+                                $isMultiple = count($kunci) > 1;
+
+                            @endphp
+
+                            @if($isMultiple)
+
+                                {{-- Multiple Answer --}}
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="A"
+                                    >
+                                    A. {{ $s->opsi_a }}
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="B"
+                                    >
+                                    B. {{ $s->opsi_b }}
+                                </label>
 
-<div class="container">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="C"
+                                    >
+                                    C. {{ $s->opsi_c }}
+                                </label>
 
-<div class="soal-area">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="D"
+                                    >
+                                    D. {{ $s->opsi_d }}
+                                </label>
 
-@if($soal->count()==0)
+                            @else
 
-<p>Tidak ada soal</p>
+                                {{-- Single Answer --}}
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="A"
+                                    >
+                                    A. {{ $s->opsi_a }}
+                                </label>
 
-@else
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="B"
+                                    >
+                                    B. {{ $s->opsi_b }}
+                                </label>
 
-@foreach($soal as $index => $s)
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="C"
+                                    >
+                                    C. {{ $s->opsi_c }}
+                                </label>
 
-<div class="soal-item" id="soal{{ $index }}" style="{{ $index==0 ? '' : 'display:none' }}">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="jawaban[{{ $s->id }}][]"
+                                        value="D"
+                                    >
+                                    D. {{ $s->opsi_d }}
+                                </label>
 
-<h3>Soal {{ $index+1 }}</h3>
+                            @endif
 
-<p>{{ $s->pertanyaan }}</p>
+                        </div>
 
-<div class="opsi">
+                        {{-- Footer --}}
+                        <div class="footer">
 
-@php
-$kunci = explode(',', $s->jawaban_benar);
-$isMultiple = count($kunci) > 1;
-@endphp
+                            @if($index > 0)
 
+                                <button
+                                    class="btn-prev"
+                                    onclick="prevSoal({{ $index }})"
+                                >
+                                    Sebelumnya
+                                </button>
 
-@if($isMultiple)
+                            @endif
 
-{{-- MULTIPLE ANSWER (checkbox) --}}
+                            @if($index < count($soal) - 1)
 
-<label>
-<input type="checkbox" name="jawaban[{{ $s->id }}][]" value="A">
-A. {{ $s->opsi_a }}
-</label>
+                                <button
+                                    class="btn-next"
+                                    onclick="nextSoal({{ $index }})"
+                                >
+                                    Berikutnya
+                                </button>
 
-<label>
-<input type="checkbox" name="jawaban[{{ $s->id }}][]" value="B">
-B. {{ $s->opsi_b }}
-</label>
+                            @endif
 
-<label>
-<input type="checkbox" name="jawaban[{{ $s->id }}][]" value="C">
-C. {{ $s->opsi_c }}
-</label>
+                        </div>
 
-<label>
-<input type="checkbox" name="jawaban[{{ $s->id }}][]" value="D">
-D. {{ $s->opsi_d }}
-</label>
+                    </div>
 
-@else
+                @endforeach
 
-{{-- SINGLE ANSWER (radio) --}}
+            @endif
 
-<label>
-<input type="radio" name="jawaban[{{ $s->id }}][]" value="A">
-A. {{ $s->opsi_a }}
-</label>
+        </div>
 
-<label>
-<input type="radio" name="jawaban[{{ $s->id }}][]" value="B">
-B. {{ $s->opsi_b }}
-</label>
+        {{-- Navigation --}}
+        <div class="nav-area">
 
-<label>
-<input type="radio" name="jawaban[{{ $s->id }}][]" value="C">
-C. {{ $s->opsi_c }}
-</label>
+            <h4>
+                Navigasi Soal
+            </h4>
 
-<label>
-<input type="radio" name="jawaban[{{ $s->id }}][]" value="D">
-D. {{ $s->opsi_d }}
-</label>
+            <div class="nomor-grid">
 
-@endif
+                @foreach($soal as $index => $s)
 
-</div>
+                    <div
+                        class="nomor {{ $index == 0 ? 'active' : '' }}"
+                        onclick="lompatSoal({{ $index }})"
+                        id="nav{{ $index }}"
+                    >
 
-<div class="footer">
+                        {{ $index + 1 }}
 
-@if($index>0)
-<button class="btn-prev" onclick="prevSoal({{ $index }})">
-Sebelumnya
-</button>
-@endif
+                    </div>
 
-@if($index < count($soal)-1)
-<button class="btn-next" onclick="nextSoal({{ $index }})">
-Berikutnya
-</button>
-@endif
+                @endforeach
 
-</div>
+            </div>
 
-</div>
+            <button class="btn-selesai">
+                Selesai Ujian
+            </button>
 
-@endforeach
+        </div>
 
-@endif
+    </div>
 
-</div>
-
-
-<div class="nav-area">
-
-<h4>Navigasi Soal</h4>
-
-<div class="nomor-grid">
-
-@foreach($soal as $index => $s)
-
-<div class="nomor {{ $index==0 ? 'active' : '' }}"
-onclick="lompatSoal({{ $index }})"
-id="nav{{ $index }}">
-
-{{ $index+1 }}
-
-</div>
-
-@endforeach
-
-</div>
-
-<button class="btn-selesai">
-Selesai Ujian
-</button>
-
-</div>
-
-</div>
-
-
-<script>
-
-function nextSoal(i){
-
-document.getElementById("soal"+i).style.display="none";
-document.getElementById("soal"+(i+1)).style.display="block";
-
-setActive(i+1);
-
-}
-
-function prevSoal(i){
-
-document.getElementById("soal"+i).style.display="none";
-document.getElementById("soal"+(i-1)).style.display="block";
-
-setActive(i-1);
-
-}
-
-function lompatSoal(i){
-
-let total = document.querySelectorAll(".soal-item");
-
-total.forEach((el,index)=>{
-el.style.display="none";
-});
-
-document.getElementById("soal"+i).style.display="block";
-
-setActive(i);
-
-}
-
-function setActive(i){
-
-document.querySelectorAll(".nomor").forEach(el=>{
-el.classList.remove("active");
-});
-
-document.getElementById("nav"+i).classList.add("active");
-
-}
-
-</script>
+    {{-- JS --}}
+    <script src="{{ asset('js/cbt_pg.js') }}"></script>
 
 </body>
+
 </html>
