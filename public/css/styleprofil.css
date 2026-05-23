@@ -3,7 +3,7 @@
 ========================= */
 
 .page-header{
-    padding:140px 20px 60px;
+    padding:60px 20px 60px;
     text-align:center;
     background:#f8fafc;
 }
@@ -45,12 +45,26 @@
     margin-bottom:60px;
 }
 
-/* GARIS PEMBATAS */
-.row-item:first-child{
-    padding-bottom:50px;
+/* =========================
+   ROW
+========================= */
+
+.row-item{
+    display:flex;
+    align-items:flex-start;
+    gap:50px;
+
     margin-bottom:50px;
+    padding-bottom:50px;
 
     border-bottom:2px solid #4CAF50;
+}
+
+/* SECTION TERAKHIR TIDAK ADA GARIS */
+.row-item:last-child{
+    border-bottom:none;
+    margin-bottom:0;
+    padding-bottom:0;
 }
 
 /* =========================
@@ -65,6 +79,8 @@
     font-weight:600;
 
     color:#111;
+
+    margin-left:60px;
 }
 
 /* =========================
@@ -94,20 +110,107 @@
 }
 
 /* =========================
-   TATIB
+   CONTENT
 ========================= */
 
-.tatib-list{
-    width:100%;
-    max-width:850px;
+.content-section{
+    padding:60px 20px;
+    background:#fff;
+}
 
+.tatib-container{
+    max-width:1000px;
     margin:auto;
+}
 
-    font-size:20px;
-    line-height:2;
+/* =========================
+   SECTION
+========================= */
+
+.tatib-section{
+    margin-bottom:70px;
+    padding-bottom:50px;
+
+    border-bottom:2px solid #4CAF50;
+}
+
+.tatib-section:last-child{
+    border-bottom:none;
+    margin-bottom:0;
+    padding-bottom:0;
+}
+
+/* =========================
+   JUDUL SECTION
+========================= */
+
+.section-title{
+    font-size:34px;
+    font-weight:700;
+
+    text-align:center;
+
+    color:#111;
+
+    margin-bottom:40px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.section-content{
     color:#333;
+}
 
-    padding-left:25px;
+.section-content ol{
+    padding-left:28px;
+}
+
+.section-content li{
+    font-size:18px;
+    line-height:2;
+
+    margin-bottom:10px;
+}
+
+/* =========================
+   SUB SECTION
+========================= */
+
+.sub-section{
+    margin-bottom:45px;
+}
+
+.sub-section h3{
+    font-size:28px;
+    font-weight:700;
+
+    color:black;
+
+    margin-bottom:20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .section-title{
+        font-size:28px;
+        line-height:1.4;
+    }
+
+    .sub-section h3{
+        font-size:22px;
+    }
+
+    .section-content li{
+        font-size:16px;
+        line-height:1.9;
+    }
+
 }
 
 /* =========================
@@ -143,7 +246,7 @@
 
     /* HEADER */
     .page-header{
-        padding:120px 20px 40px;
+        padding:70px 20px 50px;
     }
 
     .page-header h1{
@@ -182,6 +285,8 @@
         font-size:24px;
 
         text-align:center;
+
+        margin-left:0;
     }
 
     /* CONTENT */

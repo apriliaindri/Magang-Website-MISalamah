@@ -17,8 +17,7 @@
             </div>
             <div class="right-content">
                 <p>
-                    “Terwujudnya peserta didik yang beriman, berakhlak mulia,
-                    berilmu, berwawasan lingkungan, dan berdaya saing global.”
+                    “Terbentuknya generasi muslim yang berakidah kuat, beramal sholeh, berakhlaqul karimah, terampil membaca al-Qur'an, cerdas, kreatif, mandiri, berkarakter moderat, berwawasan masa depan dan bertanggung jawab dalam beragama, berbangsa dan bernegara.”
                 </p>
             </div>
         </div>
@@ -29,11 +28,12 @@
             </div>
             <div class="right-content">
                 <ol>
-                    <li>Meningkatkan keimanan dan ketakwaan kepada Tuhan Yang Maha Esa.</li>
-                    <li>Membentuk karakter siswa yang berakhlak mulia.</li>
-                    <li>Meningkatkan kualitas pembelajaran yang inovatif dan kreatif.</li>
-                    <li>Menanamkan kepedulian terhadap lingkungan.</li>
-                    <li>Mempersiapkan siswa agar mampu bersaing secara global.</li>
+                    <li>Menyelenggarakan pendidikan yang berkualitas dalam pencapaian prestasi akademik dan non akademik.</li>
+                    <li>Menyelenggarakan pembelajaran dan pembiasaan dalam mempelajari Al-Qur’an, sholat wajib dan sunnah, serta  menjalankan ajaran agama Islam lainnya.</li>
+                    <li>Meningkatkan pembentukan karakter Islami yang bercirikan moderatisme dan berjiwa rahmatan lil ‘alamin yang mampu mengaktualisasikan diri dalam masyarakat.</li>
+                    <li>Meningkatkan pengetahuan dan profesionalisme pendidik sesuai dengan perkembangan dunia Pendidikan.</li>
+                    <li>Meningkatkan kemampuan pendidik dalam literasi digital dan peningkatan kemampaun teknis dalam digitalisasi pembelajaran.</li>
+                    <li>Menyelenggarakan tata kelola madrasah yang efektif, efisien, transparan dan akuntabel.</li>
                 </ol>
             </div>
         </div>

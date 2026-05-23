@@ -1,5 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
+<link rel="stylesheet" href="<?php echo e(asset('css/home.css')); ?>">
+
 
 <section class="hero">
     <div class="hero-wrapper">
@@ -7,7 +9,7 @@
         <div class="hero-text">
             <h1>Selamat Datang di</h1>
             <h2>MI Salamah</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Cerdas & Berakhlak Qur'ani</p>
         </div>
 
         <div class="hero-image">
@@ -36,61 +38,62 @@
         </div>
     </section>
 
+    
+    <section id="pengumuman" class="section pengumuman-section">
 
-<section id="pengumuman" class="section pengumuman-section">
+        <div class="container">
 
-    <div class="container">
+            <div class="pengumuman-header">
+                <h2>Pengumuman</h2>
 
-        <div class="pengumuman-header">
-            <h2>Pengumuman</h2>
-            <div class="header-line"></div>
+                <div class="header-line"></div>
 
-            <a href="<?php echo e(route('pengumuman.daftar.pengumuman')); ?>" class="lihat-semua">
-                Lihat semua
-            </a>
-        </div>
+                <a href="<?php echo e(route('pengumuman.daftar.pengumuman')); ?>" class="lihat-semua">
+                    Lihat semua
+                </a>
+            </div>
 
-        <?php
-            $pengumumanItems = $pengumuman->take(9);
-        ?>
+            <?php
+                $pengumumanItems = $pengumuman->take(9);
+            ?>
 
-        <?php if($pengumumanItems->count()): ?>
+            <?php if($pengumumanItems->count()): ?>
 
-        <div class="pengumuman-slider-wrapper">
+            <div class="pengumuman-slider-wrapper">
 
-            <button class="slide-btn prev-btn" id="prevPengumuman">
-                &#10094;
-            </button>
+                <button class="slide-btn prev-btn" id="prevPengumuman">
+                    &#10094;
+                </button>
 
-            <div class="pengumuman-slider" id="pengumumanSlider">
+                <div class="pengumuman-slider" id="pengumumanSlider">
 
-                <?php $__currentLoopData = $pengumumanItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $pengumumanItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                    <div class="pengumuman-slide">
+                        <div class="pengumuman-slide">
 
-                        <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            <?php echo $__env->make('partials.card_pengumuman', ['p' => $p], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                                <?php echo $__env->make('partials.card_pengumuman', ['p' => $p], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                    </div>
+                        </div>
 
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                </div>
+
+                <button class="slide-btn next-btn" id="nextPengumuman">
+                    &#10095;
+                </button>
 
             </div>
 
-            <button class="slide-btn next-btn" id="nextPengumuman">
-                &#10095;
-            </button>
+            <?php endif; ?>
 
         </div>
 
-        <?php endif; ?>
-
-    </div>
-
-</section>
+    </section>
 
     
     <section id="artikel" class="section artikel-section">
@@ -99,6 +102,7 @@
 
             <div class="artikel-header">
                 <h2>Artikel</h2>
+
                 <div class="header-line"></div>
 
                 <a href="<?php echo e(route('artikel.daftar.artikel')); ?>" class="lihat-semua">
@@ -106,43 +110,45 @@
                 </a>
             </div>
 
-          <?php
-    $artikelItems = $articles->take(9);
-?>
+            <?php
+                $artikelItems = $articles->take(9);
+            ?>
 
-<?php if($artikelItems->count()): ?>
+            <?php if($artikelItems->count()): ?>
 
-<div class="artikel-slider-wrapper">
+            <div class="artikel-slider-wrapper">
 
-    <button class="slide-btn artikel-prev-btn" id="prevArtikel">
-        &#10094;
-    </button>
+                <button class="slide-btn artikel-prev-btn" id="prevArtikel">
+                    &#10094;
+                </button>
 
-    <button class="slide-btn artikel-next-btn" id="nextArtikel">
-        &#10095;
-    </button>
+                <button class="slide-btn artikel-next-btn" id="nextArtikel">
+                    &#10095;
+                </button>
 
-    <div class="artikel-slider" id="artikelSlider">
+                <div class="artikel-slider" id="artikelSlider">
 
-        <?php $__currentLoopData = $artikelItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $artikelItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-            <div class="artikel-slide">
+                        <div class="artikel-slide">
 
-                <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                    <?php echo $__env->make('partials.card_artikel', ['a' => $a], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                                <?php echo $__env->make('partials.card_artikel', ['a' => $a], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                        </div>
+
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                </div>
 
             </div>
 
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
 
-    </div>
-
-</div>
-
-<?php endif; ?>
+        </div>
 
     </section>
 
@@ -159,14 +165,46 @@
                 </iframe>
             </div>
 
-            <div class="footer-info">
-                <h2>Alamat & Kontak</h2>
+<div class="footer-info">
 
-                <p><strong>Alamat:</strong><br> Jl. Contoh No. 123, Kota Anda</p>
-                <p><strong>Email:</strong><br> info@misalamah.sch.id</p>
-                <p><strong>No. Telepon:</strong><br> 0812-3456-7890</p>
-            </div>
+    <h2>Alamat & Kontak</h2>
 
+    <p>
+        <strong>Alamat:</strong><br>
+        <a href="https://maps.app.goo.gl/yMtzwr31doxBUxKT9" target="_blank">
+            Bulurejo, Plesungan, Kec. Gondangrejo, Kabupaten Karanganyar, Jawa Tengah 57181, Indonesia
+        </a>
+    </p>
+
+    <p>
+        <strong>Email:</strong><br>
+        <a href="mailto:misalamah1987@gmail.com">
+            misalamah1987@gmail.com
+        </a>
+    </p>
+
+    <p>
+        <strong>No. Telepon:</strong><br>
+        <a href="https://wa.me/6281234567890" target="_blank">
+            0812-3456-7890
+        </a>
+    </p>
+
+    <p>
+        <strong>Youtube:</strong><br>
+        <a href="https://www.youtube.com/@SalamahSulurejo/shorts" target="_blank">
+            Salamah Sulurejo
+        </a>
+    </p>
+
+    <p>
+        <strong>Facebook:</strong><br>
+        <a href="https://www.facebook.com/share/14anWLtCRbW/" target="_blank">
+            Arif Salamah
+        </a>
+    </p>
+
+</div>
         </div>
 
         <footer class="footer-credit">
@@ -176,7 +214,6 @@
     </section>
 
 </div>
-
 
 <script src="<?php echo e(asset('js/home.js')); ?>"></script>
 
