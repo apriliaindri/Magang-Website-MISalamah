@@ -245,6 +245,9 @@ Route::post('/kepalasekolah/user/reset/{id}',
         [KepalaSekolahController::class, 'storePengumuman'])
         ->name('kepalasekolah.pengumuman.store');
 
+        Route::get('/manage-user', [KepalaSekolahController::class, 'manageUser'])
+    ->name('kepalasekolah.manageuser');
+
 
     /*
     |--------------------------------------------------------------------------

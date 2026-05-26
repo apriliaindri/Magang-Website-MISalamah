@@ -87,7 +87,10 @@ body {
 .logout-btn {
     background: none;
     color: red;
+
+    margin-top: 20px !important;
 }
+
 
 /* ================= CONTENT ================= */
 .content {

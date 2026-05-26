@@ -4,8 +4,8 @@
     <title>Dashboard Kepala Madrasah</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {{-- CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/dashboard_kepalasekolah.css') }}">
+    
+    <link rel="stylesheet" href="<?php echo e(asset('css/dashboard_kepalasekolah.css')); ?>">
 </head>
 
 <body>
@@ -21,25 +21,25 @@
     <div class="profile-card">
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
         <div>
-            <h3>{{ auth()->user()->name }}</h3>
+            <h3><?php echo e(auth()->user()->name); ?></h3>
             <p>Kepala Madrasah</p>
         </div>
     </div>
 
-    <a href="{{ route('pengumuman.create') }}">
+    <a href="<?php echo e(route('pengumuman.create')); ?>">
         <button>Tambah Pengumuman</button>
     </a>
 
-    <a href="{{ route('kepalasekolah.artikel.create') }}">
+    <a href="<?php echo e(route('kepalasekolah.artikel.create')); ?>">
         <button>Upload Artikel</button>
     </a>
 
-<a href="{{ route('kepalasekolah.manageuser') }}">
+<a href="<?php echo e(route('kepalasekolah.manageuser')); ?>">
     <button>Manage User</button>
 </a>
 
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('logout')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
         <button type="submit" class="logout-btn">Logout</button>
     </form>
 </div>
@@ -52,8 +52,8 @@
         <div class="card">
             <h3>Upload Pengumuman</h3>
 
-            <form method="POST" action="{{ route('kepalasekolah.pengumuman.store') }}">
-                @csrf
+            <form method="POST" action="<?php echo e(route('kepalasekolah.pengumuman.store')); ?>">
+                <?php echo csrf_field(); ?>
                 <input type="text" name="judul" placeholder="Judul">
                 <textarea name="isi" rows="4" placeholder="Isi"></textarea>
                 <button type="submit">Simpan</button>
@@ -66,8 +66,8 @@
         <div class="card">
             <h3>Upload Artikel</h3>
 
-            <form method="POST" action="{{ route('kepalasekolah.artikel.store') }}" enctype="multipart/form-data">
-                @csrf
+            <form method="POST" action="<?php echo e(route('kepalasekolah.artikel.store')); ?>" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <input type="text" name="title" placeholder="Judul">
                 <input type="text" name="category" placeholder="Kategori">
                 <textarea name="content" rows="4" placeholder="Isi Artikel"></textarea>
@@ -84,8 +84,8 @@
 
         <h3>Tambah User</h3>
 
-        <form method="POST" action="{{ route('kepalasekolah.user.store') }}">
-            @csrf
+        <form method="POST" action="<?php echo e(route('kepalasekolah.user.store')); ?>">
+            <?php echo csrf_field(); ?>
 
             <input type="text" name="name" placeholder="Nama" required>
             <input type="email" name="email" placeholder="Email" required>
@@ -110,7 +110,7 @@
         <h3>Reset Password</h3>
 
         <form id="resetForm" method="POST">
-            @csrf
+            <?php echo csrf_field(); ?>
 
             <div style="position:relative;">
                 <input type="password" name="new_password" id="newPassword"
@@ -137,24 +137,25 @@
     </div>
 </div>
 
-{{-- JS --}}
-<script src="{{ asset('js/dashboard_kepalasekolah.js') }}"></script>
 
-@if(session('success'))
+<script src="<?php echo e(asset('js/dashboard_kepalasekolah.js')); ?>"></script>
+
+<?php if(session('success')): ?>
 <script>
     window.onload = function () {
-        showNotif("success", "{{ session('success') }}");
+        showNotif("success", "<?php echo e(session('success')); ?>");
     };
 </script>
-@endif
+<?php endif; ?>
 
-@if($errors->any())
+<?php if($errors->any()): ?>
 <script>
     window.onload = function () {
         showNotif("error", "Terjadi kesalahan, coba lagi!");
     };
 </script>
-@endif
+<?php endif; ?>
 
 </body>
 </html>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/kepalasekolah/dashboard.blade.php ENDPATH**/ ?>

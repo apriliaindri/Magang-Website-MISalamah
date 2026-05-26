@@ -24,7 +24,6 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
-
             // =========================
             // 🔥 VALIDASI KELAS PILIHAN
             // =========================
@@ -52,7 +51,7 @@ class AuthController extends Controller
             }
 
             // Role Kepala Sekolah
-            if ($user->role == 'kepala_sekolah') {
+            if ($user->role == 'kepala_madrasah') {
                 return redirect()->route('kepalasekolah.dashboard');
             }
         }

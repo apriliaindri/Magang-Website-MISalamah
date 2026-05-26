@@ -45,11 +45,14 @@ function showArtikel() {
 
 }
 
-function showUser() {
+function showUser(){
 
-    hideAll();
+    // sembunyikan section lain
+    document.getElementById("formPengumuman").style.display = "none";
+    document.getElementById("formArtikel").style.display = "none";
 
-    document.getElementById('formUser').style.display = 'block';
+    // tampilkan manage user
+    document.getElementById("formUser").style.display = "block";
 
 }
 
@@ -136,5 +139,28 @@ function showNotif(type, message) {
 function closeNotif() {
 
     document.getElementById('notifPopup').style.display = 'none';
+
+}
+
+function togglePassword(inputId, element){
+
+    const input = document.getElementById(inputId);
+
+    const icon = element.querySelector("i");
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+
+    }else{
+
+        input.type = "password";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    }
 
 }

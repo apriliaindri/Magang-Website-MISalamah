@@ -14,6 +14,13 @@ class KepalaSekolahController extends Controller
         return view('kepalasekolah.dashboard', compact('users'));
     }
 
+     public function manageUser()
+    {
+        $users = User::all();
+
+        return view('kepalasekolah.manage_user', compact('users'));
+    }
+
     // TAMBAH USER
     public function storeUser(Request $request)
     {
