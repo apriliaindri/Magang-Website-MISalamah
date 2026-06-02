@@ -14,17 +14,17 @@
         Buat Soal Pilihan Ganda
     </title>
 
-    {{-- CSS --}}
+    
     <link
         rel="stylesheet"
-        href="{{ asset('css/tambah_pg.css') }}"
+        href="<?php echo e(asset('css/tambah_pg.css')); ?>"
     >
 
 </head>
 
 <body>
 
-    {{-- Topbar --}}
+    
     <div class="topbar">
 
         <a
@@ -46,13 +46,13 @@
 
     </div>
 
-    {{-- Content --}}
+    
     <div class="content">
 
         <div class="card">
 
-            {{-- FORM PILIH KELAS --}}
-            @if(!request('kelas_id') || !request('mapel') || !request('judul'))
+            
+            <?php if(!request('kelas_id') || !request('mapel') || !request('judul')): ?>
 
                 <h3>
                     Pilih Kelas dan Mata Pelajaran
@@ -60,7 +60,7 @@
 
                 <form method="GET">
 
-                    {{-- Kelas --}}
+                    
                     <label>
                         Pilih Kelas
                     </label>
@@ -74,17 +74,18 @@
                             Pilih kelas
                         </option>
 
-                        @foreach($kelas as $k)
+                        <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            <option value="{{ $k->id }}">
-                                {{ $k->nama_kelas }}
+                            <option value="<?php echo e($k->id); ?>">
+                                <?php echo e($k->nama_kelas); ?>
+
                             </option>
 
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </select>
 
-                    @php
+                    <?php
 $mapel = [
     'Bahasa Indonesia',
     'Fikih',
@@ -105,7 +106,7 @@ $mapel = [
     'Praktik Fikih',
     'Pengayaan Literasi dan Numerasi'
 ];
-@endphp
+?>
 
 <label>
     Pilih Mata Pelajaran
@@ -120,16 +121,17 @@ $mapel = [
         Pilih Mata Pelajaran
     </option>
 
-    @foreach($mapel as $m)
+    <?php $__currentLoopData = $mapel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-        <option value="{{ $m }}">
-            {{ $m }}
+        <option value="<?php echo e($m); ?>">
+            <?php echo e($m); ?>
+
         </option>
 
-    @endforeach
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 </select>
-                    {{-- Judul --}}
+                    
                     <label>
                         Judul Tugas
                     </label>
@@ -140,7 +142,7 @@ $mapel = [
                         required
                     >
 
-                    {{-- Instruksi --}}
+                    
                     <label>
                         Instruksi Soal
                     </label>
@@ -149,7 +151,7 @@ $mapel = [
                         name="instruksi"
                         rows="2"
                         placeholder="Contoh: Pilih jawaban yang paling benar"
-                    >{{ request('instruksi') }}</textarea>
+                    ><?php echo e(request('instruksi')); ?></textarea>
 
                     <button class="btn btn-primary">
                         Mulai Buat Soal
@@ -157,48 +159,52 @@ $mapel = [
 
                 </form>
 
-            @else
+            <?php else: ?>
 
-                {{-- FORM TAMBAH SOAL --}}
+                
                 <h3>
                     Buat Soal
                 </h3>
 
                 <div class="info-box">
 
-                    <b>Judul:</b> {{ request('judul') }}
+                    <b>Judul:</b> <?php echo e(request('judul')); ?>
+
                     <br>
 
-                    <b>Mapel:</b> {{ request('mapel') }}
+                    <b>Mapel:</b> <?php echo e(request('mapel')); ?>
+
                     <br>
 
-                    <b>Instruksi:</b> {{ request('instruksi') }}
+                    <b>Instruksi:</b> <?php echo e(request('instruksi')); ?>
+
 
                 </div>
 
-                @if(session('success_soal'))
+                <?php if(session('success_soal')): ?>
 
                     <div class="success-message">
-                        {{ session('success_soal') }}
+                        <?php echo e(session('success_soal')); ?>
+
                     </div>
 
-                @endif
+                <?php endif; ?>
 
                 <form
-                    action="{{ route('guru.simpan.pg') }}"
+                    action="<?php echo e(route('guru.simpan.pg')); ?>"
                     method="POST"
                 >
 
-                    @csrf
+                    <?php echo csrf_field(); ?>
 
-                    {{-- Hidden --}}
-                    <input type="hidden" name="instruksi" value="{{ request('instruksi') }}">
-                    <input type="hidden" name="kelas_id" value="{{ request('kelas_id') }}">
-                    <input type="hidden" name="mapel" value="{{ request('mapel') }}">
-                    <input type="hidden" name="judul" value="{{ request('judul') }}">
-                    <input type="hidden" name="tugas_id" value="{{ request('tugas_id') }}">
+                    
+                    <input type="hidden" name="instruksi" value="<?php echo e(request('instruksi')); ?>">
+                    <input type="hidden" name="kelas_id" value="<?php echo e(request('kelas_id')); ?>">
+                    <input type="hidden" name="mapel" value="<?php echo e(request('mapel')); ?>">
+                    <input type="hidden" name="judul" value="<?php echo e(request('judul')); ?>">
+                    <input type="hidden" name="tugas_id" value="<?php echo e(request('tugas_id')); ?>">
 
-                    {{-- Pertanyaan --}}
+                    
                     <label>
                         Pertanyaan
                     </label>
@@ -209,7 +215,7 @@ $mapel = [
                         required
                     ></textarea>
 
-                    {{-- Opsi --}}
+                    
                     <label>Opsi A</label>
                     <input type="text" name="opsi_a" required>
 
@@ -222,32 +228,33 @@ $mapel = [
                     <label>Opsi D</label>
                     <input type="text" name="opsi_d" required>
 
-                    {{-- Jawaban --}}
+                    
                     <label>
                         Jawaban Benar
                     </label>
 
                     <div class="jawaban-group">
 
-                        @foreach(['A', 'B', 'C', 'D'] as $opsi)
+                        <?php $__currentLoopData = ['A', 'B', 'C', 'D']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $opsi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                             <label class="jawaban-item">
 
                                 <input
                                     type="checkbox"
                                     name="jawaban_benar[]"
-                                    value="{{ $opsi }}"
+                                    value="<?php echo e($opsi); ?>"
                                 >
 
-                                {{ $opsi }}
+                                <?php echo e($opsi); ?>
+
 
                             </label>
 
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </div>
 
-                    {{-- Nilai --}}
+                    
                     <label>
                         Nilai Soal
                     </label>
@@ -269,7 +276,7 @@ $mapel = [
 
                 <hr>
 
-                {{-- TABLE --}}
+                
                 <h3>
     Daftar Soal
 </h3>
@@ -295,35 +302,37 @@ $mapel = [
 
                     <tbody>
 
-                        @foreach($soal as $s)
+                        <?php $__currentLoopData = $soal; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                             <tr>
 
-                                <td>{{ $loop->iteration }}</td>
+                                <td><?php echo e($loop->iteration); ?></td>
 
-                                <td>{{ $s->pertanyaan }}</td>
+                                <td><?php echo e($s->pertanyaan); ?></td>
 
                                 <td class="opsi-column">
 
-                                    A. {{ $s->opsi_a }} <br>
-                                    B. {{ $s->opsi_b }} <br>
-                                    C. {{ $s->opsi_c }} <br>
-                                    D. {{ $s->opsi_d }}
+                                    A. <?php echo e($s->opsi_a); ?> <br>
+                                    B. <?php echo e($s->opsi_b); ?> <br>
+                                    C. <?php echo e($s->opsi_c); ?> <br>
+                                    D. <?php echo e($s->opsi_d); ?>
+
 
                                 </td>
 
                                 <td>
-                                    <strong>{{ $s->jawaban_benar }}</strong>
+                                    <strong><?php echo e($s->jawaban_benar); ?></strong>
                                 </td>
 
                                 <td>
-                                    {{ $s->nilai }}
+                                    <?php echo e($s->nilai); ?>
+
                                 </td>
 
                                 <td>
 
                                     <a
-                                        href="{{ route('guru.edit.pg', $s->id) }}?kelas_id={{ request('kelas_id') }}&mapel={{ request('mapel') }}&judul={{ request('judul') }}"
+                                        href="<?php echo e(route('guru.edit.pg', $s->id)); ?>?kelas_id=<?php echo e(request('kelas_id')); ?>&mapel=<?php echo e(request('mapel')); ?>&judul=<?php echo e(request('judul')); ?>"
                                         class="btn btn-primary"
                                     >
                                         Edit
@@ -332,12 +341,12 @@ $mapel = [
                                     <br><br>
 
                                     <form
-                                        action="{{ route('guru.hapus.pg', $s->id) }}"
+                                        action="<?php echo e(route('guru.hapus.pg', $s->id)); ?>"
                                         method="POST"
                                     >
 
-                                        @csrf
-                                        @method('DELETE')
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
 
                                         <button class="btn btn-danger">
                                             Hapus
@@ -349,7 +358,7 @@ $mapel = [
 
                             </tr>
 
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                     </tbody>
 
@@ -357,18 +366,18 @@ $mapel = [
 
                 <br>
 
-                {{-- SIMPAN TUGAS --}}
+                
                 <form
-                    action="{{ route('guru.simpan.tugas') }}"
+                    action="<?php echo e(route('guru.simpan.tugas')); ?>"
                     method="POST"
                 >
 
-                    @csrf
+                    <?php echo csrf_field(); ?>
 
-                    <input type="hidden" name="instruksi" value="{{ request('instruksi') }}">
-                    <input type="hidden" name="kelas_id" value="{{ request('kelas_id') }}">
-                    <input type="hidden" name="mapel" value="{{ request('mapel') }}">
-                    <input type="hidden" name="judul" value="{{ request('judul') }}">
+                    <input type="hidden" name="instruksi" value="<?php echo e(request('instruksi')); ?>">
+                    <input type="hidden" name="kelas_id" value="<?php echo e(request('kelas_id')); ?>">
+                    <input type="hidden" name="mapel" value="<?php echo e(request('mapel')); ?>">
+                    <input type="hidden" name="judul" value="<?php echo e(request('judul')); ?>">
 
                     <button class="btn btn-success btn-full">
                         Simpan Tugas
@@ -376,14 +385,14 @@ $mapel = [
 
                 </form>
 
-            @endif
+            <?php endif; ?>
 
         </div>
 
     </div>
 </div>
 
-    {{-- Modal --}}
+    
     <div id="modalSuccess" class="modal-success">
 
         <div class="modal-box">
@@ -403,14 +412,15 @@ $mapel = [
 
     </div>
 
-    {{-- JS --}}
+    
     <script>
-        window.successTugas = @json(session('success_tugas'));
-        window.dashboardUrl = @json(route('guru.dashboard'));
+        window.successTugas = <?php echo json_encode(session('success_tugas'), 15, 512) ?>;
+        window.dashboardUrl = <?php echo json_encode(route('guru.dashboard'), 15, 512) ?>;
     </script>
 
-    <script src="{{ asset('js/tambah_pg.js') }}"></script>
+    <script src="<?php echo e(asset('js/tambah_pg.js')); ?>"></script>
 
 </body>
 
 </html>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/guru/tambah_pg.blade.php ENDPATH**/ ?>

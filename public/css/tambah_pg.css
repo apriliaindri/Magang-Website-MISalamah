@@ -36,13 +36,15 @@ body{
     padding:30px;
     border-radius:16px;
     box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
     width:100%;
-    max-width:700px;
+    max-width:900px;
 }
 
 /* INPUT */
 select,
-input,
+input[type="text"],
+input[type="number"],
 textarea{
     width:100%;
     padding:12px;
@@ -151,4 +153,116 @@ th{
     border-radius:12px;
     text-align:center;
     width:300px;
+}
+
+/* TABLE WRAPPER */
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    margin-top:20px;
+}
+
+/* OPSI JAWABAN */
+.opsi-column{
+    text-align:left;
+    line-height:1.6;
+    min-width:220px;
+}
+
+/* SUCCESS MESSAGE */
+.success-message{
+    background:#e8f5e9;
+    color:#2e7d32;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:15px;
+}
+
+/* JAWABAN */
+/* JAWABAN BENAR */
+.jawaban-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.jawaban-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:0;
+}
+
+/* FULL BUTTON */
+.btn-full{
+    width:100%;
+}
+
+/* RESPONSIVE TABLE */
+td{
+    word-break:break-word;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+
+    .content{
+        padding:85px 15px 30px;
+    }
+
+    .card{
+        padding:20px;
+    }
+
+    h3{
+        font-size:18px;
+    }
+
+    table{
+        min-width:700px;
+    }
+
+    th,
+    td{
+        font-size:13px;
+        padding:8px;
+    }
+
+    .btn{
+        width:100%;
+        text-align:center;
+        box-sizing:border-box;
+    }
+
+    .btn-primary,
+    .btn-danger{
+        margin-bottom:8px;
+    }
+
+    .modal-box{
+        width:90%;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .card{
+        padding:15px;
+    }
+
+    h3{
+        font-size:16px;
+    }
+
+    .topbar-title{
+        font-size:14px;
+    }
+
+    th,
+    td{
+        font-size:12px;
+    }
+
 }
