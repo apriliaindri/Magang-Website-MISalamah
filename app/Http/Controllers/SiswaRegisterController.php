@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Kelas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,6 +12,7 @@ class SiswaRegisterController extends Controller
     public function create($id)
     {
         $kelas = Kelas::findOrFail($id);
+
         return view('auth.register', compact('kelas'));
     }
 
@@ -21,19 +22,17 @@ class SiswaRegisterController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'kode_kelas' => 'required'
+            'kode_kelas' => 'required',
         ]);
 
-        // ✅ VALIDASI KODE KELAS
         $kelas = Kelas::where('id', $id)
             ->where('kode_kelas', $request->kode_kelas)
             ->first();
 
-        if (!$kelas) {
+        if (! $kelas) {
             return back()->with('error', 'Kode kelas salah!');
         }
 
-        // ✅ SIMPAN USER
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -42,27 +41,28 @@ class SiswaRegisterController extends Controller
             'kelas_id' => $id,
         ]);
 
-        return redirect()->route('login')
+        return redirect()
+            ->route('login')
             ->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
     public function formKode($id)
-{
-    $kelas = Kelas::findOrFail($id);
-    return view('auth.kode_kelas', compact('kelas'));
-}
+    {
+        $kelas = Kelas::findOrFail($id);
 
-public function cekKode(Request $request, $id)
-{
-    $kelas = Kelas::where('id', $id)
-        ->where('kode_kelas', $request->kode_kelas)
-        ->first();
-
-    if (!$kelas) {
-        return back()->with('error', 'Kode kelas salah!');
+        return view('auth.kode_kelas', compact('kelas'));
     }
 
-    // ✅ kalau benar → redirect ke register
-    return redirect()->route('siswa.register', $id);
-}
+    public function cekKode(Request $request, $id)
+    {
+        $kelas = Kelas::where('id', $id)
+            ->where('kode_kelas', $request->kode_kelas)
+            ->first();
+
+        if (! $kelas) {
+            return back()->with('error', 'Kode kelas salah!');
+        }
+
+        return redirect()->route('siswa.register', $id);
+    }
 }

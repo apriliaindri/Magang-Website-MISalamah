@@ -20,18 +20,16 @@ class Pengumuman extends Model
         'gambar',
     ];
 
-    // Cast gambar sebagai array
-protected $casts = [
-    'media_list' => 'array',
-    'gambar' => 'array',
-];
-    // Relasi ke user
+    protected $casts = [
+        'media_list' => 'array',
+        'gambar' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi ke kelas
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);

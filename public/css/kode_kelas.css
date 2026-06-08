@@ -1,45 +1,47 @@
-/* RESET */
+/* Reset */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-/* BODY */
+/* Body */
+
 body{
-    font-family:'Poppins', sans-serif;
-    background:#f4f7fb;
     min-height:100vh;
+
+    background:#f4f7fb;
+
+    font-family:'Poppins', sans-serif;
 }
 
-/* ================= NAVBAR ================= */
+/* Navbar */
 
 .navbar{
-    width:100%;
-
     position:fixed;
     top:0;
     left:0;
+    z-index:1000;
 
-    background:white;
+    width:100%;
 
     padding:18px 24px;
 
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.06);
+    background:white;
 
-    z-index:1000;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
 }
 
-/* BACK BUTTON */
+/* Back Button */
 
 .back-btn{
-    text-decoration:none;
-
     color:#4CAF50;
 
     font-size:16px;
     font-weight:600;
+
+    text-decoration:none;
 
     transition:0.3s ease;
 }
@@ -48,7 +50,7 @@ body{
     color:#43a047;
 }
 
-/* ================= KODE SECTION ================= */
+/* Kode Section */
 
 .kode-section{
     min-height:100vh;
@@ -60,63 +62,57 @@ body{
     padding:50px 20px 20px;
 }
 
-/* ================= BOX ================= */
+/* Kode Box */
 
 .kode-box{
     width:100%;
     max-width:400px;
 
-    background:white;
-
     padding:40px 30px;
+
+    background:white;
 
     border-radius:20px;
 
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.08);
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
 
     text-align:center;
 }
 
-/* TITLE */
-
 .kode-box h2{
-    font-size:20px;
-    font-weight:600;
-
     margin-bottom:25px;
 
     color:#222;
+
+    font-size:20px;
+    font-weight:600;
 }
 
-/* ================= INPUT ================= */
+/* Input */
 
 .kode-box input{
     width:100%;
 
+    margin-bottom:18px;
     padding:14px 16px;
 
     border:1px solid #ddd;
     border-radius:12px;
 
-    font-size:15px;
-    font-family:'Poppins', sans-serif;
-
     outline:none;
 
-    margin-bottom:18px;
+    font-family:'Poppins', sans-serif;
+    font-size:15px;
 
     transition:0.3s ease;
 }
 
 .kode-box input:focus{
     border-color:#4CAF50;
-
-    box-shadow:
-        0 0 0 4px rgba(76,175,80,0.15);
+    box-shadow:0 0 0 4px rgba(76,175,80,0.15);
 }
 
-/* ================= BUTTON ================= */
+/* Button */
 
 .kode-box button{
     width:100%;
@@ -141,7 +137,7 @@ body{
     background:#43a047;
 }
 
-/* ================= ERROR ================= */
+/* Error */
 
 .error{
     margin-top:15px;
@@ -152,7 +148,7 @@ body{
     font-weight:500;
 }
 
-/* ================= MOBILE ================= */
+/* Responsive */
 
 @media (max-width:768px){
 
@@ -170,7 +166,6 @@ body{
 
     .kode-box{
         padding:30px 22px;
-
         border-radius:16px;
     }
 

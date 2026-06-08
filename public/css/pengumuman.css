@@ -1,28 +1,40 @@
+/* Body */
+
 body{
     margin:0;
+
     font-family:Poppins,sans-serif;
+
     background:#f5f7fa;
 }
 
-/* TOPBAR */
+/* Topbar */
+
 .topbar{
-    height:60px;
-    background:#4CAF50;
+    position:fixed;
+    top:0;
+
     display:flex;
     align-items:center;
-    padding:0 20px;
-    color:white;
-    position:fixed;
+
     width:100%;
-    top:0;
+    height:60px;
+    padding:0 20px;
+
+    background:#4CAF50;
+    color:white;
+
+    z-index:1000;
 }
 
 .topbar-title{
-    font-weight:600;
     margin-left:10px;
+
+    font-weight:600;
 }
 
-/* BACK BUTTON */
+/* Back Button */
+
 .back-btn{
     display:flex;
     align-items:center;
@@ -31,87 +43,113 @@ body{
 .back-btn img{
     width:20px;
     height:20px;
+
     cursor:pointer;
-    filter: invert(1);
+    filter:invert(1);
 }
 
-/* CONTENT */
+/* Content */
+
 .content{
-    padding-top:100px;
     display:flex;
-    gap:20px;
     justify-content:center;
     align-items:flex-start;
     flex-wrap:wrap;
+    gap:20px;
+
+    padding-top:100px;
 }
 
-/* CARD */
+/* Card */
+
 .card{
-    background:white;
     padding:25px;
+
+    background:white;
+
     border-radius:16px;
+
     box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* FORM */
 .form-card{
     width:100%;
     max-width:400px;
 }
 
-/* LIST */
 .list-card{
     width:100%;
     max-width:500px;
     max-height:500px;
+
     overflow-y:auto;
 }
 
-/* INPUT */
-select,input,textarea{
+/* Form */
+
+select,
+input,
+textarea{
     width:100%;
-    padding:12px;
     margin-bottom:15px;
-    border-radius:8px;
+    padding:12px;
+
     border:1px solid #ddd;
+    border-radius:8px;
+
     font-size:14px;
+
     box-sizing:border-box;
 }
 
-select:focus,input:focus,textarea:focus{
-    border-color:#4CAF50;
+select:focus,
+input:focus,
+textarea:focus{
     outline:none;
-    box-shadow:0 0 0 3px rgba(76,175,80,0.15);
+
+    border-color:#4CAF50;
+
+    box-shadow:0 0 0 3px rgba(76,175,80,.15);
 }
 
-/* BUTTON */
+/* Button */
+
 button{
     width:100%;
     padding:12px;
+
     border:none;
     border-radius:8px;
-    font-weight:600;
+
     background:#4CAF50;
     color:white;
+
+    font-weight:600;
+
     cursor:pointer;
 }
 
 button:hover{
-    opacity:0.9;
+    opacity:.9;
 }
 
-/* ALERT */
+/* Alert */
+
 .alert-success{
+    margin-bottom:10px;
+    padding:10px;
+
     background:#e8f5e9;
     color:#2e7d32;
-    padding:10px;
+
     border-radius:8px;
-    margin-bottom:10px;
 }
 
-/* LIST ITEM */
+/* List */
+
 .item{
     padding:12px;
+
     border-bottom:1px solid #eee;
 }
 
@@ -120,15 +158,19 @@ button:hover{
 }
 
 .kelas{
+    margin-bottom:5px;
+
     font-size:13px;
     color:#888;
-    margin-bottom:5px;
 }
 
-/* RESPONSIVE */
-@media(max-width:768px){
+/* Responsive */
+
+@media (max-width:768px){
+
     .content{
         flex-direction:column;
         align-items:center;
     }
+
 }

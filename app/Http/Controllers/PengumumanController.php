@@ -9,39 +9,34 @@ use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
 {
-    // Admin list
     public function index()
     {
         return view('pengumuman.index', [
-            'pengumuman' => Pengumuman::latest()->get()
+            'pengumuman' => Pengumuman::latest()->get(),
         ]);
     }
 
-    // Publik list
     public function daftarPengumuman()
     {
         return view('pengumuman.daftar_pengumuman', [
-            'pengumuman' => Pengumuman::latest()->get()
+            'pengumuman' => Pengumuman::latest()->get(),
         ]);
     }
 
-    // Detail
     public function detail($id)
     {
         return view('pengumuman.detail_pengumuman', [
-            'pengumuman' => Pengumuman::findOrFail($id)
+            'pengumuman' => Pengumuman::findOrFail($id),
         ]);
     }
 
-    // Create form
     public function create()
     {
         return view('pengumuman.create', [
-            'kelas' => Kelas::all()
+            'kelas' => Kelas::all(),
         ]);
     }
 
-    // STORE
     public function store(Request $request)
     {
         abort_unless(
@@ -54,12 +49,10 @@ class PengumumanController extends Controller
             'isi' => 'required',
         ]);
 
-        // file tunggal
         $filePath = $request->hasFile('file')
             ? $request->file('file')->store('pengumuman/file', 'public')
             : null;
 
-        // multiple gambar
         $gambarPaths = [];
 
         if ($request->hasFile('files')) {
@@ -74,22 +67,20 @@ class PengumumanController extends Controller
             'kelas_id' => $request->kelas_id,
             'user_id' => auth()->id(),
             'file' => $filePath,
-            'gambar' => $gambarPaths, // 👉 kalau pakai cast (lihat bawah)
+            'gambar' => $gambarPaths,
         ]);
 
         return back()->with('success', 'Pengumuman berhasil ditambahkan');
     }
 
-    // EDIT
     public function edit($id)
     {
         return view('pengumuman.edit_pengumuman', [
             'pengumuman' => Pengumuman::findOrFail($id),
-            'kelas' => Kelas::all()
+            'kelas' => Kelas::all(),
         ]);
     }
 
-    // UPDATE
     public function update(Request $request, $id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
@@ -101,7 +92,6 @@ class PengumumanController extends Controller
 
         $gambar = $pengumuman->gambar ?? [];
 
-        // hapus gambar
         if ($request->hapus_file) {
             foreach ($request->hapus_file as $hapus) {
                 Storage::disk('public')->delete($hapus);
@@ -113,7 +103,6 @@ class PengumumanController extends Controller
             }
         }
 
-        // tambah gambar baru
         if ($request->hasFile('gambar')) {
             foreach ($request->file('gambar') as $file) {
                 $gambar[] = $file->store('pengumuman/gambar', 'public');
@@ -132,7 +121,6 @@ class PengumumanController extends Controller
             ->with('success', 'Pengumuman berhasil diupdate');
     }
 
-    // DELETE
     public function destroy($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);

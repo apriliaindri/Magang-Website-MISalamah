@@ -26,12 +26,12 @@
         <div class="stats-container">
 
             <div class="stat-box">
-                <h2 class="counter" data-target="300">0</h2>
+                <h2 class="counter" data-target="250">0</h2>
                 <p>Jumlah Siswa</p>
             </div>
 
             <div class="stat-box">
-                <h2 class="counter" data-target="50">0</h2>
+                <h2 class="counter" data-target="30">0</h2>
                 <p>Jumlah Guru</p>
             </div>
 
@@ -67,13 +67,19 @@
 
                 <div class="pengumuman-slider" id="pengumumanSlider">
 
-                   <?php $__currentLoopData = $pengumumanItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $pengumumanItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-    <div class="pengumuman-slide">
-        <?php echo $__env->make('partials.card_pengumuman', ['p' => $p], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-    </div>
+                        <div class="pengumuman-slide">
 
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                <?php echo $__env->make('partials.card_pengumuman', ['p' => $p], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                        </div>
+
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 </div>
 

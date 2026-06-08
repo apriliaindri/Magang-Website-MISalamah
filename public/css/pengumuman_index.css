@@ -1,3 +1,5 @@
+/* Reset */
+
 *{
     margin:0;
     padding:0;
@@ -15,16 +17,14 @@ body{
     position:fixed;
     top:0;
 
-    width:100%;
-    height:60px;
-
-    padding:0 20px;
-
     display:flex;
     align-items:center;
 
-    background:#4CAF50;
+    width:100%;
+    height:60px;
+    padding:0 20px;
 
+    background:#4CAF50;
     color:white;
 
     z-index:1000;
@@ -33,23 +33,19 @@ body{
 .topbar-left{
     display:flex;
     align-items:center;
-
     gap:14px;
 }
 
 .topbar-title{
-    margin-left: 0;
+    font-size:16px;
     font-weight:600;
-    font-size: 16px;
 }
 
 .back-btn img{
     width:20px;
-
     margin-left:10px;
 
     filter:invert(1);
-
     cursor:pointer;
 }
 
@@ -67,9 +63,9 @@ body{
 /* Card */
 
 .card{
-    background:white;
-
     padding:30px;
+
+    background:white;
 
     border-radius:20px;
 
@@ -94,11 +90,10 @@ body{
 /* Button */
 
 .tambah-btn{
-    background:#4CAF50;
-
-    color:white;
-
     padding:10px 18px;
+
+    background:#4CAF50;
+    color:white;
 
     border-radius:10px;
 
@@ -107,25 +102,23 @@ body{
     font-size:14px;
     font-weight:600;
 
-    transition:0.3s;
+    transition:.3s;
 }
 
 .tambah-btn:hover{
-    opacity:0.9;
+    opacity:.9;
 }
 
 /* Alert */
 
 .alert-success{
-    background:#e8f5e9;
-
-    color:#2e7d32;
-
+    margin-bottom:20px;
     padding:12px;
 
-    border-radius:10px;
+    background:#e8f5e9;
+    color:#2e7d32;
 
-    margin-bottom:20px;
+    border-radius:10px;
 }
 
 /* Table */
@@ -136,7 +129,6 @@ body{
 
 table{
     width:100%;
-
     border-collapse:collapse;
 }
 
@@ -144,24 +136,20 @@ thead{
     background:#f1f5f9;
 }
 
-th{
+th,
+td{
     padding:16px;
-
     text-align:left;
-
     font-size:15px;
+}
 
+th{
     color:#334155;
 }
 
 td{
-    padding:18px 16px;
-
-    border-bottom:1px solid #e5e7eb;
-
-    font-size:15px;
-
     color:#444;
+    border-bottom:1px solid #e5e7eb;
 }
 
 /* Text */
@@ -174,6 +162,9 @@ td{
 /* Badge */
 
 .badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
     padding:6px 12px;
 
@@ -181,18 +172,14 @@ td{
 
     font-size:13px;
     font-weight:600;
-        display:inline-flex;
-    align-items:center;
-    justify-content:center;
 
     white-space:nowrap;
 }
 
-
 .badge-kelas,
 .badge-semua-kelas{
-    background:rgba(76, 175, 80, 0.25);
-color:#2e7d32 !important;
+    background:rgba(76,175,80,.25);
+    color:#2e7d32 !important;
 }
 
 /* Action */
@@ -205,10 +192,9 @@ color:#2e7d32 !important;
 /* Buttons */
 
 .btn{
-    border:none;
-
     padding:8px 14px;
 
+    border:none;
     border-radius:8px;
 
     text-decoration:none;
@@ -218,11 +204,11 @@ color:#2e7d32 !important;
 
     cursor:pointer;
 
-    transition:0.3s;
+    transition:.3s;
 }
 
 .btn:hover{
-    opacity:0.85;
+    opacity:.85;
 }
 
 .btn-detail{
@@ -240,19 +226,18 @@ color:#2e7d32 !important;
     color:white;
 }
 
-/* Empty */
+/* Empty State */
 
 .empty{
-    text-align:center;
-
     padding:40px;
 
+    text-align:center;
     color:#777;
 }
 
 /* Responsive */
 
-@media(max-width:768px){
+@media (max-width:768px){
 
     .topbar{
         padding:0 18px;
@@ -269,7 +254,6 @@ color:#2e7d32 !important;
     .card-header{
         flex-direction:column;
         align-items:flex-start;
-
         gap:15px;
     }
 

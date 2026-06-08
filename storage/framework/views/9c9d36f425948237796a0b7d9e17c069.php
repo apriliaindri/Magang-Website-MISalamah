@@ -22,11 +22,11 @@
                 <span>PDF Document</span>
             </div>
         <?php else: ?>
-            <img src="<?php echo e(asset('img/default-news.jpg')); ?>">
+            <img src="<?php echo e(asset('img/LogoMI.png')); ?>">
         <?php endif; ?>
 
     <?php else: ?>
-        <img src="<?php echo e(asset('img/default-news.jpg')); ?>">
+        <img src="<?php echo e(asset('img/LogoMI.png')); ?>">
     <?php endif; ?>
 
     <div class="pengumuman-content">

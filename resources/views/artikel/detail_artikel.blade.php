@@ -2,7 +2,6 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -23,14 +22,12 @@
         rel="stylesheet"
         href="{{ asset('css/detail_pengumuman.css') }}"
     >
-
 </head>
 
 <body>
 
     {{-- Navbar --}}
     <nav class="navbar">
-
         <a
             href="{{ url()->previous() }}"
             class="back-btn"
@@ -38,21 +35,16 @@
             <span class="back-icon">&#10094;</span>
             <span>Kembali</span>
         </a>
-
     </nav>
 
     {{-- Content --}}
     <section class="detail-section">
-
         <div class="container">
-
             <div class="detail-wrapper">
-
                 <div class="detail-content">
 
                     {{-- Meta --}}
                     <div class="detail-meta">
-
                         <span class="kategori-badge">
                             {{ $article->category }}
                         </span>
@@ -60,7 +52,6 @@
                         <span class="detail-date">
                             {{ $article->created_at->format('d M Y, H:i') }}
                         </span>
-
                     </div>
 
                     {{-- Title --}}
@@ -69,36 +60,31 @@
                     </h1>
 
                     @php
-
-                        $gambar = is_array($article->image)
+                        $images = is_array($article->image)
                             ? $article->image
                             : json_decode($article->image, true) ?? [];
 
+                        $imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
                     @endphp
 
                     {{-- File & Image --}}
-                    @foreach($gambar as $file)
+                    @foreach ($images as $file)
 
                         @php
-                            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                            $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                         @endphp
 
-                        @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
-
+                        @if (in_array($extension, $imageExtensions))
                             <div class="detail-image">
-
                                 <img
                                     src="{{ asset('storage/' . $file) }}"
                                     alt="Gambar Artikel"
                                     onclick="openModal(this.src)"
                                 >
-
                             </div>
 
-                        @elseif($ext === 'pdf')
-
+                        @elseif ($extension === 'pdf')
                             <div class="file-card">
-
                                 <img
                                     src="{{ asset('img/pdf-icon.png') }}"
                                     class="file-icon"
@@ -106,7 +92,6 @@
                                 >
 
                                 <div>
-
                                     <h3>File PDF</h3>
 
                                     <a
@@ -115,51 +100,37 @@
                                     >
                                         Buka PDF
                                     </a>
-
                                 </div>
-
                             </div>
-
                         @endif
 
                     @endforeach
 
                     {{-- Gallery --}}
-                    @if(count($gambar) > 1)
-
+                    @if (count($images) > 1)
                         <div class="gallery-wrapper">
 
-                            @foreach(array_slice($gambar, 1) as $img)
-
+                            @foreach (array_slice($images, 1) as $img)
                                 <div class="gallery-item">
-
                                     <img
                                         src="{{ asset('storage/' . $img) }}"
                                         alt="Gallery Artikel"
                                         onclick="openModal(this.src)"
                                     >
-
                                 </div>
-
                             @endforeach
 
                         </div>
-
                     @endif
 
                     {{-- Text --}}
                     <div class="detail-text">
-
                         {!! nl2br(e($article->content)) !!}
-
                     </div>
 
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
     {{-- Image Modal --}}
@@ -167,7 +138,6 @@
         id="imageModal"
         class="image-modal"
     >
-
         <span
             class="close-modal"
             onclick="closeModal()"
@@ -180,7 +150,6 @@
             class="modal-content"
             alt="Preview"
         >
-
     </div>
 
     {{-- JS --}}

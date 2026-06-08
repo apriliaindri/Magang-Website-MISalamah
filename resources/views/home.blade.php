@@ -28,12 +28,12 @@
         <div class="stats-container">
 
             <div class="stat-box">
-                <h2 class="counter" data-target="300">0</h2>
+                <h2 class="counter" data-target="250">0</h2>
                 <p>Jumlah Siswa</p>
             </div>
 
             <div class="stat-box">
-                <h2 class="counter" data-target="50">0</h2>
+                <h2 class="counter" data-target="30">0</h2>
                 <p>Jumlah Guru</p>
             </div>
 

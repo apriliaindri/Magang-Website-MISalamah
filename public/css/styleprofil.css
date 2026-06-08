@@ -1,6 +1,6 @@
-/* =========================
+/*
    HEADER HALAMAN
-========================= */
+  */
 
 .page-header{
     padding:60px 20px 60px;
@@ -14,18 +14,18 @@
     color:black;
 }
 
-/* =========================
+/*
    CONTENT
-========================= */
+  */
 
 .content-section{
     padding:60px 80px;
     background:#ffffff;
 }
 
-/* =========================
+/*
    CONTAINER
-========================= */
+  */
 
 .visi-misi-container{
     width:100%;
@@ -33,9 +33,9 @@
     margin:auto;
 }
 
-/* =========================
+/*
    ROW
-========================= */
+  */
 
 .row-item{
     display:flex;
@@ -45,9 +45,9 @@
     margin-bottom:60px;
 }
 
-/* =========================
+/*
    ROW
-========================= */
+  */
 
 .row-item{
     display:flex;
@@ -67,9 +67,9 @@
     padding-bottom:0;
 }
 
-/* =========================
+/*
    TITLE KIRI
-========================= */
+  */
 
 .left-title{
     width:220px;
@@ -83,9 +83,9 @@
     margin-left:60px;
 }
 
-/* =========================
+/*
    CONTENT KANAN
-========================= */
+  */
 
 .right-content{
     flex:1;
@@ -109,9 +109,9 @@
     margin-bottom:10px;
 }
 
-/* =========================
+/*
    CONTENT
-========================= */
+  */
 
 .content-section{
     padding:60px 20px;
@@ -123,9 +123,7 @@
     margin:auto;
 }
 
-/* =========================
-   SECTION
-========================= */
+/* SECTION */
 
 .tatib-section{
     margin-bottom:70px;
@@ -140,9 +138,7 @@
     padding-bottom:0;
 }
 
-/* =========================
-   JUDUL SECTION
-========================= */
+/* JUDUL SECTION */
 
 .section-title{
     font-size:34px;
@@ -155,9 +151,7 @@
     margin-bottom:40px;
 }
 
-/* =========================
-   CONTENT
-========================= */
+/* CONTENT */
 
 .section-content{
     color:#333;
@@ -174,9 +168,7 @@
     margin-bottom:10px;
 }
 
-/* =========================
-   SUB SECTION
-========================= */
+/* SUB SECTION */
 
 .sub-section{
     margin-bottom:45px;
@@ -191,31 +183,7 @@
     margin-bottom:20px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:768px){
-
-    .section-title{
-        font-size:28px;
-        line-height:1.4;
-    }
-
-    .sub-section h3{
-        font-size:22px;
-    }
-
-    .section-content li{
-        font-size:16px;
-        line-height:1.9;
-    }
-
-}
-
-/* =========================
-   RESPONSIVE TABLET
-========================= */
+/* RESPONSIVE TABLET */
 
 @media(max-width:992px){
 
@@ -238,9 +206,7 @@
 
 }
 
-/* =========================
-   RESPONSIVE MOBILE
-========================= */
+/* RESPONSIVE MOBILE */
 
 @media(max-width:768px){
 
@@ -332,6 +298,20 @@
         line-height:1.9;
 
         padding-left:22px;
+    }
+
+     .section-title{
+        font-size:28px;
+        line-height:1.4;
+    }
+
+    .sub-section h3{
+        font-size:22px;
+    }
+
+    .section-content li{
+        font-size:16px;
+        line-height:1.9;
     }
 
 }

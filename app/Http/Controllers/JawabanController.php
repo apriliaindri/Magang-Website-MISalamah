@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Soal;
 use App\Models\Jawaban;
+use App\Models\Soal;
 use Illuminate\Http\Request;
 
 class JawabanController extends Controller
@@ -14,7 +14,7 @@ class JawabanController extends Controller
 
         return view('siswa.soal.kerjakan', [
             'soal' => $soal,
-            'kelas_id' => $kelas_id
+            'kelas_id' => $kelas_id,
         ]);
     }
 
@@ -23,10 +23,9 @@ class JawabanController extends Controller
         $totalNilai = 0;
 
         if ($request->has('jawaban')) {
-
             foreach ($request->jawaban as $soal_id => $jawaban_siswa) {
-
                 $soal = Soal::find($soal_id);
+
                 $nilai = 0;
 
                 if ($jawaban_siswa == $soal->kunci_jawaban) {
@@ -38,7 +37,7 @@ class JawabanController extends Controller
                     'soal_id' => $soal_id,
                     'user_id' => auth()->id(),
                     'jawaban' => $jawaban_siswa,
-                    'nilai' => $nilai
+                    'nilai' => $nilai,
                 ]);
             }
         }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-
     public function formKode()
     {
         return view('auth.kode_global');
@@ -15,9 +14,9 @@ class RegisterController extends Controller
 
     public function cekKode(Request $request)
     {
-        if(trim($request->kode) !== 'salamahMI-Sulurejo'){
-    return back()->with('error','Kode tidak valid!');
-}
+        if (trim($request->kode) !== 'salamahMI-Sulurejo') {
+            return back()->with('error', 'Kode tidak valid!');
+        }
 
         return redirect()->route('register.global');
     }
@@ -42,7 +41,7 @@ class RegisterController extends Controller
             'role' => 'guru',
         ]);
 
-        return redirect('/login')->with('success','Akun berhasil dibuat');
+        return redirect('/login')
+            ->with('success', 'Akun berhasil dibuat');
     }
-
 }

@@ -1,6 +1,4 @@
-/* =========================
-   HERO SECTION
-========================= */
+/* HERO SECTION */
 
 .hero {
     width: 100%;
@@ -24,7 +22,7 @@
     gap: 50px;
 }
 
-/* TEXT KIRI */
+  TEXT KIRI */
 
 .hero-text {
     flex: 1;
@@ -51,7 +49,7 @@
     color: #333;
 }
 
-/* GAMBAR */
+  GAMBAR */
 
 .hero-image {
     flex: 1;
@@ -64,9 +62,7 @@
     max-width: 350px;
 }
 
-/* =========================
-   STATS SECTION
-========================= */
+/* STATS SECTION */
 
 .stats-section {
     margin-top: 10px;
@@ -96,9 +92,7 @@
     font-size: 20px;
 }
 
-/* =========================
-   SECTION GLOBAL
-========================= */
+/* SECTION GLOBAL */
 
 .section {
     padding: 80px 8%;
@@ -109,9 +103,7 @@
     margin: auto;
 }
 
-/* =========================
-   AUTO WARNA
-========================= */
+/* AUTO WARNA */
 
 .main-sections .section:nth-child(odd) {
     background: #ffffff;
@@ -121,18 +113,14 @@
     background: #4CAF50;
 }
 
-/* =========================
-   FIX HERO
-========================= */
+/* FIX HERO */
 
 .hero {
     background: #4CAF50 !important;
     color: white;
 }
 
-/* =========================
-   PENGUMUMAN & ARTIKEL
-========================= */
+/* PENGUMUMAN & ARTIKEL */
 
 .pengumuman-section{
     background-color: rgba(0,0,0,0.12);
@@ -196,9 +184,7 @@
     white-space:nowrap;
 }
 
-/* =========================
-   SLIDER
-========================= */
+/* SLIDER */
 
 .pengumuman-slider-wrapper,
 .artikel-slider-wrapper{
@@ -233,9 +219,9 @@
     padding:20px 30px;
 }
 
-/* =========================
+/*
    CARD
-========================= */
+  */
 
 .pengumuman-card,
 .artikel-card{
@@ -246,9 +232,9 @@
 
     border:1px solid rgba(255,255,255,0.7);
 
-    box-shadow:
-        0 0 15px rgba(255,255,255,0.20),
-        0 8px 28px rgba(0,0,0,0.18);
+     box-shadow:
+        0 0 15px rgba(0,0,0,0.06),
+        0 0 30px rgba(0,0,0,0.04);
 
     transition:0.3s ease;
 
@@ -342,9 +328,9 @@
     line-height:1.7;
 }
 
-/* =========================
+/*
    BUTTON SLIDER
-========================= */
+  */
 
 .slide-btn{
     position:absolute;
@@ -372,9 +358,9 @@
     right:5px;
 }
 
-/* =========================
+/*
    PDF PREVIEW
-========================= */
+  */
 
 .pdf-preview{
     width:100%;
@@ -405,9 +391,9 @@
     color:#555;
 }
 
-/* =========================
+/*
    FOOTER
-========================= */
+  */
 
 .footer-wrapper {
     display: flex;
@@ -461,9 +447,9 @@
     text-decoration:none;
 }
 
-/* =========================
+/*
    FOOTER CREDIT
-========================= */
+  */
 
 .footer-credit{
     width: 100%;
@@ -495,9 +481,9 @@
 
 
 
-/* =================================
+/*  ========
    RESPONSIVE MOBILE
-================================= */
+ ======== */
 
 @media (max-width:768px){
 

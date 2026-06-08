@@ -79,53 +79,92 @@
 
 <!-- MODAL TAMBAH USER -->
 <div id="userModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+    <div style="position:relative;">
 
-        <h3>Tambah User</h3>
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        required
+        style="padding-right:45px;"
+    >
 
-        <form method="POST" action="{{ route('kepalasekolah.user.store') }}">
-            @csrf
+    <span
+        class="toggle-password"
+        onclick="togglePassword('password')"
+        style="
+            position:absolute;
+            right:15px;
+            top:50%;
+            transform:translateY(-50%);
+            cursor:pointer;
+        "
+    >
+        👁
+    </span>
 
-            <input type="text" name="name" placeholder="Nama" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-
-            <select name="role" required>
-                <option value="">-- Pilih Role --</option>
-                <option value="guru">Guru</option>
-                <option value="kepala_madrasah">Kepala Madrasah</option>
-            </select>
-
-            <button type="submit">Simpan</button>
-        </form>
-    </div>
+</div>
 </div>
 
 <!-- MODAL RESET PASSWORD -->
 <div id="resetModal" class="modal">
+
     <div class="modal-content">
-        <span class="close" onclick="closeResetModal()">&times;</span>
 
-        <h3>Reset Password</h3>
+        <span
+            class="close"
+            onclick="closeResetModal()"
+        >
+            &times;
+        </span>
 
-        <form id="resetForm" method="POST">
+        <h3>
+            Reset Password
+        </h3>
+
+        <form
+            id="resetForm"
+            method="POST"
+        >
+
             @csrf
 
             <div style="position:relative;">
-                <input type="password" name="new_password" id="newPassword"
-                       placeholder="Password Baru" required
-                       style="padding-right:45px;">
 
-                <span onclick="togglePassword()"
-                      style="position:absolute;right:15px;top:30%;transform:translateY(-50%);cursor:pointer;">
+                <input
+                    type="password"
+                    id="new_password"
+                    name="new_password"
+                    placeholder="Password Baru"
+                    required
+                    style="padding-right:45px;"
+                >
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePassword('new_password')"
+                    style="
+                        position:absolute;
+                        right:15px;
+                        top:50%;
+                        transform:translateY(-50%);
+                        cursor:pointer;
+                    "
+                >
                     👁
                 </span>
+
             </div>
 
-            <button type="submit">Simpan Password</button>
+            <button type="submit">
+                Simpan Password
+            </button>
+
         </form>
+
     </div>
+
 </div>
 
 <!-- NOTIF -->

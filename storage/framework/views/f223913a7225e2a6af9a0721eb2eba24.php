@@ -9,23 +9,23 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/tambah_pengumuman.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/tambah_pengumuman.css')); ?>">
 
-    @stack('styles')
+    <?php echo $__env->yieldPushContent('styles'); ?>
 
 </head>
 
 <body>
 
-    {{-- TOPBAR --}}
+    
     <div class="topbar">
 
         <div class="topbar-left">
 
          <a
-    href="{{ auth()->user()->role == 'guru'
+    href="<?php echo e(auth()->user()->role == 'guru'
         ? route('guru.dashboard')
-        : route('kepalasekolah.dashboard') }}"
+        : route('kepalasekolah.dashboard')); ?>"
     class="back-btn"
 >
     <img
@@ -42,7 +42,7 @@
 
     </div>
 
-    {{-- CONTENT --}}
+    
     <div class="page-wrapper">
 
         <div class="content">
@@ -53,24 +53,25 @@
 
                     <h3>Tambah Pengumuman</h3>
 
-                    <a href="{{ url('/pengumuman') }}" class="link-btn">
+                    <a href="<?php echo e(url('/pengumuman')); ?>" class="link-btn">
                         Daftar Pengumuman
                     </a>
 
                 </div>
 
-                @if(session('success'))
+                <?php if(session('success')): ?>
                     <div class="alert-success">
-                        {{ session('success') }}
+                        <?php echo e(session('success')); ?>
+
                     </div>
-                @endif
+                <?php endif; ?>
 
                 <form method="POST"
-                      action="{{ route('pengumuman.store') }}"
+                      action="<?php echo e(route('pengumuman.store')); ?>"
                       enctype="multipart/form-data"
                       id="uploadForm">
 
-                    @csrf
+                    <?php echo csrf_field(); ?>
 
                     <label>Judul</label>
                     <input type="text" name="judul" required>
@@ -81,11 +82,12 @@
                     <label>Pilih Kelas</label>
                     <select name="kelas_id">
                         <option value="">Semua Kelas</option>
-                        @foreach($kelas as $k)
-                            <option value="{{ $k->id }}">
-                                {{ $k->nama_kelas }}
+                        <?php $__currentLoopData = $kelas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($k->id); ?>">
+                                <?php echo e($k->nama_kelas); ?>
+
                             </option>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
 
                     <label>Upload File / Gambar</label>
@@ -110,14 +112,15 @@
 
     </div>
 
-    {{-- MODAL IMAGE --}}
+    
     <div id="imageModal" class="image-modal">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <img id="modalImage" class="modal-content">
     </div>
 
-    {{-- JS --}}
-    <script src="{{ asset('js/pengumuman_upload.js') }}"></script>
+    
+    <script src="<?php echo e(asset('js/pengumuman_upload.js')); ?>"></script>
 
 </body>
 </html>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/pengumuman/create.blade.php ENDPATH**/ ?>

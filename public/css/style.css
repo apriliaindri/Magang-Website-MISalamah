@@ -12,7 +12,7 @@ html, body {
 }
 
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 .navbar {
     width: 100%;
@@ -69,8 +69,6 @@ html, body {
 
 /* DROPDOWN */
 
-/* ================= DROPDOWN ================= */
-
 .dropdown {
     position: relative;
 }
@@ -107,8 +105,6 @@ html, body {
     transform: translateY(0);
 }
 
-/* ================= PANAH ================= */
-
 .has-dropdown {
     position: relative;
 }
@@ -124,12 +120,11 @@ html, body {
     vertical-align: middle;
 }
 
-/* Panah berputar */
 .dropdown:hover .has-dropdown::after {
     transform: rotate(180deg);
 }
 
-/* ================= HERO SECTION ================= */
+/* HERO SECTION */
 
 .hero {
     width: 100%;
@@ -178,23 +173,11 @@ html, body {
 }
 
 .hero-image img {
-    width: 70%;        /* cuma 70% dari kolom */
-    max-width: 350px;  /* batas maksimal */
+    width: 70%;
+    max-width: 350px;
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 768px) {
-    .navbar {
-        padding: 15px 25px;
-    }
-
-    .hero-content h1 {
-        font-size: 28px;
-    }
-}
-
-/* ================= STATS SECTION ================= */
+/* STATS SECTION */
 
 .stats-section {
     margin-top: 10px;
@@ -221,7 +204,7 @@ html, body {
     opacity: 0.9;
 }
 
-/* ================= LOGIN ================= */
+/* LOGIN */
 
 .login-section {
     min-height: 100vh;
@@ -337,7 +320,7 @@ html, body {
     margin: auto;
 }
 
-/* ================= AUTO WARNA ================= */
+/* AUTO WARNA */
 .main-sections .section:nth-child(odd) {
     background: #ffffff;
 }
@@ -346,7 +329,7 @@ html, body {
     background: #4CAF50;
 }
 
-/* ================= FIX HERO ================= */
+/* FIX HERO */
 .hero {
     background: #4CAF50 !important;
     color: white;
@@ -393,7 +376,7 @@ html, body {
     line-height: 1.6;
 }
 
-/* ================= FOOTER CREDIT ================= */
+/* FOOTER CREDIT */
 
 .footer-credit{
     width: 100%;
@@ -619,9 +602,7 @@ html, body {
     line-height:1.7;
 }
 
-/* =========================
-   BUTTON SLIDER
-========================= */
+/* BUTTON SLIDER */
 
 .slide-btn{
     position:absolute;
@@ -684,9 +665,7 @@ html, body {
 
 
 
-/* =================================
-   RESPONSIVE MOBILE
-================================= */
+/* RESPONSIVE MOBILE */
 
 @media (max-width:768px){
 

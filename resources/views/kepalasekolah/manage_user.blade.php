@@ -198,10 +198,11 @@
                     >
 <span
     class="toggle-password"
-    onclick="togglePassword('password', this)"
+    onclick="togglePassword('password')"
 >
-    <i class="fa-solid fa-eye-slash"></i>
+    👁
 </span>
+
 
                 </div>
 
@@ -272,11 +273,10 @@
                     >
 <span
     class="toggle-password"
-    onclick="togglePassword('new_password', this)"
+    onclick="togglePassword('new_password')"
 >
-    <i class="fa-solid fa-eye-slash"></i>
+    👁
 </span>
-
                 </div>
 
                 <button

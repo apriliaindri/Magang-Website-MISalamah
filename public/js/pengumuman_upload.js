@@ -114,3 +114,11 @@ function openModal(src) {
 function closeModal() {
     document.getElementById('imageModal').style.display = 'none';
 }
+
+function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "{{ route('pengumuman.index') }}";
+    }
+}

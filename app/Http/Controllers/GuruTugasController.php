@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tugas;
+use Illuminate\Http\Request;
 
 class GuruTugasController extends Controller
 {

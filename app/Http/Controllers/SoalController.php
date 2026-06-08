@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Tugas;
 use App\Models\Soal;
+use App\Models\Tugas;
+use Illuminate\Http\Request;
 
 class SoalController extends Controller
 {
     public function create($id)
     {
         $tugas = Tugas::findOrFail($id);
+
         return view('guru.soal.create', compact('tugas'));
     }
 
@@ -23,7 +24,7 @@ class SoalController extends Controller
             'pilihan_c' => 'required',
             'pilihan_d' => 'required',
             'kunci_jawaban' => 'required',
-            'score' => 'required|integer'
+            'score' => 'required|integer',
         ]);
 
         Soal::create([
@@ -34,9 +35,9 @@ class SoalController extends Controller
             'pilihan_c' => $request->pilihan_c,
             'pilihan_d' => $request->pilihan_d,
             'kunci_jawaban' => $request->kunci_jawaban,
-            'score' => $request->score
+            'score' => $request->score,
         ]);
 
-        return back()->with('success','Soal berhasil ditambahkan.');
+        return back()->with('success', 'Soal berhasil ditambahkan.');
     }
 }

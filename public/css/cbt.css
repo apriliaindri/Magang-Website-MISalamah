@@ -1,33 +1,33 @@
-body{
+body {
     font-family: Poppins, sans-serif;
     background: #f4f6f9;
     margin: 0;
 }
 
-/* HEADER */
-.header{
+/* ===== Header ===== */
+
+.header {
     background: white;
     padding: 20px;
     border-bottom: 1px solid #ddd;
 }
 
-/* LAYOUT */
-.container{
+/* ===== Layout ===== */
+
+.container {
     display: flex;
     padding: 20px;
     gap: 20px;
 }
 
-/* SOAL AREA */
-.soal-area{
+.soal-area {
     flex: 3;
     background: white;
     padding: 20px;
     border-radius: 10px;
 }
 
-/* NAV AREA */
-.nav-area{
+.nav-area {
     flex: 1;
     background: white;
     padding: 20px;
@@ -35,14 +35,15 @@ body{
     height: fit-content;
 }
 
-/* NOMOR GRID */
-.nomor-grid{
+/* ===== Navigasi Soal ===== */
+
+.nomor-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
 }
 
-.nomor{
+.nomor {
     padding: 10px;
     text-align: center;
     background: #eee;
@@ -50,13 +51,22 @@ body{
     cursor: pointer;
 }
 
-.nomor.active{
+.nomor.active {
     background: #2196F3;
     color: white;
 }
 
-/* OPSI JAWABAN */
-.opsi label{
+/* ===== Soal ===== */
+
+.soal-item {
+    display: none;
+}
+
+.soal-item.active {
+    display: block;
+}
+
+.opsi label {
     display: block;
     padding: 10px;
     border: 1px solid #ddd;
@@ -65,44 +75,36 @@ body{
     cursor: pointer;
 }
 
-/* FOOTER NAV SOAL */
-.footer{
+/* ===== Footer ===== */
+
+.footer {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
 }
 
-/* BUTTON GLOBAL */
-button{
+/* ===== Button ===== */
+
+button {
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
 }
 
-/* SOAL SWITCH */
-.soal-item{
-    display: none;
-}
-
-.soal-item.active{
-    display: block;
-}
-
-/* BUTTON STYLE */
-.btn-next{
+.btn-next {
     background: #4CAF50;
     color: white;
 }
 
-.btn-prev{
+.btn-prev {
     background: #999;
     color: white;
 }
 
-.btn-selesai{
-    background: #f44336;
-    color: white;
+.btn-selesai {
     width: 100%;
     margin-top: 20px;
+    background: #f44336;
+    color: white;
 }

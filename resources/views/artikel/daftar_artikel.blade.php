@@ -2,7 +2,6 @@
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -23,52 +22,46 @@
         rel="stylesheet"
         href="{{ asset('css/daftar_pengumuman.css') }}"
     >
-
 </head>
 
 <body>
 
     {{-- Navbar --}}
     <nav class="navbar">
-
-        <a href="{{ url()->previous() }}" class="back-btn">
-
+        <a
+            href="{{ url()->previous() }}"
+            class="back-btn"
+        >
             <span class="back-icon">&#10094;</span>
-
-            <span class="back-text">
-                Kembali
-            </span>
-
+            <span class="back-text">Kembali</span>
         </a>
 
         <h1 class="navbar-title">
             Daftar Artikel
         </h1>
-
     </nav>
 
     {{-- Content --}}
     <section class="daftar-pengumuman-section">
-
         <div class="container">
 
             {{-- GRID --}}
             <div class="pengumuman-grid">
 
-                @forelse($articles as $article)
+                @forelse ($articles as $article)
 
                     @php
-
-                        $gambar = is_array($article->image)
+                        $images = is_array($article->image)
                             ? $article->image
                             : json_decode($article->image, true) ?? [];
 
-                        $filePertama = $gambar[0] ?? $article->image ?? null;
+                        $firstFile = $images[0] ?? $article->image ?? null;
 
-                        $ext = $filePertama
-                            ? strtolower(pathinfo($filePertama, PATHINFO_EXTENSION))
+                        $extension = $firstFile
+                            ? strtolower(pathinfo($firstFile, PATHINFO_EXTENSION))
                             : null;
 
+                        $imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
                     @endphp
 
                     <a
@@ -79,46 +72,27 @@
                         {{-- Thumbnail --}}
                         <div class="card-image">
 
-                            @if($filePertama)
+                            @if ($firstFile && in_array($extension, $imageExtensions))
+                                <img
+                                    src="{{ asset('storage/' . $firstFile) }}"
+                                    alt="Thumbnail Artikel"
+                                >
 
-                                @if(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
-
+                            @elseif ($firstFile && $extension === 'pdf')
+                                <div class="pdf-preview">
                                     <img
-                                        src="{{ asset('storage/' . $filePertama) }}"
-                                        alt="Thumbnail Artikel"
+                                        src="{{ asset('img/pdf-icon.png') }}"
+                                        alt="PDF"
                                     >
 
-                                @elseif($ext === 'pdf')
-
-                                    <div class="pdf-preview">
-
-                                        <img
-                                            src="{{ asset('img/pdf-icon.png') }}"
-                                            alt="PDF"
-                                        >
-
-                                        <span>
-                                            PDF Document
-                                        </span>
-
-                                    </div>
-
-                                @else
-
-                                    <img
-                                        src="{{ asset('img/default-news.jpg') }}"
-                                        alt="Default Thumbnail"
-                                    >
-
-                                @endif
+                                    <span>PDF Document</span>
+                                </div>
 
                             @else
-
                                 <img
                                     src="{{ asset('img/default-news.jpg') }}"
                                     alt="Default Thumbnail"
                                 >
-
                             @endif
 
                         </div>
@@ -159,7 +133,6 @@
             </div>
 
         </div>
-
     </section>
 
     {{-- JS --}}

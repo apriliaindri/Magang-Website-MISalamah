@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-/* ================= LOGIN ================= */
+/* ===== Login ===== */
 
 .login-section {
     min-height: 100vh;
@@ -20,7 +20,7 @@ body {
     padding: 40px;
     width: 350px;
     border-radius: 15px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 

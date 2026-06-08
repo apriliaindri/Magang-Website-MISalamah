@@ -1,219 +1,269 @@
+/* Body */
+
 body{
-    font-family: Poppins, sans-serif;
-    background: #f4f6f9;
-    margin: 0;
+    margin:0;
+
+    font-family:Poppins, sans-serif;
+
+    background:#f4f6f9;
 }
+
+/* Header */
 
 .header{
-    background: white;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
+    padding:20px;
+
+    background:white;
+
+    border-bottom:1px solid #ddd;
 }
 
+/* Layout */
+
 .container{
-    display: flex;
-    padding: 20px;
-    gap: 20px;
+    display:flex;
+    gap:20px;
+
+    padding:20px;
 }
 
 .soal-area{
-    flex: 3;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+    flex:3;
+
+    padding:20px;
+
+    background:white;
+
+    border-radius:10px;
 }
 
 .nav-area{
-    flex: 1;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    height: fit-content;
+    flex:1;
+
+    height:fit-content;
+
+    padding:20px;
+
+    background:white;
+
+    border-radius:10px;
 }
 
+/* Navigation */
+
 .nomor-grid{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:10px;
 }
 
 .nomor{
-    padding: 10px;
-    text-align: center;
-    background: #eee;
-    border-radius: 6px;
-    cursor: pointer;
+    padding:10px;
+
+    background:#eee;
+
+    border-radius:6px;
+
+    text-align:center;
+
+    cursor:pointer;
 }
 
 .nomor.active{
-    background: #2196F3;
-    color: white;
+    background:#2196F3;
+    color:white;
 }
+
+/* Options */
 
 .opsi label{
-    display: block;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    cursor: pointer;
+    display:block;
+
+    margin-bottom:10px;
+    padding:10px;
+
+    border:1px solid #ddd;
+    border-radius:6px;
+
+    cursor:pointer;
 }
+
+/* Footer */
 
 .footer{
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
+    display:flex;
+    justify-content:space-between;
+
+    margin-top:20px;
 }
 
+/* Button */
+
 button{
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    padding:10px 20px;
+
+    border:none;
+    border-radius:6px;
+
+    cursor:pointer;
 }
 
 .btn-next{
-    background: #4CAF50;
-    color: white;
+    background:#4CAF50;
+    color:white;
 }
 
 .btn-prev{
-    background: #999;
-    color: white;
+    background:#999;
+    color:white;
 }
 
 .btn-selesai{
-    background: #f44336;
-    color: white;
-    width: 100%;
-    margin-top: 20px;
+    width:100%;
+    margin-top:20px;
+
+    background:#f44336;
+    color:white;
 }
 
-/* =========================
-   RESPONSIVE TABLET
-========================= */
-@media (max-width: 900px){
+/* Tablet */
+
+@media (max-width:900px){
 
     .container{
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
+        flex-direction:column;
+        align-items:center;
+
+        padding:20px;
     }
 
     .soal-area,
     .nav-area{
-        width: 100%;
-        max-width: 700px;
-        box-sizing: border-box;
+        width:100%;
+        max-width:700px;
+
+        box-sizing:border-box;
     }
 
     .nomor-grid{
-        grid-template-columns: repeat(5,1fr);
+        grid-template-columns:repeat(5, 1fr);
     }
 
 }
 
-/* =========================
-   RESPONSIVE MOBILE
-========================= */
-@media (max-width: 600px){
+/* Mobile */
+
+@media (max-width:600px){
 
     body{
-        overflow-x: hidden;
+        overflow-x:hidden;
     }
 
     .header{
-        padding: 20px;
-        text-align: left;
+        padding:20px;
+
+        text-align:left;
     }
 
     .header h2{
-        font-size: 22px;
-        margin-bottom: 10px;
+        margin-bottom:10px;
+
+        font-size:22px;
     }
 
     .header p{
-        font-size: 14px;
-        line-height: 1.7;
+        font-size:14px;
+        line-height:1.7;
     }
 
     .container{
-        flex-direction: column;
-        align-items: center;
-        padding: 15px;
-        gap: 15px;
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+
+        padding:15px;
     }
 
     .soal-area,
     .nav-area{
-        width: 90%;
-        max-width: 500px;
-        padding: 18px;
-        margin: 0 auto;
-        box-sizing: border-box;
-        border-radius: 14px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        width:90%;
+        max-width:500px;
+
+        margin:0 auto;
+        padding:18px;
+
+        box-sizing:border-box;
+
+        border-radius:14px;
+
+        box-shadow:0 6px 18px rgba(0,0,0,0.08);
     }
 
     .soal-item h3{
-        font-size: 18px;
+        font-size:18px;
     }
 
     .soal-item p{
-        font-size: 15px;
-        line-height: 1.8;
-        text-align: justify;
+        font-size:15px;
+        line-height:1.8;
+
+        text-align:justify;
     }
 
     .opsi{
-        margin-top: 20px;
+        margin-top:20px;
     }
 
     .opsi label{
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
+        display:flex;
+        align-items:flex-start;
+        gap:10px;
 
-        padding: 12px;
-        font-size: 14px;
-        line-height: 1.6;
+        padding:12px;
 
-        border-radius: 10px;
+        border-radius:10px;
+
+        font-size:14px;
+        line-height:1.6;
     }
 
     .opsi input{
-        margin-top: 3px;
-        flex-shrink: 0;
+        margin-top:3px;
+
+        flex-shrink:0;
     }
 
     .footer{
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 25px;
+        flex-direction:column;
+        gap:10px;
+
+        margin-top:25px;
     }
 
     .footer button{
-        width: 100%;
+        width:100%;
     }
 
     .nav-area h4{
-        text-align: center;
-        margin-top: 0;
+        margin-top:0;
+
+        text-align:center;
     }
 
     .nomor-grid{
-        grid-template-columns: repeat(4,1fr);
-        gap: 8px;
+        grid-template-columns:repeat(4, 1fr);
+        gap:8px;
     }
 
     .nomor{
-        padding: 12px;
-        font-size: 14px;
-        font-weight: 600;
+        padding:12px;
+
+        font-size:14px;
+        font-weight:600;
     }
 
     .btn-selesai{
-        margin-top: 15px;
+        margin-top:15px;
     }
 
 }

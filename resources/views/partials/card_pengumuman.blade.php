@@ -22,11 +22,11 @@
                 <span>PDF Document</span>
             </div>
         @else
-            <img src="{{ asset('img/default-news.jpg') }}">
+            <img src="{{ asset('img/LogoMI.png') }}">
         @endif
 
     @else
-        <img src="{{ asset('img/default-news.jpg') }}">
+        <img src="{{ asset('img/LogoMI.png') }}">
     @endif
 
     <div class="pengumuman-content">

@@ -53,11 +53,11 @@
                     >
 
                     <span
-                        class="toggle-password"
-                        id="togglePassword"
-                    >
-                        👁
-                    </span>
+    class="toggle-password"
+    onclick="togglePassword()"
+>
+    👁
+</span>
 
                 </div>
 
