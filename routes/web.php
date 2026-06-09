@@ -248,6 +248,10 @@ Route::post('/kepalasekolah/user/reset/{id}',
         Route::get('/manage-user', [KepalaSekolahController::class, 'manageUser'])
     ->name('kepalasekolah.manageuser');
 
+Route::put(
+    '/kepalasekolah/user/role/{id}',
+    [KepalaSekolahController::class, 'updateRole']
+)->name('kepalasekolah.user.role');
 
     /*
     |--------------------------------------------------------------------------

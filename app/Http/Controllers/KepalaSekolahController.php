@@ -67,4 +67,18 @@ class KepalaSekolahController extends Controller
             'Password berhasil direset'
         );
     }
+
+public function updateRole(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+
+    $request->validate([
+        'role' => 'required|in:guru,siswa,kepala_madrasah'
+    ]);
+
+    $user->role = $request->role;
+    $user->save();
+
+    return back()->with('success', 'Role berhasil diperbarui');
+}
 }

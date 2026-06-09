@@ -146,3 +146,21 @@ function togglePassword(id) {
     }
 
 }
+
+function openRoleModal(userId, currentRole) {
+
+    document.getElementById('roleModal').style.display = 'flex';
+
+    document.getElementById('roleForm').action =
+        '/kepalasekolah/user/role/' + userId;
+
+    document.getElementById('roleSelect').value =
+        currentRole;
+
+}
+
+function closeRoleModal() {
+
+    document.getElementById('roleModal').style.display = 'none';
+
+}

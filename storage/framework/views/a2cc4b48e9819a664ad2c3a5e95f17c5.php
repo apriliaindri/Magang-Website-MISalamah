@@ -106,32 +106,39 @@
 
                                 <div class="action-buttons">
 
-                                    <button
-                                        type="button"
-                                        class="btn-reset"
-                                        onclick="openResetModal(<?php echo e($user->id); ?>)"
-                                    >
-                                        Reset
-                                    </button>
+    <button
+        type="button"
+        class="btn-role"
+        onclick="openRoleModal(<?php echo e($user->id); ?>, '<?php echo e($user->role); ?>')"
+    >
+        Role
+    </button>
 
-                                    <form
-                                        action="<?php echo e(route('kepalasekolah.user.delete',$user->id)); ?>"
-                                        method="POST"
-                                    >
+    <button
+        type="button"
+        class="btn-reset"
+        onclick="openResetModal(<?php echo e($user->id); ?>)"
+    >
+        Reset
+    </button>
 
-                                        <?php echo csrf_field(); ?>
-                                        <?php echo method_field('DELETE'); ?>
+    <form
+        action="<?php echo e(route('kepalasekolah.user.delete',$user->id)); ?>"
+        method="POST"
+    >
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('DELETE'); ?>
 
-                                        <button
-                                            type="submit"
-                                            class="btn-delete"
-                                        >
-                                            Hapus
-                                        </button>
+        <button
+            type="submit"
+            class="btn-delete"
+        >
+            Hapus
+        </button>
 
-                                    </form>
+    </form>
 
-                                </div>
+</div>
 
                             </td>
 
@@ -292,6 +299,48 @@
 
     </div>
 
+<div id="roleModal" class="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="closeRoleModal()"
+        >
+            &times;
+        </span>
+
+        <h3>Ubah Role</h3>
+
+        <form
+            id="roleForm"
+            method="POST"
+        >
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('PUT'); ?>
+
+           <select
+    name="role"
+    id="roleSelect"
+    required
+>
+    <option value="guru">Guru</option>
+    <option value="siswa">Siswa</option>
+    <option value="kepala_madrasah">Kepala Madrasah</option>
+</select>
+
+            <button
+                type="submit"
+                class="btn-submit"
+            >
+                Simpan Role
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
     
     <script src="<?php echo e(asset('js/dashboard_kepalasekolah.js')); ?>"></script>
 

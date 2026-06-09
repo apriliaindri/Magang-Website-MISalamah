@@ -106,32 +106,39 @@
 
                                 <div class="action-buttons">
 
-                                    <button
-                                        type="button"
-                                        class="btn-reset"
-                                        onclick="openResetModal({{ $user->id }})"
-                                    >
-                                        Reset
-                                    </button>
+    <button
+        type="button"
+        class="btn-role"
+        onclick="openRoleModal({{ $user->id }}, '{{ $user->role }}')"
+    >
+        Role
+    </button>
 
-                                    <form
-                                        action="{{ route('kepalasekolah.user.delete',$user->id) }}"
-                                        method="POST"
-                                    >
+    <button
+        type="button"
+        class="btn-reset"
+        onclick="openResetModal({{ $user->id }})"
+    >
+        Reset
+    </button>
 
-                                        @csrf
-                                        @method('DELETE')
+    <form
+        action="{{ route('kepalasekolah.user.delete',$user->id) }}"
+        method="POST"
+    >
+        @csrf
+        @method('DELETE')
 
-                                        <button
-                                            type="submit"
-                                            class="btn-delete"
-                                        >
-                                            Hapus
-                                        </button>
+        <button
+            type="submit"
+            class="btn-delete"
+        >
+            Hapus
+        </button>
 
-                                    </form>
+    </form>
 
-                                </div>
+</div>
 
                             </td>
 
@@ -292,6 +299,48 @@
 
     </div>
 
+<div id="roleModal" class="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="closeRoleModal()"
+        >
+            &times;
+        </span>
+
+        <h3>Ubah Role</h3>
+
+        <form
+            id="roleForm"
+            method="POST"
+        >
+            @csrf
+            @method('PUT')
+
+           <select
+    name="role"
+    id="roleSelect"
+    required
+>
+    <option value="guru">Guru</option>
+    <option value="siswa">Siswa</option>
+    <option value="kepala_madrasah">Kepala Madrasah</option>
+</select>
+
+            <button
+                type="submit"
+                class="btn-submit"
+            >
+                Simpan Role
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
     {{-- JS --}}
     <script src="{{ asset('js/dashboard_kepalasekolah.js') }}"></script>
 

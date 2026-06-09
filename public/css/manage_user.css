@@ -206,6 +206,20 @@ table tr:hover{
     background:#ef4444;
 }
 
+.btn-role{
+    background:#3b82f6;
+    color:white;
+
+    border:none;
+    border-radius:8px;
+
+    padding:6px 12px;
+
+    font-size:13px;
+    font-weight:500;
+
+    cursor:pointer;
+}
 /* Modal */
 
 .modal{
