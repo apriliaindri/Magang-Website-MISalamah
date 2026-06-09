@@ -184,6 +184,23 @@
     white-space:nowrap;
 }
 
+.empty-text{
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    margin:40px 0;
+
+    color:#000;
+
+    font-size:20px;
+    font-weight:600;
+}
+
 /* SLIDER */
 
 .pengumuman-slider-wrapper,

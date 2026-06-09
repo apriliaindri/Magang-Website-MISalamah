@@ -232,6 +232,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/kepalasekolah/user/store',
         [KepalaSekolahController::class, 'storeUser'])
         ->name('kepalasekolah.user.store');
+        Route::delete(
+    '/kepalasekolah/artikel/{id}',
+    [ArticleController::class, 'destroy']
+)->name('kepalasekolah.artikel.destroy');
 
 Route::post('/kepalasekolah/user/reset/{id}',
     [KepalaSekolahController::class, 'resetPassword'])

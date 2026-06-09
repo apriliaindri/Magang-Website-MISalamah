@@ -11,23 +11,23 @@
 
     <title>Daftar Artikel</title>
 
-    {{-- Font --}}
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    {{-- CSS --}}
+    
     <link
         rel="stylesheet"
-        href="{{ asset('css/pengumuman_index.css') }}"
+        href="<?php echo e(asset('css/pengumuman_index.css')); ?>"
     >
 
 </head>
 
 <body>
 
-    {{-- Topbar --}}
+    
     <header class="topbar">
 
         <div class="topbar-left">
@@ -38,7 +38,7 @@
             >
 
                 <img
-                    src="{{ asset('img/back.png') }}"
+                    src="<?php echo e(asset('img/back.png')); ?>"
                     alt="Back"
                 >
 
@@ -52,14 +52,14 @@
 
     </header>
 
-    {{-- Main Content --}}
+    
     <main class="page-content">
 
         <div class="container">
 
             <div class="card">
 
-                {{-- Card Header --}}
+                
                 <div class="card-header">
 
                     <h2>
@@ -67,7 +67,7 @@
                     </h2>
 
                     <a
-                        href="{{ route('kepalasekolah.artikel.create') }}"
+                        href="<?php echo e(route('kepalasekolah.artikel.create')); ?>"
                         class="tambah-btn"
                     >
 
@@ -77,19 +77,20 @@
 
                 </div>
 
-                {{-- Alert Success --}}
-                @if(session('success'))
+                
+                <?php if(session('success')): ?>
 
                     <div class="alert-success">
 
-                        {{ session('success') }}
+                        <?php echo e(session('success')); ?>
+
 
                     </div>
 
-                @endif
+                <?php endif; ?>
 
-                {{-- Table --}}
-                @if($articles->count() > 0)
+                
+                <?php if($articles->count() > 0): ?>
 
                     <div class="table-wrapper">
 
@@ -115,50 +116,54 @@
 
                             <tbody>
 
-                                @foreach($articles as $article)
+                                <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                     <tr>
 
-                                        {{-- Nomor --}}
+                                        
                                         <td>
 
-                                            {{ $loop->iteration }}
+                                            <?php echo e($loop->iteration); ?>
+
 
                                         </td>
 
-                                        {{-- Judul --}}
+                                        
                                         <td class="judul">
 
-                                            {{ $article->title }}
+                                            <?php echo e($article->title); ?>
+
 
                                         </td>
 
-                                        {{-- Kategori --}}
+                                        
                                         <td>
 
                                             <span class="badge badge-umum">
 
-                                                {{ $article->category }}
+                                                <?php echo e($article->category); ?>
+
 
                                             </span>
 
                                         </td>
 
-                                        {{-- Tanggal --}}
+                                        
                                         <td>
 
-                                            {{ $article->created_at->format('d M Y') }}
+                                            <?php echo e($article->created_at->format('d M Y')); ?>
+
 
                                         </td>
 
-                                        {{-- Aksi --}}
+                                        
                                         <td>
 
                                             <div class="aksi">
 
-                                                {{-- Detail --}}
+                                                
                                                 <a
-                                                    href="{{ route('artikel.detail.artikel', $article->id) }}"
+                                                    href="<?php echo e(route('artikel.detail.artikel', $article->id)); ?>"
                                                     class="btn btn-detail"
                                                 >
 
@@ -166,9 +171,9 @@
 
                                                 </a>
 
-                                                {{-- Edit --}}
+                                                
                                                 <a
-                                                    href="{{ route('kepalasekolah.artikel.edit.artikel', $article->id) }}"
+                                                    href="<?php echo e(route('kepalasekolah.artikel.edit.artikel', $article->id)); ?>"
                                                     class="btn btn-edit"
                                                 >
 
@@ -176,15 +181,15 @@
 
                                                 </a>
 
-                                                {{-- Hapus --}}
+                                                
 <form
-    action="{{ route('kepalasekolah.artikel.destroy', $article->id) }}"
+    action="<?php echo e(route('kepalasekolah.artikel.destroy', $article->id)); ?>"
     method="POST"
     onsubmit="return confirm('Yakin hapus artikel ini?')"
 >
 
-                                                    @csrf
-                                                    @method('DELETE')
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('DELETE'); ?>
 
                                                     <button
                                                         type="submit"
@@ -203,7 +208,7 @@
 
                                     </tr>
 
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </tbody>
 
@@ -211,16 +216,16 @@
 
                     </div>
 
-                @else
+                <?php else: ?>
 
-                    {{-- Empty State --}}
+                    
                     <div class="empty">
 
                         Belum ada artikel.
 
                     </div>
 
-                @endif
+                <?php endif; ?>
 
             </div>
 
@@ -230,3 +235,4 @@
 
 </body>
 </html>
+<?php /**PATH D:\XAMPP2\htdocs\Web-MISalamah\resources\views/kepalasekolah/artikel/index_artikel.blade.php ENDPATH**/ ?>

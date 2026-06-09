@@ -59,39 +59,41 @@
                 $pengumumanItems = $pengumuman->take(9);
             @endphp
 
-            @if($pengumumanItems->count())
+@if($pengumumanItems->count())
 
-            <div class="pengumuman-slider-wrapper">
+<div class="pengumuman-slider-wrapper">
 
-                <button class="slide-btn prev-btn" id="prevPengumuman">
-                    &#10094;
-                </button>
+    <button class="slide-btn prev-btn" id="prevPengumuman">
+        &#10094;
+    </button>
 
-                <div class="pengumuman-slider" id="pengumumanSlider">
+    <div class="pengumuman-slider" id="pengumumanSlider">
 
-                    @foreach($pengumumanItems->chunk(3) as $chunk)
+        @foreach($pengumumanItems->chunk(3) as $chunk)
 
-                        <div class="pengumuman-slide">
+            <div class="pengumuman-slide">
 
-                            @foreach($chunk as $p)
-
-                                @include('partials.card_pengumuman', ['p' => $p])
-
-                            @endforeach
-
-                        </div>
-
-                    @endforeach
-
-                </div>
-
-                <button class="slide-btn next-btn" id="nextPengumuman">
-                    &#10095;
-                </button>
+                @foreach($chunk as $p)
+                    @include('partials.card_pengumuman', ['p' => $p])
+                @endforeach
 
             </div>
 
-            @endif
+        @endforeach
+
+    </div>
+
+    <button class="slide-btn next-btn" id="nextPengumuman">
+        &#10095;
+    </button>
+
+</div>
+
+@else
+    <div class="empty-text">
+        Belum ada pengumuman.
+    </div>
+@endif
 
         </div>
 
@@ -116,39 +118,40 @@
                 $artikelItems = $articles->take(9);
             @endphp
 
-            @if($artikelItems->count())
+           @if($artikelItems->count())
 
-            <div class="artikel-slider-wrapper">
+<div class="artikel-slider-wrapper">
 
-                <button class="slide-btn artikel-prev-btn" id="prevArtikel">
-                    &#10094;
-                </button>
+    <button class="slide-btn artikel-prev-btn" id="prevArtikel">
+        &#10094;
+    </button>
 
-                <button class="slide-btn artikel-next-btn" id="nextArtikel">
-                    &#10095;
-                </button>
+    <button class="slide-btn artikel-next-btn" id="nextArtikel">
+        &#10095;
+    </button>
 
-                <div class="artikel-slider" id="artikelSlider">
+    <div class="artikel-slider" id="artikelSlider">
 
-                    @foreach($artikelItems->chunk(3) as $chunk)
+        @foreach($artikelItems->chunk(3) as $chunk)
 
-                        <div class="artikel-slide">
+            <div class="artikel-slide">
 
-                            @foreach($chunk as $a)
-
-                                @include('partials.card_artikel', ['a' => $a])
-
-                            @endforeach
-
-                        </div>
-
-                    @endforeach
-
-                </div>
+                @foreach($chunk as $a)
+                    @include('partials.card_artikel', ['a' => $a])
+                @endforeach
 
             </div>
 
-            @endif
+        @endforeach
+
+    </div>
+
+</div>
+@else
+    <div class="empty-text">
+        Belum ada artikel.
+    </div>
+@endif
 
         </div>
 

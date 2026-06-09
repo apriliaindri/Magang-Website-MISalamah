@@ -57,39 +57,41 @@
                 $pengumumanItems = $pengumuman->take(9);
             ?>
 
-            <?php if($pengumumanItems->count()): ?>
+<?php if($pengumumanItems->count()): ?>
 
-            <div class="pengumuman-slider-wrapper">
+<div class="pengumuman-slider-wrapper">
 
-                <button class="slide-btn prev-btn" id="prevPengumuman">
-                    &#10094;
-                </button>
+    <button class="slide-btn prev-btn" id="prevPengumuman">
+        &#10094;
+    </button>
 
-                <div class="pengumuman-slider" id="pengumumanSlider">
+    <div class="pengumuman-slider" id="pengumumanSlider">
 
-                    <?php $__currentLoopData = $pengumumanItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $__currentLoopData = $pengumumanItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                        <div class="pengumuman-slide">
+            <div class="pengumuman-slide">
 
-                            <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-                                <?php echo $__env->make('partials.card_pengumuman', ['p' => $p], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                        </div>
-
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                </div>
-
-                <button class="slide-btn next-btn" id="nextPengumuman">
-                    &#10095;
-                </button>
+                <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php echo $__env->make('partials.card_pengumuman', ['p' => $p], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </div>
 
-            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    </div>
+
+    <button class="slide-btn next-btn" id="nextPengumuman">
+        &#10095;
+    </button>
+
+</div>
+
+<?php else: ?>
+    <div class="empty-text">
+        Belum ada pengumuman.
+    </div>
+<?php endif; ?>
 
         </div>
 
@@ -114,39 +116,40 @@
                 $artikelItems = $articles->take(9);
             ?>
 
-            <?php if($artikelItems->count()): ?>
+           <?php if($artikelItems->count()): ?>
 
-            <div class="artikel-slider-wrapper">
+<div class="artikel-slider-wrapper">
 
-                <button class="slide-btn artikel-prev-btn" id="prevArtikel">
-                    &#10094;
-                </button>
+    <button class="slide-btn artikel-prev-btn" id="prevArtikel">
+        &#10094;
+    </button>
 
-                <button class="slide-btn artikel-next-btn" id="nextArtikel">
-                    &#10095;
-                </button>
+    <button class="slide-btn artikel-next-btn" id="nextArtikel">
+        &#10095;
+    </button>
 
-                <div class="artikel-slider" id="artikelSlider">
+    <div class="artikel-slider" id="artikelSlider">
 
-                    <?php $__currentLoopData = $artikelItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php $__currentLoopData = $artikelItems->chunk(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chunk): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                        <div class="artikel-slide">
+            <div class="artikel-slide">
 
-                            <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-                                <?php echo $__env->make('partials.card_artikel', ['a' => $a], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                        </div>
-
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                </div>
+                <?php $__currentLoopData = $chunk; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php echo $__env->make('partials.card_artikel', ['a' => $a], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </div>
 
-            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    </div>
+
+</div>
+<?php else: ?>
+    <div class="empty-text">
+        Belum ada artikel.
+    </div>
+<?php endif; ?>
 
         </div>
 

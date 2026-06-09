@@ -121,4 +121,15 @@ class ArticleController extends Controller
             compact('articles', 'pengumuman')
         );
     }
+
+    public function destroy($id)
+{
+    $article = Article::findOrFail($id);
+
+    $article->delete();
+
+    return redirect()
+        ->route('kepalasekolah.artikel.index')
+        ->with('success', 'Artikel berhasil dihapus');
+}
 }
