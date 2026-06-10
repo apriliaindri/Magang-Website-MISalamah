@@ -16,35 +16,21 @@ class SiswaRegisterController extends Controller
         return view('auth.register', compact('kelas'));
     }
 
-    public function store(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'kode_kelas' => 'required',
-        ]);
+public function store(Request $request, $id)
+{
+User::create([
+    'name' => $request->name,
+    'email' => $request->email,
+    'password' => Hash::make($request->password),
+    'role' => 'siswa',
+    'kelas_id' => $id,
+]);
 
-        $kelas = Kelas::where('id', $id)
-            ->where('kode_kelas', $request->kode_kelas)
-            ->first();
+return redirect()
+    ->route('login')
+    ->with('success', 'Registrasi berhasil! Silakan login.');
+}
 
-        if (! $kelas) {
-            return back()->with('error', 'Kode kelas salah!');
-        }
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'siswa',
-            'kelas_id' => $id,
-        ]);
-
-        return redirect()
-            ->route('login')
-            ->with('success', 'Registrasi berhasil! Silakan login.');
-    }
 
     public function formKode($id)
     {
